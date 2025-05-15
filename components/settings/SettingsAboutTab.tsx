@@ -2,64 +2,64 @@
 
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
-
-const features = [
-  {
-    title: "Ambient Sounds",
-    description:
-      "Mix and play relaxing background sounds for deep work or relaxation.",
-    icon: "🎵",
-  },
-  {
-    title: "Dock",
-    description: "Quick access to your favorite tools.",
-    icon: "🚀",
-  },
-  {
-    title: "Exchange",
-    description: "View live currency exchange rates in your menu bar.",
-    icon: "💱",
-  },
-  {
-    title: "Focus Timer",
-    description: "Boost your productivity with a Pomodoro-style timer.",
-    icon: "⏱️",
-  },
-  {
-    title: "Kanban",
-    description:
-      "Visualize your workflow and manage projects with drag-and-drop boards.",
-    icon: "📋",
-  },
-  {
-    title: "Notes",
-    description: "Jot down quick notes or ideas in a clean notepad.",
-    icon: "📝",
-  },
-  {
-    title: "Settings",
-    description:
-      "Personalize your experience with themes, wallpapers, and more.",
-    icon: "⚙️",
-  },
-  {
-    title: "Tasks",
-    description: "Organize your todos and stay on top of your day.",
-    icon: "✅",
-  },
-  {
-    title: "Habit Tracker",
-    description: "Track your habits and stay on top of your day.",
-    icon: "🎯",
-  },
-  {
-    title: "Weather",
-    description: "Check the current weather right from your menu bar.",
-    icon: "🌤️",
-  },
-];
+import { useTranslations } from 'next-intl';
 
 export function SettingsAboutTab() {
+  const t = useTranslations('components.settings.about');
+
+  const features = [
+    {
+      title: t('features.ambient.title'),
+      description: t('features.ambient.description'),
+      icon: "🎵",
+    },
+    {
+      title: t('features.dock.title'),
+      description: t('features.dock.description'),
+      icon: "🚀",
+    },
+    {
+      title: t('features.exchange.title'),
+      description: t('features.exchange.description'),
+      icon: "💱",
+    },
+    {
+      title: t('features.focusTimer.title'),
+      description: t('features.focusTimer.description'),
+      icon: "⏱️",
+    },
+    {
+      title: t('features.kanban.title'),
+      description: t('features.kanban.description'),
+      icon: "📋",
+    },
+    {
+      title: t('features.notes.title'),
+      description: t('features.notes.description'),
+      icon: "📝",
+    },
+    {
+      title: t('features.settings.title'),
+      description: t('features.settings.description'),
+      icon: "⚙️",
+    },
+    {
+      title: t('features.tasks.title'),
+      description: t('features.tasks.description'),
+      icon: "✅",
+    },
+    {
+      title: t('features.habitTracker.title'),
+      description: t('features.habitTracker.description'),
+      icon: "🎯",
+    },
+    {
+      title: t('features.weather.title'),
+      description: t('features.weather.description'),
+      icon: "🌤️",
+    },
+  ];
+
   return (
     <div className="space-y-8 pb-8">
       <motion.div
@@ -70,14 +70,11 @@ export function SettingsAboutTab() {
       >
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">FocusBrew</h2>
+            <h2 className="text-2xl font-bold">{t('title')}</h2>
           </div>
         </div>
         <p className="text-muted-foreground leading-relaxed">
-          Your all-in-one minimalist productivity suite, crafted for creators
-          and thinkers who love a calm, focused workspace. Enjoy a beautiful
-          desktop with customizable wallpapers and fonts, a distraction-free
-          menu bar, and a dock for quick access to your favorite tools.
+          {t('description')}
         </p>
       </motion.div>
 
@@ -89,7 +86,7 @@ export function SettingsAboutTab() {
         transition={{ delay: 0.2, duration: 0.5 }}
         className="space-y-4"
       >
-        <h3 className="text-lg font-semibold">Features</h3>
+        <h3 className="text-lg font-semibold">{t('featuresTitle')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {features.map((feature, index) => (
             <motion.div

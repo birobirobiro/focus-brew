@@ -112,5 +112,316 @@
                 "preview": "Prévia"
             }
         }
+    },
+    "components": {
+        "menuBar": {
+            "apps": {
+                "tasks": "Tarefas",
+                "kanban": "Kanban",
+                "habitTracker": "Rastrear Hábitos",
+                "focusTimer": "Timer de Foco",
+                "notes": "Notas",
+                "ambientSounds": "Sons Ambiente",
+                "youtubePlayer": "Player do YouTube",
+                "portfolio": "Meu Portfólio",
+                "about": "Sobre"
+            }
+        },
+        "window": {
+            "controls": {
+                "close": "Fechar janela",
+                "minimize": "Minimizar janela",
+                "maximize": "Maximizar janela"
+            }
+        },
+        "settings": {
+            "tabs": {
+                "general": "Geral",
+                "wallpaper": "Papel de Parede",
+                "appearance": "Aparência",
+                "about": "Sobre"
+            },
+            "notifications": {
+                "wallpaperAdded": {
+                    "title": "Papel de parede adicionado",
+                    "description": "Seu papel de parede personalizado foi adicionado com sucesso."
+                },
+                "wallpaperError": {
+                    "title": "Erro",
+                    "processError": "Falha ao processar o papel de parede. Por favor, tente novamente.",
+                    "readError": "Falha ao ler o arquivo. Por favor, tente novamente."
+                },
+                "card": {
+                    "title": "Notificações",
+                    "description": "Configure como você deseja receber notificações e lembretes"
+                },
+                "browserSupport": {
+                    "error": "Seu navegador não suporta notificações. Alguns recursos podem não funcionar corretamente."
+                },
+                "enable": {
+                    "label": "Ativar Notificações",
+                    "description": "Permitir que o FocusBrew envie notificações para você"
+                },
+                "status": {
+                    "enabled": "Ativado",
+                    "disabled": "Desativado"
+                },
+                "habits": {
+                    "label": "Lembretes de Hábitos",
+                    "description": "Receba lembretes quando for hora de completar seus hábitos"
+                },
+                "pomodoro": {
+                    "label": "Notificações do Pomodoro",
+                    "description": "Receba notificações visuais quando suas sessões pomodoro terminarem (o som do alarme é controlado separadamente)"
+                },
+                "buttons": {
+                    "test": "Testar Notificação",
+                    "reset": "Redefinir Configurações de Notificação"
+                },
+                "errors": {
+                    "notSupported": {
+                        "title": "Notificações não suportadas",
+                        "description": "Seu navegador não suporta notificações."
+                    },
+                    "permissionDenied": {
+                        "title": "Permissão negada",
+                        "description": "Você negou permissão para notificações. Por favor, ative-as nas configurações do navegador."
+                    },
+                    "requestFailed": {
+                        "title": "Erro ao ativar notificações",
+                        "description": "Ocorreu um erro ao solicitar permissão para notificações."
+                    },
+                    "disabled": {
+                        "title": "Notificações estão desativadas",
+                        "description": "Ative as notificações primeiro."
+                    }
+                },
+                "success": {
+                    "enabled": {
+                        "title": "Notificações ativadas",
+                        "description": "Você receberá notificações quando necessário."
+                    },
+                    "disabled": {
+                        "title": "Notificações desativadas",
+                        "description": "Você não receberá mais notificações."
+                    }
+                },
+                "test": {
+                    "title": "Teste de Notificação",
+                    "body": "Esta é uma notificação de teste do FocusBrew.",
+                    "success": {
+                        "title": "Notificação enviada",
+                        "description": "A notificação foi enviada com sucesso."
+                    },
+                    "error": {
+                        "title": "Falha ao enviar notificação",
+                        "description": "Verifique as permissões do navegador."
+                    }
+                },
+                "reset": {
+                    "success": {
+                        "title": "Configurações de notificação redefinidas",
+                        "description": "As configurações de notificação foram redefinidas para os padrões."
+                    }
+                }
+            },
+            "volume": {
+                "card": {
+                    "title": "Configurações de Som",
+                    "description": "Ajuste os níveis de volume do aplicativo"
+                },
+                "master": {
+                    "label": "Volume Principal (Sons Ambiente)",
+                    "description": "Controla o nível geral de som do aplicativo"
+                },
+                "notification": {
+                    "label": "Volume de Notificação",
+                    "description": "Controla o nível de volume dos sons de notificação"
+                },
+                "buttons": {
+                    "test": "Testar"
+                },
+                "test": {
+                    "master": {
+                        "title": "Reproduzindo som de teste",
+                        "description": "Testando nível de volume do sistema"
+                    },
+                    "notification": {
+                        "title": "Reproduzindo notificação de teste",
+                        "description": "Testando nível de volume de notificação"
+                    }
+                }
+            },
+            "wallpaper": {
+                "title": "Papel de Parede",
+                "description": "Escolha um plano de fundo para seu espaço de trabalho.",
+                "defaultWallpaper": "Papel de Parede Padrão",
+                "customWallpaper": "Papel de Parede Personalizado {index}",
+                "custom": {
+                    "title": "Papel de Parede Personalizado",
+                    "description": "Faça upload de sua própria imagem como papel de parede."
+                },
+                "buttons": {
+                    "upload": "Enviar Imagem",
+                    "delete": "Excluir papel de parede"
+                }
+            },
+            "about": {
+                "title": "FocusBrew",
+                "description": "Seu conjunto de produtividade minimalista tudo-em-um, criado para criadores e pensadores que amam um espaço de trabalho calmo e focado. Aproveite uma área de trabalho bonita com papéis de parede e fontes personalizáveis, uma barra de menu sem distrações e um dock para acesso rápido às suas ferramentas favoritas.",
+                "featuresTitle": "Recursos",
+                "features": {
+                    "ambient": {
+                        "title": "Sons Ambiente",
+                        "description": "Misture e reproduza sons de fundo relaxantes para trabalho focado ou relaxamento."
+                    },
+                    "dock": {
+                        "title": "Dock",
+                        "description": "Acesso rápido às suas ferramentas favoritas."
+                    },
+                    "exchange": {
+                        "title": "Câmbio",
+                        "description": "Veja taxas de câmbio em tempo real na sua barra de menu."
+                    },
+                    "focusTimer": {
+                        "title": "Timer de Foco",
+                        "description": "Aumente sua produtividade com um timer estilo Pomodoro."
+                    },
+                    "kanban": {
+                        "title": "Kanban",
+                        "description": "Visualize seu fluxo de trabalho e gerencie projetos com quadros de arrastar e soltar."
+                    },
+                    "notes": {
+                        "title": "Notas",
+                        "description": "Anote rapidamente notas ou ideias em um bloco de notas limpo."
+                    },
+                    "settings": {
+                        "title": "Configurações",
+                        "description": "Personalize sua experiência com temas, papéis de parede e mais."
+                    },
+                    "tasks": {
+                        "title": "Tarefas",
+                        "description": "Organize suas tarefas e mantenha-se em dia."
+                    },
+                    "habitTracker": {
+                        "title": "Rastreador de Hábitos",
+                        "description": "Acompanhe seus hábitos e mantenha-se em dia."
+                    },
+                    "weather": {
+                        "title": "Clima",
+                        "description": "Verifique o clima atual direto da sua barra de menu."
+                    }
+                }
+            },
+            "general": {
+                "permissions": {
+                    "title": "Permissões",
+                    "description": "Gerencie permissões do aplicativo e configurações de notificação"
+                },
+                "reset": {
+                    "title": "Redefinir Configurações",
+                    "description": "Redefinir todas as configurações para seus valores padrão",
+                    "button": "Redefinir Todas as Configurações",
+                    "success": {
+                        "title": "Configurações redefinidas com sucesso",
+                        "description": "Todas as configurações foram redefinidas para seus valores padrão."
+                    },
+                    "confirm": {
+                        "title": "Tem certeza?",
+                        "description": "Esta ação não pode ser desfeita. Isso redefinirá todas as suas configurações para os valores padrão e limpará todos os dados salvos.",
+                        "cancel": "Cancelar",
+                        "action": "Redefinir Configurações"
+                    }
+                }
+            },
+            "appearance": {
+                "theme": {
+                    "title": "Tema",
+                    "description": "Alterne entre tema claro, escuro ou do sistema.",
+                    "options": {
+                        "light": "Claro",
+                        "dark": "Escuro",
+                        "system": "Sistema"
+                    }
+                },
+                "temperature": {
+                    "title": "Unidade de Temperatura",
+                    "description": "Escolha Celsius ou Fahrenheit para exibição do clima.",
+                    "units": {
+                        "C": "Celsius (°C)",
+                        "F": "Fahrenheit (°F)"
+                    }
+                },
+                "currency": {
+                    "title": "Moeda",
+                    "description": "Escolha quais moedas mostrar na barra superior.",
+                    "base": {
+                        "placeholder": "Base..."
+                    },
+                    "target": {
+                        "placeholder": "Destino..."
+                    },
+                    "search": "Buscar...",
+                    "noResults": "Nenhuma moeda encontrada."
+                },
+                "font": {
+                    "title": "Fonte",
+                    "description": "Selecione sua fonte preferida para a interface.",
+                    "placeholder": "Selecionar fonte",
+                    "options": {
+                        "font-satoshi": "Satoshi (Padrão)",
+                        "font-sans": "Nunito",
+                        "font-serif": "Roboto Slab",
+                        "font-mono": "Monospace",
+                        "font-general-sans": "General Sans",
+                        "font-geist": "Geist",
+                        "font-chillax": "Chillax",
+                        "font-sentient": "Sentient",
+                        "font-gambetta": "Gambetta"
+                    }
+                }
+            },
+            "aria": {
+                "generalSettings": "Configurações gerais",
+                "wallpaperSettings": "Configurações de papel de parede (⌘+1)",
+                "appearanceSettings": "Configurações de aparência (⌘+2)",
+                "about": "Sobre (⌘+3)"
+            }
+        },
+        "localeSwitcher": {
+            "label": "Mudar idioma",
+            "languages": {
+                "en": "Inglês",
+                "pt": "Português"
+            }
+        }
+    },
+    "apps": {
+        "items": {
+            "todo": {
+                "label": "Tarefas"
+            },
+            "kanban": {
+                "label": "Kanban"
+            },
+            "habit": {
+                "label": "Rastrear Hábitos"
+            },
+            "pomodoro": {
+                "label": "Timer de Foco"
+            },
+            "notepad": {
+                "label": "Notas"
+            },
+            "ambient": {
+                "label": "Sons Ambiente"
+            },
+            "youtube": {
+                "label": "Player do YouTube"
+            },
+            "settings": {
+                "label": "Configurações"
+            }
+        }
     }
 }

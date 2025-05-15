@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState, memo, useRef } from "react";
+import React, { useCallback, useEffect, useState, memo, useRef, useMemo } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -16,13 +16,14 @@ import {
   useTransform,
 } from "framer-motion";
 import {
-  APP_ITEMS,
-  SETTINGS_APP,
+  AppId,
+  createAppItems,
+  createSettingsApp,
   type AppMenuItem,
-  type AppId,
 } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { useTranslations } from 'next-intl';
 
 type DockProps = {
   openApp: (appId: AppId) => void;
@@ -30,9 +31,119 @@ type DockProps = {
   openSettingsTab?: (tab: string) => void;
   activeApps: AppId[];
   minimizedApps: Set<string>;
+  className?: string;
 };
 
-const DOCK_APPS = [...APP_ITEMS, SETTINGS_APP];
+export function Dock({
+  openApp,
+  openSettings,
+  openSettingsTab,
+  activeApps,
+  minimizedApps,
+  className,
+}: DockProps) {
+  const t = useTranslations();
+  const APP_ITEMS = createAppItems(t);
+  const SETTINGS_APP = createSettingsApp(t);
+  const DOCK_APPS = useMemo(() => [...APP_ITEMS, SETTINGS_APP], [APP_ITEMS, SETTINGS_APP]);
+
+  const [mouseX, setMouseX] = useState(0);
+  const dockRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const isLightTheme = theme === "light";
+
+  // Track mouse position for magnification effect
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (dockRef.current) {
+      const rect = dockRef.current.getBoundingClientRect();
+      setMouseX(e.clientX - rect.left);
+    }
+  }, []);
+
+  // Reset mouse position when mouse leaves the dock
+  const handleMouseLeave = useCallback(() => {
+    setMouseX(0);
+  }, []);
+
+  // The keyboard navigation handler
+  const handleKeyPress = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey) {
+        const appIndex = parseInt(e.key) - 1;
+        if (appIndex >= 0 && appIndex < APP_ITEMS.length) {
+          openApp(APP_ITEMS[appIndex].id);
+        }
+      }
+    },
+    [APP_ITEMS, openApp]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [openApp]);
+
+  return (
+    <div
+      className={cn(
+        "fixed bottom-6 left-0 right-0 flex justify-center items-center",
+        className
+      )}
+      style={{ zIndex: 9000 }}
+    >
+      <TooltipProvider>
+        <motion.div
+          className={cn(
+            "p-2 rounded-2xl backdrop-blur-lg border shadow-lg",
+            isLightTheme
+              ? "bg-background/20 border-border/30"
+              : "bg-background/20 border-border/30"
+          )}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 25,
+            delay: 0.3,
+          }}
+        >
+          <motion.div
+            className="flex items-center gap-2"
+            ref={dockRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            layoutId="dock"
+            layout
+          >
+            {DOCK_APPS.map((app, index) => (
+              <DockItem
+                key={app.id}
+                app={app}
+                isActive={activeApps.includes(app.id)}
+                isMinimized={minimizedApps.has(app.id)}
+                mouseX={mouseX}
+                index={index}
+                totalItems={DOCK_APPS.length}
+                onClick={() => {
+                  if (app.id === SETTINGS_APP.id) {
+                    if (openSettingsTab) {
+                      openSettingsTab("general");
+                    } else {
+                      openSettings();
+                    }
+                  } else {
+                    openApp(app.id);
+                  }
+                }}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
+      </TooltipProvider>
+    </div>
+  );
+}
 
 // Constants for magnification effect
 const ICON_SIZE = 48; // Base size in pixels
@@ -235,114 +346,3 @@ const DockItem = memo(
 );
 
 DockItem.displayName = "DockItem";
-
-export function Dock({
-  openApp,
-  openSettings,
-  openSettingsTab,
-  activeApps,
-  minimizedApps,
-}: DockProps) {
-  const [mouseX, setMouseX] = useState(0);
-  const dockRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
-  const isLightTheme = theme === "light";
-
-  // Track mouse position for magnification effect
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (dockRef.current) {
-      const rect = dockRef.current.getBoundingClientRect();
-      setMouseX(e.clientX - rect.left);
-    }
-  }, []);
-
-  // Reset mouse position when mouse leaves the dock
-  const handleMouseLeave = useCallback(() => {
-    setMouseX(0);
-  }, []);
-
-  // The keyboard navigation handler
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.metaKey || e.ctrlKey) {
-      const pressedNum = parseInt(e.key);
-      if (!isNaN(pressedNum) && pressedNum <= DOCK_APPS.length) {
-        e.preventDefault();
-        if (pressedNum === 0) {
-          if (openSettingsTab) {
-            openSettingsTab("general");
-          } else {
-            openSettings();
-          }
-        } else {
-          const appIndex = pressedNum - 1;
-          if (appIndex >= 0 && appIndex < APP_ITEMS.length) {
-            openApp(APP_ITEMS[appIndex].id);
-          }
-        }
-      }
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [openApp, openSettings, openSettingsTab]);
-
-  return (
-    <div
-      className="fixed bottom-6 left-0 right-0 flex justify-center items-center"
-      style={{ zIndex: 9000 }}
-    >
-      <TooltipProvider>
-        <motion.div
-          className={cn(
-            "p-2 rounded-2xl backdrop-blur-lg border shadow-lg",
-            isLightTheme
-              ? "bg-background/20 border-border/30"
-              : "bg-background/20 border-border/30"
-          )}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 400,
-            damping: 25,
-            delay: 0.3,
-          }}
-        >
-          <motion.div
-            className="flex items-center gap-2"
-            ref={dockRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            layoutId="dock"
-            layout
-          >
-            {DOCK_APPS.map((app, index) => (
-              <DockItem
-                key={app.id}
-                app={app}
-                isActive={activeApps.includes(app.id)}
-                isMinimized={minimizedApps.has(app.id)}
-                mouseX={mouseX}
-                index={index}
-                totalItems={DOCK_APPS.length}
-                onClick={() => {
-                  if (app.id === SETTINGS_APP.id) {
-                    if (openSettingsTab) {
-                      openSettingsTab("general");
-                    } else {
-                      openSettings();
-                    }
-                  } else {
-                    openApp(app.id);
-                  }
-                }}
-              />
-            ))}
-          </motion.div>
-        </motion.div>
-      </TooltipProvider>
-    </div>
-  );
-}

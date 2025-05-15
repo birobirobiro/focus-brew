@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useTranslations } from 'next-intl';
 
 // Constants
 const MAX_VOLUME = 100;
@@ -119,6 +120,7 @@ export const playTestSound = (
 };
 
 export function VolumeSettings() {
+  const t = useTranslations('components.settings.volume');
   const [settings, setSettings] = useState<VolumeSettings>({
     masterVolume: DEFAULT_VOLUME,
     notificationVolume: DEFAULT_VOLUME,
@@ -167,8 +169,8 @@ export function VolumeSettings() {
 
     setIsTestingMaster(true);
     playTestSound(settings.masterVolume, "system");
-    toast.info("Playing test sound", {
-      description: "Testing system volume level",
+    toast.info(t('test.master.title'), {
+      description: t('test.master.description'),
     });
 
     // Reset the testing state after a short delay
@@ -180,8 +182,8 @@ export function VolumeSettings() {
 
     setIsTestingNotification(true);
     playTestSound(settings.notificationVolume, "notification");
-    toast.info("Playing test notification", {
-      description: "Testing notification volume level",
+    toast.info(t('test.notification.title'), {
+      description: t('test.notification.description'),
     });
 
     // Reset the testing state after a short delay
@@ -191,16 +193,14 @@ export function VolumeSettings() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Sound Settings</CardTitle>
-        <CardDescription>
-          Adjust volume levels for the application
-        </CardDescription>
+        <CardTitle>{t('card.title')}</CardTitle>
+        <CardDescription>{t('card.description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label>Master Volume (Ambient Sounds)</Label>
+              <Label>{t('master.label')}</Label>
               <span className="text-xs text-muted-foreground">
                 {settings.masterVolume}%
               </span>
@@ -226,17 +226,17 @@ export function VolumeSettings() {
                 className="h-8 text-xs"
                 disabled={isTestingMaster}
               >
-                Test
+                {t('buttons.test')}
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
-              Controls the overall sound level for the application
+              {t('master.description')}
             </p>
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label>Notification Volume</Label>
+              <Label>{t('notification.label')}</Label>
               <span className="text-xs text-muted-foreground">
                 {settings.notificationVolume}%
               </span>
@@ -262,11 +262,11 @@ export function VolumeSettings() {
                 className="h-8 text-xs"
                 disabled={isTestingNotification}
               >
-                Test
+                {t('buttons.test')}
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
-              Controls the volume level for notification sounds
+              {t('notification.description')}
             </p>
           </div>
         </div>

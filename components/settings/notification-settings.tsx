@@ -24,8 +24,10 @@ import {
   resetNotificationSettings,
 } from "@/lib/notification";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useTranslations } from 'next-intl';
 
 export function NotificationSettings() {
+  const t = useTranslations('components.settings.notifications');
   const [settings, setSettings] = useState<NotificationSettingsType>({
     enabled: true,
     habitReminders: true,
@@ -80,8 +82,8 @@ export function NotificationSettings() {
     setLoading(true);
 
     if (!notificationsSupported) {
-      toast.error("Notifications not supported", {
-        description: "Your browser does not support notifications.",
+      toast.error(t('errors.notSupported.title'), {
+        description: t('errors.notSupported.description'),
       });
       setLoading(false);
       return;
@@ -92,20 +94,18 @@ export function NotificationSettings() {
 
       if (permission) {
         setSettings((prev) => ({ ...prev, enabled: true }));
-        toast.success("Notifications enabled", {
-          description: "You will receive notifications when needed.",
+        toast.success(t('success.enabled.title'), {
+          description: t('success.enabled.description'),
         });
       } else {
-        toast.error("Permission denied", {
-          description:
-            "You denied permission for notifications. Please enable them in your browser settings.",
+        toast.error(t('errors.permissionDenied.title'), {
+          description: t('errors.permissionDenied.description'),
         });
       }
     } catch (error) {
       console.error("Error requesting permission:", error);
-      toast.error("Error enabling notifications", {
-        description:
-          "An error occurred while requesting permission for notifications.",
+      toast.error(t('errors.requestFailed.title'), {
+        description: t('errors.requestFailed.description'),
       });
     } finally {
       setLoading(false);
@@ -117,40 +117,40 @@ export function NotificationSettings() {
       await requestNotificationPermission();
     } else {
       setSettings((prev) => ({ ...prev, enabled: false }));
-      toast.info("Notifications disabled", {
-        description: "You will no longer receive notifications.",
+      toast.info(t('success.disabled.title'), {
+        description: t('success.disabled.description'),
       });
     }
   };
 
   const testBrowserNotification = async () => {
     if (!settings.enabled) {
-      toast.error("Notifications are disabled", {
-        description: "Enable notifications first.",
+      toast.error(t('errors.disabled.title'), {
+        description: t('errors.disabled.description'),
       });
       return;
     }
 
     setLoading(true);
     try {
-      const sent = await sendNotification("Notification Test", {
-        body: "This is a test notification from FocusBrew.",
+      const sent = await sendNotification(t('test.title'), {
+        body: t('test.body'),
         requireInteraction: false,
       });
 
       if (sent) {
-        toast.success("Notification sent", {
-          description: "The notification was sent successfully.",
+        toast.success(t('test.success.title'), {
+          description: t('test.success.description'),
         });
       } else {
-        toast.error("Failed to send notification", {
-          description: "Check browser permissions.",
+        toast.error(t('test.error.title'), {
+          description: t('test.error.description'),
         });
       }
     } catch (error) {
       console.error("Error sending notification:", error);
-      toast.error("Error sending notification", {
-        description: "An error occurred while sending the notification.",
+      toast.error(t('test.error.title'), {
+        description: t('test.error.description'),
       });
     } finally {
       setLoading(false);
@@ -161,35 +161,28 @@ export function NotificationSettings() {
     resetNotificationSettings();
     const defaultSettings = getNotificationSettings();
     setSettings(defaultSettings);
-    toast.success("Notification settings reset", {
-      description: "Notification settings have been reset to defaults.",
+    toast.success(t('reset.success.title'), {
+      description: t('reset.success.description'),
     });
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Notifications</CardTitle>
-        <CardDescription>
-          Configure how you want to receive notifications and reminders
-        </CardDescription>
+        <CardTitle>{t('card.title')}</CardTitle>
+        <CardDescription>{t('card.description')}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {!notificationsSupported && (
           <Alert className="border bg-yellow-500/20">
-            <AlertDescription>
-              Your browser does not support notifications. Some features may not
-              work properly.
-            </AlertDescription>
+            <AlertDescription>{t('browserSupport.error')}</AlertDescription>
           </Alert>
         )}
 
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <Label>Enable Notifications</Label>
-            <p className="text-sm text-muted-foreground">
-              Allow FocusBrew to send notifications to you
-            </p>
+            <Label>{t('enable.label')}</Label>
+            <p className="text-sm text-muted-foreground">{t('enable.description')}</p>
           </div>
           <Button
             variant="outline"
@@ -201,12 +194,12 @@ export function NotificationSettings() {
             {settings.enabled ? (
               <>
                 <Bell className="h-4 w-4" />
-                <span>Enabled</span>
+                <span>{t('status.enabled')}</span>
               </>
             ) : (
               <>
                 <BellOff className="h-4 w-4" />
-                <span>Disabled</span>
+                <span>{t('status.disabled')}</span>
               </>
             )}
           </Button>
@@ -215,10 +208,8 @@ export function NotificationSettings() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <Label>Habit Reminders</Label>
-              <p className="text-sm text-muted-foreground">
-                Receive reminders when it's time to complete your habits
-              </p>
+              <Label>{t('habits.label')}</Label>
+              <p className="text-sm text-muted-foreground">{t('habits.description')}</p>
             </div>
             <Switch
               checked={settings.enabled && settings.habitReminders}
@@ -231,11 +222,8 @@ export function NotificationSettings() {
 
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <Label>Pomodoro Notifications</Label>
-              <p className="text-sm text-muted-foreground">
-                Receive visual notifications when your pomodoro sessions end
-                (alarm sound is controlled separately)
-              </p>
+              <Label>{t('pomodoro.label')}</Label>
+              <p className="text-sm text-muted-foreground">{t('pomodoro.description')}</p>
             </div>
             <Switch
               checked={settings.enabled && settings.pomodoroNotifications}
@@ -258,7 +246,7 @@ export function NotificationSettings() {
           className="flex-1 min-w-[120px]"
           size="sm"
         >
-          Test Notification
+          {t('buttons.test')}
         </Button>
         <Button
           variant="destructive"
@@ -266,7 +254,7 @@ export function NotificationSettings() {
           className="flex-1 min-w-[120px]"
           size="sm"
         >
-          Reset Notification Settings
+          {t('buttons.reset')}
         </Button>
       </CardFooter>
     </Card>
