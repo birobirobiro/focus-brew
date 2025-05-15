@@ -996,5 +996,10 @@
                 "label": "Configurações"
             }
         }
+    },
+    "NotFound": {
+        "title": "Página Não Encontrada",
+        "description": "Desculpe, a página que você está procurando não existe ou foi movida.",
+        "backToHome": "Voltar para o Início"
     }
 }
