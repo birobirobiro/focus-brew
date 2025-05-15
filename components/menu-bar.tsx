@@ -263,7 +263,7 @@ export function MenuBar({
       <div className="flex items-center space-x-3">
         <ExchangeRate />
         <Weather />
-        <LocaleSwitcher />
+        <LocaleSwitcher size='sm'/>
         <span className="text-xs font-medium">{dateTime}</span>
       </div>
     </motion.div>
