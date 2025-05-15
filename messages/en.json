@@ -141,7 +141,9 @@
                 "ambient": "Ambient Sounds",
                 "youtube": "YouTube Player",
                 "settings": "Settings",
-                "habit": "Habit Tracker"
+                "habit": "Habit Tracker",
+                "portfolio": "My Portfolio",
+                "about": "About"
             }
         },
         "settings": {
@@ -996,5 +998,10 @@
                 "label": "Settings"
             }
         }
+    },
+    "NotFound": {
+        "title": "Page Not Found",
+        "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+        "backToHome": "Back to Home"
     }
 }

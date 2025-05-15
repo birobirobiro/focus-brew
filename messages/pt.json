@@ -140,6 +140,8 @@
                 "notepad": "Notas",
                 "ambient": "Sons Ambiente",
                 "youtube": "Player do YouTube",
+                "settings": "Configurações",
+                "habit": "Rastrear Hábitos",
                 "portfolio": "Meu Portfólio",
                 "about": "Sobre"
             }
@@ -996,5 +998,10 @@
                 "label": "Configurações"
             }
         }
+    },
+    "NotFound": {
+        "title": "Página Não Encontrada",
+        "description": "Desculpe, a página que você está procurando não existe ou foi movida.",
+        "backToHome": "Voltar para o Início"
     }
 }
