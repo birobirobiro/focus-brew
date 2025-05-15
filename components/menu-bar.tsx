@@ -221,7 +221,7 @@ export function MenuBar({
                   <span className="h-4 w-4 text-primary/70 group-hover:text-primary">
                     <Globe className="h-4 w-4" />
                   </span>
-                  <span>{t('components.menuBar.apps.portfolio')}</span>
+                  <span>{menuT('portfolio')}</span>
                 </div>
               </MenubarItem>
 
@@ -251,7 +251,7 @@ export function MenuBar({
                   <span className="h-4 w-4 text-primary/70 group-hover:text-primary">
                     <Info className="h-4 w-4" />
                   </span>
-                  <span>{t('components.menuBar.apps.about')}</span>
+                  <span>{menuT('about')}</span>
                 </div>
                 <MenubarShortcut>{formatShortcut("8")}</MenubarShortcut>
               </MenubarItem>

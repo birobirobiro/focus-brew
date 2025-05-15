@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -65,6 +66,8 @@ const SPRING_ANIMATION = {
 } as const;
 
 export function PomodoroTimer() {
+  const t = useTranslations('components.pomodoroTimer');
+
   // Settings state
   const [settings, setSettings] = useLocalStorage<TimerSettings>(
     "pomodoro-settings",
@@ -213,19 +216,18 @@ export function PomodoroTimer() {
       setNotificationsEnabled(hasPermission);
 
       if (hasPermission) {
-        toast.success("Notifications enabled", {
-          description: "You will receive notifications when timer completes.",
+        toast.success(t('notifications.enabled.title'), {
+          description: t('notifications.enabled.description'),
         });
       } else {
-        toast.error("Notification permission denied", {
-          description:
-            "Please enable notifications in your browser settings to get timer alerts.",
+        toast.error(t('notifications.denied.title'), {
+          description: t('notifications.denied.description'),
         });
       }
     } catch (error) {
       console.error("Error requesting notification permission:", error);
     }
-  }, []);
+  }, [t]);
 
   // Set custom timer
   const handleSetCustomTimer = useCallback(() => {
@@ -420,18 +422,18 @@ export function PomodoroTimer() {
       const modeLabel = isUsingCustomTimer
         ? "Custom"
         : mode === "pomodoro"
-        ? "Focus"
+        ? t('documentTitle.focus')
         : mode === "shortBreak"
-        ? "Short Break"
-        : "Long Break";
+        ? t('documentTitle.shortBreak')
+        : t('documentTitle.longBreak');
       document.title = `${formattedTime} - ${modeLabel}`;
     } else {
       // Only reset if we're not showing the timer already
       if (
-        document.title.includes(" - Focus") ||
-        document.title.includes(" - Short Break") ||
-        document.title.includes(" - Long Break") ||
-        document.title.includes(" - Custom")
+        document.title.includes(" - " + t('documentTitle.focus')) ||
+        document.title.includes(" - " + t('documentTitle.shortBreak')) ||
+        document.title.includes(" - " + t('documentTitle.longBreak')) ||
+        document.title.includes(" - " + t('documentTitle.custom'))
       ) {
         document.title = originalTitleRef.current;
       }
@@ -440,7 +442,7 @@ export function PomodoroTimer() {
     return () => {
       document.title = originalTitleRef.current;
     };
-  }, [isRunning, formattedTime, mode, isUsingCustomTimer]);
+  }, [isRunning, formattedTime, mode, isUsingCustomTimer, t]);
 
   return (
     <div
@@ -465,11 +467,9 @@ export function PomodoroTimer() {
                     "capitalize transition-colors",
                     mode === timerMode && !isUsingCustomTimer && "font-medium"
                   )}
-                  aria-label={`Switch to ${timerMode
-                    .replace(/([A-Z])/g, " $1")
-                    .trim()} mode`}
+                  aria-label={t('controls.aria.switchMode', { mode: t(`modes.${timerMode}`) })}
                 >
-                  {timerMode.replace(/([A-Z])/g, " $1").trim()}
+                  {t(`modes.${timerMode}`)}
                 </Button>
               )
             )}
@@ -546,32 +546,32 @@ export function PomodoroTimer() {
               variant={isRunning ? "outline" : "default"}
               onClick={isRunning ? handlePauseTimer : handleStartTimer}
               className="min-w-[80px] cursor-pointer"
-              aria-label={isRunning ? "Pause timer" : "Start timer"}
+              aria-label={isRunning ? t('controls.aria.pauseTimer') : t('controls.aria.startTimer')}
             >
               {isRunning ? (
                 <Pause className="h-4 w-4 mr-2" />
               ) : (
                 <Play className="h-4 w-4 mr-2" />
               )}
-              {isRunning ? "Pause" : "Start"}
+              {isRunning ? t('controls.pause') : t('controls.start')}
             </Button>
             <Button
               variant="outline"
               onClick={handleStopTimer}
               className="min-w-[80px]"
-              aria-label="Stop timer"
+              aria-label={t('controls.aria.stopTimer')}
             >
               <Square className="h-4 w-4 mr-2" />
-              Stop
+              {t('controls.stop')}
             </Button>
             <Button
               variant="outline"
               onClick={handleResetTimer}
               className="min-w-[80px]"
-              aria-label="Reset timer"
+              aria-label={t('controls.aria.resetTimer')}
             >
               <RotateCcw className="h-4 w-4 mr-2" />
-              Reset
+              {t('controls.reset')}
             </Button>
           </div>
 
@@ -588,12 +588,12 @@ export function PomodoroTimer() {
                       max={100}
                       step={1}
                       className="flex-1"
-                      aria-label="Alarm volume"
+                      aria-label={t('audio.volume', { volume: settings.volume })}
                     />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Alarm Volume: {settings.volume}%</p>
+                  <p>{t('audio.volume', { volume: settings.volume })}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -611,14 +611,14 @@ export function PomodoroTimer() {
                     )}
                   >
                     <RepeatIcon className="h-4 w-4" />
-                    {settings.loopAudio ? "Loop On" : "Loop Off"}
+                    {settings.loopAudio ? t('audio.loop.on') : t('audio.loop.off')}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>
-                    {settings.loopAudio
-                      ? "Alarm will loop until stopped"
-                      : "Alarm will play once"}
+                    {settings.loopAudio 
+                      ? t('audio.loop.description.on')
+                      : t('audio.loop.description.off')}
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -627,7 +627,7 @@ export function PomodoroTimer() {
 
           {/* Session counter */}
           <div className="text-sm text-muted-foreground">
-            Completed Pomodoros: {completedPomodoros}
+            {t('stats.completedPomodoros', { count: completedPomodoros })}
           </div>
         </div>
       </ScrollArea>

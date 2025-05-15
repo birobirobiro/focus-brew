@@ -132,6 +132,16 @@
                 "close": "Close window",
                 "minimize": "Minimize window",
                 "maximize": "Maximize window"
+            },
+            "titles": {
+                "todo": "Tasks",
+                "kanban": "Kanban",
+                "pomodoro": "Focus Timer",
+                "notepad": "Notes",
+                "ambient": "Ambient Sounds",
+                "youtube": "YouTube Player",
+                "settings": "Settings",
+                "habit": "Habit Tracker"
             }
         },
         "settings": {
@@ -393,6 +403,569 @@
             "languages": {
                 "en": "English",
                 "pt": "Portuguese"
+            }
+        },
+        "ambientSounds": {
+            "title": "Ambient Sounds",
+            "masterVolume": {
+                "title": "Master Volume",
+                "description": "Controls the overall sound level for all ambient sounds"
+            },
+            "multiSound": {
+                "single": "1 sound playing. You can play multiple sounds at once!",
+                "multiple": "{count} sounds playing simultaneously."
+            },
+            "soundMix": {
+                "title": "Sound Mixes",
+                "noMixes": "No saved mixes yet",
+                "noMixesDescription": "Play some sounds and save your mix to create custom ambient combinations",
+                "createMix": "Create Mix",
+                "saveMix": "Save Current Mix",
+                "mixName": "Mix Name",
+                "mixNamePlaceholder": "My custom mix",
+                "save": "Save",
+                "play": "Play",
+                "stop": "Stop",
+                "delete": "Delete {name}",
+                "soundCount": "{count} sound",
+                "soundCountPlural": "{count} sounds",
+                "soundsActive": "{count} sound active",
+                "soundsActivePlural": "{count} sounds active"
+            },
+            "controls": {
+                "stopAll": "Stop All",
+                "stopAllWithCount": "Stop All ({count})",
+                "setVolume": "Set Volume",
+                "changeCategory": "Change Category"
+            },
+            "shortcuts": {
+                "setVolume": "1-9",
+                "changeCategory": "Alt+1-5"
+            },
+            "sounds": {
+                "categories": {
+                    "nature": "Nature",
+                    "rain": "Rain",
+                    "places": "Places",
+                    "urban": "Urban",
+                    "animals": "Animals",
+                    "binaural": "Binaural",
+                    "noise": "Noise",
+                    "things": "Things",
+                    "transport": "Transport"
+                },
+                "names": {
+                    "nature": {
+                        "campfire": "Campfire",
+                        "waterfall": "Waterfall",
+                        "waves": "Waves",
+                        "river": "River",
+                        "jungle": "Jungle",
+                        "wind": "Wind",
+                        "droplets": "Droplets",
+                        "howlingWind": "Howling Wind",
+                        "walkInSnow": "Walk in Snow",
+                        "walkOnGravel": "Walk on Gravel",
+                        "walkOnLeaves": "Walk on Leaves",
+                        "windInTrees": "Wind in Trees"
+                    },
+                    "animals": {
+                        "beehive": "Beehive",
+                        "birds": "Birds",
+                        "catPurring": "Cat Purring",
+                        "chickens": "Chickens",
+                        "cows": "Cows",
+                        "crickets": "Crickets",
+                        "crows": "Crows",
+                        "dogBarking": "Dog Barking",
+                        "frog": "Frog",
+                        "horseGalopp": "Horse Galopp",
+                        "owl": "Owl",
+                        "seagulls": "Seagulls",
+                        "sheep": "Sheep",
+                        "whale": "Whale",
+                        "wolf": "Wolf",
+                        "woodpecker": "Woodpecker"
+                    },
+                    "binaural": {
+                        "alpha": "Binaural Alpha",
+                        "beta": "Binaural Beta",
+                        "delta": "Binaural Delta",
+                        "gamma": "Binaural Gamma",
+                        "theta": "Binaural Theta"
+                    },
+                    "noise": {
+                        "brown": "Brown Noise",
+                        "pink": "Pink Noise",
+                        "white": "White Noise"
+                    },
+                    "places": {
+                        "airport": "Airport",
+                        "cafe": "Cafe",
+                        "carousel": "Carousel",
+                        "church": "Church",
+                        "constructionSite": "Construction Site",
+                        "crowdedBar": "Crowded Bar",
+                        "laboratory": "Laboratory",
+                        "laundryRoom": "Laundry Room",
+                        "library": "Library",
+                        "nightVillage": "Night Village",
+                        "office": "Office",
+                        "restaurant": "Restaurant",
+                        "subwayStation": "Subway Station",
+                        "supermarket": "Supermarket",
+                        "temple": "Temple",
+                        "underwater": "Underwater"
+                    },
+                    "rain": {
+                        "light": "Light Rain",
+                        "heavy": "Heavy Rain",
+                        "window": "Rain on Window",
+                        "thunder": "Thunder",
+                        "onCarRoof": "Rain on Car Roof",
+                        "onLeaves": "Rain on Leaves",
+                        "onTent": "Rain on Tent",
+                        "onUmbrella": "Rain on Umbrella"
+                    },
+                    "urban": {
+                        "ambulanceSiren": "Ambulance Siren",
+                        "busyStreet": "Busy Street",
+                        "crowd": "Crowd",
+                        "fireworks": "Fireworks",
+                        "highway": "Highway",
+                        "road": "Road",
+                        "traffic": "Traffic"
+                    },
+                    "things": {
+                        "boilingWater": "Boiling Water",
+                        "bubbles": "Bubbles",
+                        "ceilingFan": "Ceiling Fan",
+                        "clock": "Clock",
+                        "dryer": "Dryer",
+                        "keyboard": "Keyboard",
+                        "morseCode": "Morse Code",
+                        "paper": "Paper",
+                        "singingBowl": "Singing Bowl",
+                        "slideProjector": "Slide Projector",
+                        "tuningRadio": "Tuning Radio",
+                        "typewriter": "Typewriter",
+                        "vinylEffect": "Vinyl Effect",
+                        "washingMachine": "Washing Machine",
+                        "windChimes": "Wind Chimes",
+                        "windshieldWipers": "Windshield Wipers",
+                        "alarm": "Alarm"
+                    },
+                    "transport": {
+                        "airplane": "Airplane",
+                        "insideATrain": "Inside a Train",
+                        "rowingBoat": "Rowing Boat",
+                        "sailboat": "Sailboat",
+                        "submarine": "Submarine",
+                        "train": "Train"
+                    }
+                }
+            }
+        },
+        "habitTracker": {
+            "title": "Habits",
+            "today": "Today",
+            "all": "All",
+            "noHabits": {
+                "title": "No habits yet",
+                "description": "Start tracking your habits to build consistency and achieve your goals.",
+                "action": "Add Your First Habit"
+            },
+            "noMatchingHabits": {
+                "description": "No habits match the current filter.",
+                "action": "Show all habits"
+            },
+            "todayProgress": {
+                "title": "Today's Progress"
+            },
+            "form": {
+                "title": {
+                    "new": "New Habit",
+                    "edit": "Edit Habit"
+                },
+                "description": "Create a new habit to track your progress.",
+                "fields": {
+                    "name": {
+                        "label": "Name",
+                        "placeholder": "Habit name"
+                    },
+                    "description": {
+                        "label": "Description (optional)",
+                        "placeholder": "What's this habit about?"
+                    },
+                    "icon": "Icon",
+                    "color": "Color",
+                    "category": {
+                        "label": "Category",
+                        "placeholder": "Select a category"
+                    },
+                    "frequency": {
+                        "label": "Frequency",
+                        "placeholder": "Select frequency",
+                        "options": {
+                            "daily": "Daily",
+                            "weekly": "Weekly",
+                            "custom": "Custom days"
+                        }
+                    },
+                    "customDays": {
+                        "label": "Days of the week",
+                        "error": "Please select at least one day"
+                    },
+                    "duration": {
+                        "label": "Duration",
+                        "description": "How many times should this habit be completed in the given period?",
+                        "period": {
+                            "placeholder": "Period",
+                            "days": "Days",
+                            "weeks": "Weeks",
+                            "months": "Months"
+                        }
+                    },
+                    "reminder": {
+                        "label": "Reminder",
+                        "time": {
+                            "label": "Time"
+                        }
+                    }
+                },
+                "buttons": {
+                    "create": "Create",
+                    "update": "Update",
+                    "cancel": "Cancel"
+                }
+            },
+            "details": {
+                "title": "Habit Details",
+                "calendar": {
+                    "title": "Calendar View",
+                    "completed": "Completed",
+                    "notCompleted": "Not completed"
+                },
+                "stats": {
+                    "title": "Statistics",
+                    "completionRate": "Completion Rate",
+                    "currentStreak": "Current Streak",
+                    "longestStreak": "Longest Streak",
+                    "weeklyProgress": "Weekly Progress",
+                    "lastSevenDays": "Last 7 days",
+                    "daysInARow": "days in a row",
+                    "daysCompleted": "days completed"
+                },
+                "buttons": {
+                    "edit": "Edit",
+                    "delete": "Delete",
+                    "close": "Close"
+                }
+            },
+            "deleteConfirm": {
+                "title": "Delete Habit",
+                "description": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            },
+            "notifications": {
+                "created": {
+                    "title": "Habit created",
+                    "description": "{name} has been added to your habits."
+                },
+                "updated": {
+                    "title": "Habit updated",
+                    "description": "{name} has been updated."
+                },
+                "completed": {
+                    "title": "Habit completed!",
+                    "description": "Great job completing \"{name}\""
+                },
+                "deleted": {
+                    "title": "Habit deleted",
+                    "description": "{name} has been deleted."
+                }
+            },
+            "categories": {
+                "health": "Health",
+                "fitness": "Fitness",
+                "productivity": "Productivity",
+                "learning": "Learning",
+                "mindfulness": "Mindfulness",
+                "other": "Other"
+            },
+            "daysOfWeek": {
+                "mon": "Mon",
+                "tue": "Tue",
+                "wed": "Wed",
+                "thu": "Thu",
+                "fri": "Fri",
+                "sat": "Sat",
+                "sun": "Sun"
+            }
+        },
+        "notepad": {
+            "search": {
+                "placeholder": "Search notes... ({shortcut})",
+                "noResults": "No matching notes found"
+            },
+            "actions": {
+                "new": "New ({shortcut})",
+                "undo": "Undo",
+                "redo": "Redo"
+            },
+            "notes": {
+                "empty": "No notes yet. Create one to get started!",
+                "untitled": "Untitled Note",
+                "titlePlaceholder": "Note title",
+                "selectOrCreate": "Select a note or create a new one",
+                "createShortcut": "Press {shortcut} to create a new note"
+            },
+            "status": {
+                "saving": "Saving...",
+                "saved": "Saved"
+            },
+            "delete": {
+                "title": "Delete Note",
+                "description": "Are you sure you want to delete this note? This action cannot be undone.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            },
+            "notifications": {
+                "saved": {
+                    "title": "Note saved",
+                    "description": "Your note has been saved successfully."
+                },
+                "deleted": {
+                    "title": "Note deleted",
+                    "description": "Your note has been deleted successfully."
+                }
+            }
+        },
+        "pomodoroTimer": {
+            "modes": {
+                "pomodoro": "Pomodoro",
+                "shortBreak": "Short Break",
+                "longBreak": "Long Break"
+            },
+            "controls": {
+                "start": "Start",
+                "pause": "Pause",
+                "stop": "Stop",
+                "reset": "Reset",
+                "aria": {
+                    "switchMode": "Switch to {mode} mode",
+                    "startTimer": "Start timer",
+                    "pauseTimer": "Pause timer",
+                    "stopTimer": "Stop timer",
+                    "resetTimer": "Reset timer"
+                }
+            },
+            "audio": {
+                "volume": "Alarm Volume: {volume}%",
+                "loop": {
+                    "on": "Loop On",
+                    "off": "Loop Off",
+                    "description": {
+                        "on": "Alarm will loop until stopped",
+                        "off": "Alarm will play once"
+                    }
+                }
+            },
+            "stats": {
+                "completedPomodoros": "Completed Pomodoros: {count}"
+            },
+            "notifications": {
+                "enabled": {
+                    "title": "Notifications enabled",
+                    "description": "You will receive notifications when timer completes."
+                },
+                "denied": {
+                    "title": "Notification permission denied",
+                    "description": "Please enable notifications in your browser settings to get timer alerts."
+                }
+            },
+            "documentTitle": {
+                "focus": "Focus",
+                "shortBreak": "Short Break",
+                "longBreak": "Long Break"
+            }
+        },
+        "todoApp": {
+            "header": {
+                "title": "Tasks",
+                "sort": {
+                    "button": "Sort tasks",
+                    "newest": "Newest first",
+                    "oldest": "Oldest first",
+                    "alphabetical": "Alphabetical"
+                },
+                "moreOptions": {
+                    "button": "More options",
+                    "clearCompleted": "Clear completed"
+                },
+                "input": {
+                    "placeholder": "What needs to be done?",
+                    "clearButton": "Clear input",
+                    "addButton": "Add"
+                }
+            },
+            "filters": {
+                "all": "All ({count})",
+                "active": "Active ({count})",
+                "completed": "Completed ({count})"
+            },
+            "emptyState": {
+                "all": {
+                    "title": "No tasks yet",
+                    "description": "Add your first task to get started"
+                },
+                "active": {
+                    "title": "No active tasks",
+                    "description": "All your tasks are completed"
+                },
+                "completed": {
+                    "title": "No completed tasks",
+                    "description": "Complete a task to see it here"
+                }
+            },
+            "todoItem": {
+                "toggleComplete": {
+                    "markComplete": "Mark as complete",
+                    "markIncomplete": "Mark as incomplete"
+                },
+                "delete": {
+                    "button": "Delete todo",
+                    "dialog": {
+                        "title": "Delete Task",
+                        "description": "Are you sure you want to delete this task? This action cannot be undone.",
+                        "cancel": "Cancel",
+                        "confirm": "Delete"
+                    }
+                },
+                "timeLabels": {
+                    "today": "Today",
+                    "yesterday": "Yesterday",
+                    "daysAgo": "{count} days ago"
+                }
+            },
+            "footer": {
+                "stats": {
+                    "total": "{count} total",
+                    "completed": "{count} completed"
+                }
+            }
+        },
+        "youtubePlayer": {
+            "controls": {
+                "hideVideo": "Hide Video",
+                "showVideo": "Show Video",
+                "play": "Play",
+                "pause": "Pause",
+                "previous": "Previous track",
+                "next": "Next track",
+                "noTrack": "No track selected"
+            },
+            "playlist": {
+                "title": "Playlist",
+                "resetAll": "Reset All",
+                "urlInput": {
+                    "placeholder": "Enter YouTube URL or video ID",
+                    "add": "Add",
+                    "adding": "Adding..."
+                },
+                "item": {
+                    "play": "Play {title}",
+                    "edit": "Edit title",
+                    "delete": "Delete video"
+                }
+            },
+            "shortcuts": {
+                "playPause": "Space: Play/Pause",
+                "prevNext": "Alt+←/→: Previous/Next",
+                "mute": "M: Mute",
+                "video": "V: Toggle Video"
+            },
+            "notifications": {
+                "invalidUrl": {
+                    "title": "Invalid URL",
+                    "description": "Please enter a valid YouTube URL or video ID"
+                },
+                "duplicate": {
+                    "title": "This video is already in your playlist!",
+                    "description": "You cannot add the same video more than once."
+                },
+                "added": {
+                    "title": "Video added",
+                    "description": "The video has been added to your playlist."
+                },
+                "error": {
+                    "title": "Error adding video",
+                    "playback": {
+                        "title": "Playback Error",
+                        "description": "An error occurred while playing the video. Please try again."
+                    }
+                },
+                "reset": {
+                    "title": "Reset successful",
+                    "description": "Playlist and player have been reset."
+                }
+            },
+            "loading": "Loading...",
+            "error": "An error occurred while playing the video. Please try again."
+        },
+        "kanban": {
+            "board": {
+                "columns": {
+                    "todo": "To Do",
+                    "inprogress": "In Progress",
+                    "done": "Done"
+                }
+            },
+            "card": {
+                "delete": {
+                    "title": "Delete Task",
+                    "description": "Are you sure you want to delete this task? This action cannot be undone.",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
+                },
+                "aria": {
+                    "dragHandle": "Drag handle",
+                    "taskTitle": "Task: {title}",
+                    "deleteTask": "Delete task"
+                }
+            },
+            "column": {
+                "addCard": {
+                    "button": "Add task",
+                    "dialog": {
+                        "title": "Add New Task",
+                        "description": "Create a new task in the {column} column.",
+                        "titlePlaceholder": "Task title...",
+                        "descriptionPlaceholder": "Description (optional)...",
+                        "submit": "Add Task"
+                    }
+                },
+                "aria": {
+                    "columnTitle": "{title} column",
+                    "taskCount": "({count})"
+                }
+            }
+        },
+        "toast": {
+            "notifications": {
+                "enabled": {
+                    "title": "Notifications enabled!",
+                    "description": "You will receive browser notifications as configured."
+                },
+                "blocked": {
+                    "title": "Notifications blocked",
+                    "description": "Please enable notifications in your browser settings."
+                },
+                "permission": {
+                    "title": "Notification permission required",
+                    "description": "Please accept the notification permission prompt."
+                }
             }
         }
     },

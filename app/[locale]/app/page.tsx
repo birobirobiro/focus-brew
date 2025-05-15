@@ -20,6 +20,7 @@ import { stopAllAmbientSounds } from "@/components/apps/ambient-sounds";
 import { useTheme } from "next-themes";
 import { LoadingFallback } from "@/components/ui/loading-fallback";
 import { CommandPalette } from "@/components/command-palette";
+import { useTranslations } from "next-intl";
 
 // Lazy load components
 const TodoApp = lazy(() =>
@@ -240,6 +241,8 @@ export default function AppPage() {
     minimizedWindows,
   } = useWindowManager();
 
+  const t = useTranslations('components.window.titles');
+  
   // Create handlers for the openApp and openSettingsTab functions
   const handleOpenApp = useCallback(
     (appId: AppId) => {
@@ -365,7 +368,7 @@ export default function AppPage() {
         <AppWindow
           key={win.id}
           id={win.id}
-          title={APP_TITLES[win.id]}
+          title={t(win.id) || APP_TITLES[win.id]}
           onClose={createCloseHandler(win.id)}
           onFocus={createFocusHandler(win.id)}
           onMinimize={() => minimizeApp(win.id)}

@@ -172,6 +172,7 @@ const WindowControlGroup = ({
   onMaximize: () => void;
   isMaximized: boolean;
 }) => {
+  const t = useTranslations('components.window.controls');
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
   }, []);
@@ -183,19 +184,19 @@ const WindowControlGroup = ({
     >
       <WindowControl
         variant="close"
-        label="Close window"
+        label={t('close')}
         onClick={onClose}
         icon={<X size={10} />}
       />
       <WindowControl
         variant="minimize"
-        label="Minimize window"
+        label={t('minimize')}
         onClick={onMinimize}
         icon={<Minus size={10} />}
       />
       <WindowControl
         variant="maximize"
-        label="Maximize window"
+        label={t('maximize')}
         onClick={onMaximize}
         icon={
           isMaximized ? (

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { useTranslations } from 'next-intl';
 
 interface BoardColumnProps {
   column: KanbanColumn;
@@ -31,6 +32,7 @@ const BoardColumn = memo(
     const [newTitle, setNewTitle] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
+    const t = useTranslations('components.kanban');
 
     const handleAdd = (e: React.FormEvent) => {
       e.preventDefault();
@@ -57,13 +59,13 @@ const BoardColumn = memo(
           "shadow-lg border border-border/40 backdrop-blur-sm"
         )}
         role="region"
-        aria-label={`${column.title} column`}
+        aria-label={t('column.aria.columnTitle', { title: column.title })}
       >
         <div className="flex items-center justify-between mb-1 pb-2 border-b border-border/40">
           <h2 className="font-semibold text-lg text-foreground tracking-tight truncate">
             {column.title}
             <span className="ml-2 text-sm text-muted-foreground">
-              ({column.cards.length})
+              {t('column.aria.taskCount', { count: column.cards.length })}
             </span>
           </h2>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -71,16 +73,16 @@ const BoardColumn = memo(
               <Button
                 size="icon"
                 variant="ghost"
-                aria-label={`Add card to ${column.title}`}
+                aria-label={t('column.addCard.button')}
               >
                 <Plus className="h-5 w-5" />
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add New Task</DialogTitle>
+                <DialogTitle>{t('column.addCard.dialog.title')}</DialogTitle>
                 <DialogDescription>
-                  Create a new task in the {column.title} column.
+                  {t('column.addCard.dialog.description', { column: column.title })}
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleAdd} className="flex flex-col gap-4 mt-2">
@@ -89,20 +91,20 @@ const BoardColumn = memo(
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Task title..."
+                    placeholder={t('column.addCard.dialog.titlePlaceholder')}
                     autoFocus
-                    aria-label="Task title"
+                    aria-label={t('column.addCard.dialog.titlePlaceholder')}
                   />
                   <Input
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
-                    placeholder="Description (optional)..."
-                    aria-label="Task description"
+                    placeholder={t('column.addCard.dialog.descriptionPlaceholder')}
+                    aria-label={t('column.addCard.dialog.descriptionPlaceholder')}
                   />
                 </div>
                 <DialogFooter>
                   <Button type="submit" disabled={!newTitle.trim()}>
-                    Add Task
+                    {t('column.addCard.dialog.submit')}
                   </Button>
                 </DialogFooter>
               </form>

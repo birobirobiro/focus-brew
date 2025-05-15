@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTranslations } from 'next-intl';
 
 // Constants for volume
 const DEFAULT_VOLUME = 50;
@@ -102,6 +103,7 @@ interface Sound {
   category: string;
   isLoading?: boolean;
   error?: string;
+  translationKey: string;
 }
 
 interface SoundMix {
@@ -180,6 +182,7 @@ const SoundCard = React.memo(function SoundCard({
   const handleSliderClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
   }, []);
+  const t = useTranslations('components.ambientSounds');
 
   return (
     <motion.div {...ANIMATION_CONFIG}>
@@ -209,7 +212,7 @@ const SoundCard = React.memo(function SoundCard({
             {sound.icon}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="font-medium text-sm break-words">{sound.name}</div>
+            <div className="font-medium text-sm break-words">{t(`sounds.names.${sound.category}.${sound.translationKey}`) || sound.name}</div>
             {sound.error && (
               <p className="text-xs text-destructive mt-0.5 truncate">
                 {sound.error}
@@ -286,6 +289,8 @@ const MasterVolume = React.memo(function MasterVolume({
   onStopAll,
   activeSoundsCount,
 }: MasterVolumeProps) {
+  const t = useTranslations('components.ambientSounds');
+
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full">
       <div className="p-4 rounded-xl border border-border/50 bg-background/80 backdrop-blur-sm flex-1 w-full">
@@ -293,7 +298,7 @@ const MasterVolume = React.memo(function MasterVolume({
           <div className="p-2 rounded-lg bg-primary/10 text-primary">
             <Headphones className="w-4 h-4" />
           </div>
-          <span className="text-sm font-medium">Master Volume</span>
+          <span className="text-sm font-medium">{t('masterVolume.title')}</span>
           <span className="text-xs text-muted-foreground ml-auto">
             {volume}%
           </span>
@@ -319,7 +324,9 @@ const MasterVolume = React.memo(function MasterVolume({
         disabled={activeSoundsCount === 0}
       >
         <StopCircle className="w-4 h-4" />
-        Stop All {activeSoundsCount > 0 && `(${activeSoundsCount})`}
+        {activeSoundsCount > 0 
+          ? t('controls.stopAllWithCount', { count: activeSoundsCount })
+          : t('controls.stopAll')}
       </Button>
     </div>
   );
@@ -332,16 +339,20 @@ const SaveMix = React.memo(function SaveMix({
   isValid,
   activeSoundsCount,
 }: SaveMixProps) {
+  const t = useTranslations('components.ambientSounds');
+
   return (
     <div className="p-4 rounded-xl border border-border/50 bg-background/80 backdrop-blur-sm">
       <div className="flex items-center gap-3 mb-3">
         <div className="p-2 rounded-lg bg-primary/10 text-primary">
           <Bookmark className="w-4 h-4" />
         </div>
-        <span className="text-sm font-medium">Save Current Mix</span>
+        <span className="text-sm font-medium">{t('soundMix.saveMix')}</span>
         {activeSoundsCount > 0 && (
           <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-            {activeSoundsCount} sound{activeSoundsCount !== 1 ? "s" : ""} active
+            {activeSoundsCount === 1 
+              ? t('soundMix.soundsActive', { count: activeSoundsCount })
+              : t('soundMix.soundsActivePlural', { count: activeSoundsCount })}
           </span>
         )}
       </div>
@@ -352,13 +363,13 @@ const SaveMix = React.memo(function SaveMix({
             htmlFor="mix-name"
             className="text-xs mb-1.5 block text-muted-foreground"
           >
-            Mix Name
+            {t('soundMix.mixName')}
           </Label>
           <Input
             id="mix-name"
             value={mixName}
             onChange={(e) => onMixNameChange(e.target.value)}
-            placeholder="My custom mix"
+            placeholder={t('soundMix.mixNamePlaceholder')}
             className="h-9"
           />
         </div>
@@ -369,7 +380,7 @@ const SaveMix = React.memo(function SaveMix({
           className="gap-1.5 h-9"
         >
           <SaveIcon className="w-4 h-4" />
-          <span>Save</span>
+          <span>{t('soundMix.save')}</span>
         </Button>
       </div>
     </div>
@@ -383,6 +394,8 @@ const SavedMixCard = React.memo(function SavedMixCard({
   onDelete,
   isActive,
 }: SavedMixCardProps) {
+  const t = useTranslations('components.ambientSounds');
+  
   // Get a list of unique sound IDs in this mix
   const soundsInMix = mix.sounds.filter((s) => s.playing).map((s) => s.id);
 
@@ -443,7 +456,9 @@ const SavedMixCard = React.memo(function SavedMixCard({
             <div className="font-medium text-sm truncate">{mix.name}</div>
             <div className="flex items-center gap-1.5 mt-0.5">
               <span className="text-xs text-muted-foreground">
-                {soundsInMix.length} sound{soundsInMix.length !== 1 ? "s" : ""}
+                {soundsInMix.length === 1 
+                  ? t('soundMix.soundCount', { count: soundsInMix.length })
+                  : t('soundMix.soundCountPlural', { count: soundsInMix.length })}
               </span>
               <span className="text-muted-foreground/40 text-xs">•</span>
               <span className="text-xs text-muted-foreground">
@@ -501,12 +516,12 @@ const SavedMixCard = React.memo(function SavedMixCard({
             {isActive ? (
               <>
                 <StopCircle className="h-3.5 w-3.5" />
-                Stop
+                {t('soundMix.stop')}
               </>
             ) : (
               <>
                 <Play className="h-3.5 w-3.5" />
-                Play
+                {t('soundMix.play')}
               </>
             )}
           </Button>
@@ -520,7 +535,7 @@ const SavedMixCard = React.memo(function SavedMixCard({
             }}
           >
             <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Delete {mix.name}</span>
+            <span className="sr-only">{t('soundMix.delete', { name: mix.name })}</span>
           </Button>
         </div>
       </div>
@@ -529,6 +544,8 @@ const SavedMixCard = React.memo(function SavedMixCard({
 });
 
 export function AmbientSounds() {
+  const t = useTranslations('components.ambientSounds');
+  
   // State
   const [sounds, setSounds] = useState<Sound[]>(() => {
     // Try to load volume settings from localStorage
@@ -1149,7 +1166,7 @@ export function AmbientSounds() {
       <div className="container mx-auto p-4 max-w-6xl">
         {/* Header com título sem truncamento */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground">Ambient Sounds</h1>
+          <h1 className="text-2xl font-bold text-foreground">{t('title')}</h1>
         </div>
         <div className="flex flex-col gap-6">
           {/* Header with master controls */}
@@ -1166,8 +1183,8 @@ export function AmbientSounds() {
               <Layers className="h-4 w-4" />
               <span>
                 {activeSoundsCount === 1
-                  ? "1 sound playing. You can play multiple sounds at once!"
-                  : `${activeSoundsCount} sounds playing simultaneously.`}
+                  ? t('multiSound.single')
+                  : t('multiSound.multiple', { count: activeSoundsCount })}
               </span>
             </div>
           )}
@@ -1198,7 +1215,7 @@ export function AmbientSounds() {
                         value={category}
                         className="capitalize whitespace-nowrap mb-1"
                       >
-                        {category}
+                        {t(`sounds.categories.${category}`) || category}
                       </TabsTrigger>
                     ))}
                   </TabsList>
@@ -1231,11 +1248,12 @@ export function AmbientSounds() {
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-medium flex items-center gap-2">
                   <Layers className="w-5 h-5 text-primary" />
-                  Sound Mixes
+                  {t('soundMix.title')}
                 </h3>
                 <span className="text-xs text-muted-foreground">
-                  {savedMixes.length} saved mix
-                  {savedMixes.length !== 1 ? "es" : ""}
+                  {savedMixes.length === 1 
+                    ? t('soundMix.soundCount', { count: savedMixes.length })
+                    : t('soundMix.soundCountPlural', { count: savedMixes.length })}
                 </span>
               </div>
 
@@ -1258,21 +1276,20 @@ export function AmbientSounds() {
                 <div className="flex flex-col items-center justify-center py-10 text-center border border-dashed rounded-xl border-border/50">
                   <Sparkles className="h-8 w-8 text-muted-foreground mb-2" />
                   <h3 className="text-sm font-medium mb-1">
-                    No saved mixes yet
+                    {t('soundMix.noMixes')}
                   </h3>
                   <p className="text-xs text-muted-foreground mb-3 max-w-[250px]">
-                    Play some sounds and save your mix to create custom ambient
-                    combinations
+                    {t('soundMix.noMixesDescription')}
                   </p>
                   <Button
                     variant="outline"
                     size="sm"
                     className="gap-1.5"
-                    onClick={() => setNewMixName("My First Mix")}
+                    onClick={() => setNewMixName(t('soundMix.mixNamePlaceholder'))}
                     disabled={activeSoundsCount === 0}
                   >
                     <Plus className="h-3.5 w-3.5" />
-                    Create Mix
+                    {t('soundMix.createMix')}
                   </Button>
                 </div>
               )}
@@ -1283,16 +1300,16 @@ export function AmbientSounds() {
           <div className="flex flex-wrap gap-3 text-xs text-muted-foreground border-t border-border/30 pt-4 mt-2">
             <div className="flex items-center gap-1.5">
               <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px]">
-                1-9
+                {t('shortcuts.setVolume')}
               </kbd>
-              <span>Set Volume</span>
+              <span>{t('controls.setVolume')}</span>
             </div>
             <span className="text-muted-foreground/40">•</span>
             <div className="flex items-center gap-1.5">
               <kbd className="px-1.5 py-0.5 bg-muted rounded text-[10px]">
-                Alt+1-5
+                {t('shortcuts.changeCategory')}
               </kbd>
-              <span>Change Category</span>
+              <span>{t('controls.changeCategory')}</span>
             </div>
           </div>
         </div>
