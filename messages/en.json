@@ -391,6 +391,10 @@
                         "font-sentient": "Sentient",
                         "font-gambetta": "Gambetta"
                     }
+                },
+                "language": {
+                    "title": "Language",
+                    "description": "Choose your preferred language for the application."
                 }
             },
             "aria": {

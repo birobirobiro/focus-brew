@@ -11,6 +11,7 @@ import {
   Thermometer,
   Coins,
   Type,
+  Languages,
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -39,6 +40,7 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useTranslations } from 'next-intl';
+import LocaleSwitcher from '@/components/locale-switcher';
 
 interface Props {
   font: string;
@@ -429,6 +431,27 @@ export function SettingsAppearanceTab({
                 ))}
               </SelectContent>
             </Select>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.4 }}
+      >
+        <Card className="border-border/30">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Languages className="h-5 w-5 text-primary" />
+              <div>
+                <h2 className="text-lg font-semibold">{t('language.title')}</h2>
+                <p className="text-sm text-muted-foreground">
+                  {t('language.description')}
+                </p>
+              </div>
+            </div>
+            <LocaleSwitcher />
           </CardContent>
         </Card>
       </motion.div>
