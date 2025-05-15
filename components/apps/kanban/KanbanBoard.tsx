@@ -19,6 +19,7 @@ import {
 } from "@dnd-kit/sortable";
 import { coordinateGetter } from "./multipleContainersKeyboardPreset";
 import BoardColumn from "./BoardColumn";
+import { useTranslations } from 'next-intl';
 
 export interface KanbanCard {
   id: string;
@@ -32,28 +33,29 @@ export interface KanbanColumn {
   cards: KanbanCard[];
 }
 
-const initialColumns: KanbanColumn[] = [
-  {
-    id: "todo",
-    title: "To Do",
-    cards: [],
-  },
-  {
-    id: "inprogress",
-    title: "In Progress",
-    cards: [],
-  },
-  {
-    id: "done",
-    title: "Done",
-    cards: [],
-  },
-];
-
-// Storage key for localStorage
 const STORAGE_KEY = "focusbrew-kanban-data";
 
 const KanbanBoard: React.FC = () => {
+  const t = useTranslations('components.kanban');
+  
+  const initialColumns: KanbanColumn[] = [
+    {
+      id: "todo",
+      title: t('board.columns.todo'),
+      cards: [],
+    },
+    {
+      id: "inprogress",
+      title: t('board.columns.inprogress'),
+      cards: [],
+    },
+    {
+      id: "done",
+      title: t('board.columns.done'),
+      cards: [],
+    },
+  ];
+
   const [columns, setColumns] = useState<KanbanColumn[]>(initialColumns);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [isClient, setIsClient] = useState(false);

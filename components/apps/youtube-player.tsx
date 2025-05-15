@@ -20,6 +20,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { cn } from "@/lib/utils";
 import { toast } from "@/lib/toast";
+import { useTranslations } from 'next-intl';
 
 // Types
 interface PlaylistItem {
@@ -98,73 +99,85 @@ const PlaylistItemComponent: React.FC<{
   onSave,
   onCancel,
   onTitleChange,
-}) => (
-  <li
-    className={cn(
-      "flex items-center gap-2 rounded p-1 cursor-pointer group",
-      isPlaying && "bg-muted/50 font-bold"
-    )}
-    onClick={onPlay}
-    tabIndex={0}
-    onKeyDown={(e) => {
-      if (e.key === "Enter" || e.key === " ") onPlay();
-    }}
-    aria-label={`Play ${item.title}`}
-  >
-    <Button size="sm" variant="ghost" tabIndex={-1}>
-      {index + 1}
-    </Button>
-    <div className="flex items-center flex-1 min-w-0 justify-between">
-      {isEditing ? (
-        <div
-          className="flex items-center gap-1 flex-1 min-w-0"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Input
-            value={editingTitle}
-            onChange={(e) => onTitleChange(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onSave(editingTitle);
-              if (e.key === "Escape") onCancel();
-            }}
-            className="flex-1"
-            autoFocus
-          />
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => onSave(editingTitle)}
-            tabIndex={-1}
+}) => {
+  const t = useTranslations('components.youtubePlayer');
+  
+  return (
+    <li
+      className={cn(
+        "flex items-center gap-2 rounded p-1 cursor-pointer group",
+        isPlaying && "bg-muted/50 font-bold"
+      )}
+      onClick={onPlay}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onPlay();
+      }}
+      aria-label={t('playlist.item.play', { title: item.title })}
+    >
+      <Button size="sm" variant="ghost" tabIndex={-1}>
+        {index + 1}
+      </Button>
+      <div className="flex items-center flex-1 min-w-0 justify-between">
+        {isEditing ? (
+          <div
+            className="flex items-center gap-1 flex-1 min-w-0"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Check className="h-4 w-4" />
-          </Button>
-          <Button size="icon" variant="ghost" onClick={onCancel} tabIndex={-1}>
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-      ) : (
-        <>
-          <span className="truncate flex-1">{item.title}</span>
-          <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
-            <Button size="icon" variant="ghost" onClick={onEdit} tabIndex={-1}>
-              <Edit2 className="h-4 w-4" />
-            </Button>
+            <Input
+              value={editingTitle}
+              onChange={(e) => onTitleChange(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") onSave(editingTitle);
+                if (e.key === "Escape") onCancel();
+              }}
+              className="flex-1"
+              autoFocus
+            />
             <Button
               size="icon"
               variant="ghost"
-              onClick={onDelete}
+              onClick={() => onSave(editingTitle)}
               tabIndex={-1}
             >
-              <Trash2 className="h-4 w-4" />
+              <Check className="h-4 w-4" />
+            </Button>
+            <Button size="icon" variant="ghost" onClick={onCancel} tabIndex={-1}>
+              <X className="h-4 w-4" />
             </Button>
           </div>
-        </>
-      )}
-    </div>
-  </li>
-);
+        ) : (
+          <>
+            <span className="truncate flex-1">{item.title}</span>
+            <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+              <Button 
+                size="icon" 
+                variant="ghost" 
+                onClick={onEdit} 
+                tabIndex={-1}
+                aria-label={t('playlist.item.edit')}
+              >
+                <Edit2 className="h-4 w-4" />
+              </Button>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={onDelete}
+                tabIndex={-1}
+                aria-label={t('playlist.item.delete')}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </li>
+  );
+};
 
 export function YouTubePlayer() {
+  const t = useTranslations('components.youtubePlayer');
   const [playlist, setPlaylist] = useLocalStorage<PlaylistItem[]>(
     "youtube-playlist",
     DEFAULT_PLAYLIST
@@ -209,12 +222,11 @@ export function YouTubePlayer() {
   // Error handling
   const handleError = useCallback((error: any) => {
     console.error("Player error:", error);
-    setError("An error occurred while playing the video. Please try again.");
-    toast.error("Playback Error", {
-      description:
-        "An error occurred while playing the video. Please try again.",
+    setError(t('error'));
+    toast.error(t('notifications.error.playback.title'), {
+      description: t('notifications.error.playback.description'),
     });
-  }, []);
+  }, [t]);
 
   const handleReady = useCallback(() => {
     setLoading(false);
@@ -241,16 +253,16 @@ export function YouTubePlayer() {
   const handleAdd = useCallback(() => {
     const id = extractYouTubeId(newUrl);
     if (!id) {
-      toast.error("Invalid URL", {
-        description: "Please enter a valid YouTube URL or video ID",
+      toast.error(t('notifications.invalidUrl.title'), {
+        description: t('notifications.invalidUrl.description'),
       });
       return;
     }
 
     // Duplicate check
     if (playlist.some((item) => item.id === id)) {
-      toast("This video is already in your playlist!", {
-        description: "You cannot add the same video more than once.",
+      toast(t('notifications.duplicate.title'), {
+        description: t('notifications.duplicate.description'),
         duration: 4000,
       });
       setNewUrl("");
@@ -278,19 +290,19 @@ export function YouTubePlayer() {
           },
         ]);
         setNewUrl("");
-        toast.success("Video added", {
-          description: "The video has been added to your playlist.",
+        toast.success(t('notifications.added.title'), {
+          description: t('notifications.added.description'),
         });
       })
       .catch((error) => {
-        toast.error("Error adding video", {
+        toast.error(t('notifications.error.title'), {
           description: error.message,
         });
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [newUrl, playlist, setPlaylist]);
+  }, [newUrl, playlist, setPlaylist, t]);
 
   const handleRemove = useCallback(
     (idx: number) => {
@@ -334,10 +346,10 @@ export function YouTubePlayer() {
     setEditingTitle("");
     setLoading(false);
     setError(null);
-    toast.success("Reset successful", {
-      description: "Playlist and player have been reset.",
+    toast.success(t('notifications.reset.title'), {
+      description: t('notifications.reset.description'),
     });
-  }, [setPlaylist]);
+  }, [setPlaylist, t]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -429,7 +441,7 @@ export function YouTubePlayer() {
                     ) : (
                       <div className="text-muted-foreground text-center">
                         <div className="animate-spin w-8 h-8 border-2 border-muted border-t-foreground rounded-full mb-2" />
-                        <span className="text-sm">Loading...</span>
+                        <span className="text-sm">{t('loading')}</span>
                       </div>
                     )}
                   </div>
@@ -447,7 +459,7 @@ export function YouTubePlayer() {
                 className="hover:bg-muted"
               >
                 <Video className="w-4 h-4 mr-2" />
-                {showVideo ? "Hide" : "Show"} Video
+                {showVideo ? t('controls.hideVideo') : t('controls.showVideo')}
               </Button>
 
               {/* Center Controls for Next/Previous */}
@@ -458,6 +470,7 @@ export function YouTubePlayer() {
                   onClick={handlePrev}
                   disabled={playlist.length < 2 || loading}
                   className="hover:bg-muted"
+                  aria-label={t('controls.previous')}
                 >
                   <SkipBack className="w-4 h-4" />
                 </Button>
@@ -467,6 +480,7 @@ export function YouTubePlayer() {
                   onClick={handleTogglePlay}
                   disabled={!playlist[currentIndex] || loading}
                   className="bg-foreground hover:bg-foreground/90 text-background"
+                  aria-label={playing ? t('controls.pause') : t('controls.play')}
                 >
                   {playing ? (
                     <Pause className="w-5 h-5" />
@@ -480,6 +494,7 @@ export function YouTubePlayer() {
                   onClick={handleNext}
                   disabled={playlist.length < 2 || loading}
                   className="hover:bg-muted"
+                  aria-label={t('controls.next')}
                 >
                   <SkipForward className="w-4 h-4" />
                 </Button>
@@ -491,7 +506,7 @@ export function YouTubePlayer() {
                     {playlist[currentIndex].title}
                   </div>
                 ) : (
-                  "No track selected"
+                  t('controls.noTrack')
                 )}
               </div>
             </div>
@@ -500,21 +515,21 @@ export function YouTubePlayer() {
           {/* Playlist Section */}
           <div className="flex-1 flex flex-col min-h-0">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="font-semibold text-zinc-200">Playlist</h3>
+              <h3 className="font-semibold text-zinc-200">{t('playlist.title')}</h3>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleResetAll}
                 className="text-xs hover:bg-zinc-800"
               >
-                Reset All
+                {t('playlist.resetAll')}
               </Button>
             </div>
 
             {/* URL Input */}
             <div className="flex gap-2 mb-4">
               <Input
-                placeholder="Enter YouTube URL or video ID"
+                placeholder={t('playlist.urlInput.placeholder')}
                 value={newUrl}
                 onChange={(e) => setNewUrl(e.target.value)}
                 onKeyDown={(e) => {
@@ -537,10 +552,10 @@ export function YouTubePlayer() {
                 {loading ? (
                   <>
                     <div className="animate-spin w-4 h-4 border-2 border-muted border-t-foreground rounded-full mr-2" />
-                    Adding...
+                    {t('playlist.urlInput.adding')}
                   </>
                 ) : (
-                  "Add"
+                  t('playlist.urlInput.add')
                 )}
               </Button>
             </div>
@@ -573,10 +588,10 @@ export function YouTubePlayer() {
 
             {/* Keyboard Shortcuts */}
             <div className="mt-4 text-xs text-muted-foreground grid grid-cols-2 sm:grid-cols-3 gap-2">
-              <div>Space: Play/Pause</div>
-              <div>Alt+←/→: Previous/Next</div>
-              <div>M: Mute</div>
-              <div>V: Toggle Video</div>
+              <div>{t('shortcuts.playPause')}</div>
+              <div>{t('shortcuts.prevNext')}</div>
+              <div>{t('shortcuts.mute')}</div>
+              <div>{t('shortcuts.video')}</div>
             </div>
           </div>
         </div>

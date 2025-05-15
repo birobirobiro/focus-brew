@@ -81,7 +81,7 @@
                 "description": "Assista conteúdo educacional ou ouça música para foco sem sair do aplicativo."
             },
             "habits": {
-                "title": "Rastreador de Hábitos",
+                "title": "Rastrear Hábitos",
                 "description": "Construa hábitos consistentes com nosso sistema visual de rastreamento e estatísticas."
             },
             "weather": {
@@ -132,6 +132,16 @@
                 "close": "Fechar janela",
                 "minimize": "Minimizar janela",
                 "maximize": "Maximizar janela"
+            },
+            "titles": {
+                "todo": "Tarefas",
+                "kanban": "Kanban",
+                "pomodoro": "Timer de Foco",
+                "notepad": "Notas",
+                "ambient": "Sons Ambiente",
+                "youtube": "Player do YouTube",
+                "portfolio": "Meu Portfólio",
+                "about": "Sobre"
             }
         },
         "settings": {
@@ -304,7 +314,7 @@
                         "description": "Organize suas tarefas e mantenha-se em dia."
                     },
                     "habitTracker": {
-                        "title": "Rastreador de Hábitos",
+                        "title": "Rastrear Hábitos",
                         "description": "Acompanhe seus hábitos e mantenha-se em dia."
                     },
                     "weather": {
@@ -393,6 +403,569 @@
             "languages": {
                 "en": "Inglês",
                 "pt": "Português"
+            }
+        },
+        "ambientSounds": {
+            "title": "Sons Ambiente",
+            "masterVolume": {
+                "title": "Volume Principal",
+                "description": "Controla o nível geral de som para todos os sons ambiente"
+            },
+            "multiSound": {
+                "single": "1 som tocando. Você pode tocar vários sons ao mesmo tempo!",
+                "multiple": "{count} sons tocando simultaneamente."
+            },
+            "soundMix": {
+                "title": "Misturas de Som",
+                "noMixes": "Nenhuma mistura salva ainda",
+                "noMixesDescription": "Toque alguns sons e salve sua mistura para criar combinações ambiente personalizadas",
+                "createMix": "Criar Mistura",
+                "saveMix": "Salvar Mistura Atual",
+                "mixName": "Nome da Mistura",
+                "mixNamePlaceholder": "Minha mistura personalizada",
+                "save": "Salvar",
+                "play": "Tocar",
+                "stop": "Parar",
+                "delete": "Excluir {name}",
+                "soundCount": "{count} som",
+                "soundCountPlural": "{count} sons",
+                "soundsActive": "{count} som ativo",
+                "soundsActivePlural": "{count} sons ativos"
+            },
+            "controls": {
+                "stopAll": "Parar Todos",
+                "stopAllWithCount": "Parar Todos ({count})",
+                "setVolume": "Definir Volume",
+                "changeCategory": "Mudar Categoria"
+            },
+            "shortcuts": {
+                "setVolume": "1-9",
+                "changeCategory": "Alt+1-5"
+            },
+            "sounds": {
+                "categories": {
+                    "nature": "Natureza",
+                    "rain": "Chuva",
+                    "places": "Lugares",
+                    "urban": "Urbano",
+                    "animals": "Animais",
+                    "binaural": "Binaural",
+                    "noise": "Ruído",
+                    "things": "Objetos",
+                    "transport": "Transporte"
+                },
+                "names": {
+                    "nature": {
+                        "campfire": "Fogueira",
+                        "waterfall": "Cachoeira",
+                        "waves": "Ondas",
+                        "river": "Rio",
+                        "jungle": "Selva",
+                        "wind": "Vento",
+                        "droplets": "Gotas",
+                        "howlingWind": "Vento Uivante",
+                        "walkInSnow": "Caminhada na Neve",
+                        "walkOnGravel": "Caminhada no Cascalho",
+                        "walkOnLeaves": "Caminhada nas Folhas",
+                        "windInTrees": "Vento nas Árvores"
+                    },
+                    "animals": {
+                        "beehive": "Colmeia",
+                        "birds": "Pássaros",
+                        "catPurring": "Gato Ronronando",
+                        "chickens": "Galinhas",
+                        "cows": "Vacas",
+                        "crickets": "Grilos",
+                        "crows": "Corvos",
+                        "dogBarking": "Cachorro Latindo",
+                        "frog": "Sapo",
+                        "horseGalopp": "Galope de Cavalo",
+                        "owl": "Coruja",
+                        "seagulls": "Gaivotas",
+                        "sheep": "Ovelhas",
+                        "whale": "Baleia",
+                        "wolf": "Lobo",
+                        "woodpecker": "Pica-pau"
+                    },
+                    "binaural": {
+                        "alpha": "Binaural Alfa",
+                        "beta": "Binaural Beta",
+                        "delta": "Binaural Delta",
+                        "gamma": "Binaural Gama",
+                        "theta": "Binaural Teta"
+                    },
+                    "noise": {
+                        "brown": "Ruído Marrom",
+                        "pink": "Ruído Rosa",
+                        "white": "Ruído Branco"
+                    },
+                    "places": {
+                        "airport": "Aeroporto",
+                        "cafe": "Café",
+                        "carousel": "Carrossel",
+                        "church": "Igreja",
+                        "constructionSite": "Canteiro de Obras",
+                        "crowdedBar": "Bar Lotado",
+                        "laboratory": "Laboratório",
+                        "laundryRoom": "Lavanderia",
+                        "library": "Biblioteca",
+                        "nightVillage": "Vila Noturna",
+                        "office": "Escritório",
+                        "restaurant": "Restaurante",
+                        "subwayStation": "Estação de Metrô",
+                        "supermarket": "Supermercado",
+                        "temple": "Templo",
+                        "underwater": "Subaquático"
+                    },
+                    "rain": {
+                        "light": "Chuva Leve",
+                        "heavy": "Chuva Forte",
+                        "window": "Chuva na Janela",
+                        "thunder": "Trovão",
+                        "onCarRoof": "Chuva no Teto do Carro",
+                        "onLeaves": "Chuva nas Folhas",
+                        "onTent": "Chuva na Barraca",
+                        "onUmbrella": "Chuva no Guarda-chuva"
+                    },
+                    "urban": {
+                        "ambulanceSiren": "Sirene de Ambulância",
+                        "busyStreet": "Rua Movimentada",
+                        "crowd": "Multidão",
+                        "fireworks": "Fogos de Artifício",
+                        "highway": "Rodovia",
+                        "road": "Estrada",
+                        "traffic": "Trânsito"
+                    },
+                    "things": {
+                        "boilingWater": "Água Fervendo",
+                        "bubbles": "Bolhas",
+                        "ceilingFan": "Ventilador de Teto",
+                        "clock": "Relógio",
+                        "dryer": "Secadora",
+                        "keyboard": "Teclado",
+                        "morseCode": "Código Morse",
+                        "paper": "Papel",
+                        "singingBowl": "Tigela Tibetana",
+                        "slideProjector": "Projetor de Slides",
+                        "tuningRadio": "Sintonizando Rádio",
+                        "typewriter": "Máquina de Escrever",
+                        "vinylEffect": "Efeito de Vinil",
+                        "washingMachine": "Máquina de Lavar",
+                        "windChimes": "Sinos de Vento",
+                        "windshieldWipers": "Limpador de Para-brisa",
+                        "alarm": "Alarme"
+                    },
+                    "transport": {
+                        "airplane": "Avião",
+                        "insideATrain": "Dentro do Trem",
+                        "rowingBoat": "Barco a Remo",
+                        "sailboat": "Veleiro",
+                        "submarine": "Submarino",
+                        "train": "Trem"
+                    }
+                }
+            }
+        },
+        "habitTracker": {
+            "title": "Hábitos",
+            "today": "Hoje",
+            "all": "Todos",
+            "noHabits": {
+                "title": "Nenhum hábito ainda",
+                "description": "Comece a rastrear seus hábitos para construir consistência e alcançar seus objetivos.",
+                "action": "Adicionar Seu Primeiro Hábito"
+            },
+            "noMatchingHabits": {
+                "description": "Nenhum hábito corresponde ao filtro atual.",
+                "action": "Mostrar todos os hábitos"
+            },
+            "todayProgress": {
+                "title": "Progresso de Hoje"
+            },
+            "form": {
+                "title": {
+                    "new": "Novo Hábito",
+                    "edit": "Editar Hábito"
+                },
+                "description": "Crie um novo hábito para acompanhar seu progresso.",
+                "fields": {
+                    "name": {
+                        "label": "Nome",
+                        "placeholder": "Nome do hábito"
+                    },
+                    "description": {
+                        "label": "Descrição (opcional)",
+                        "placeholder": "Do que se trata este hábito?"
+                    },
+                    "icon": "Ícone",
+                    "color": "Cor",
+                    "category": {
+                        "label": "Categoria",
+                        "placeholder": "Selecione uma categoria"
+                    },
+                    "frequency": {
+                        "label": "Frequência",
+                        "placeholder": "Selecione a frequência",
+                        "options": {
+                            "daily": "Diário",
+                            "weekly": "Semanal",
+                            "custom": "Dias personalizados"
+                        }
+                    },
+                    "customDays": {
+                        "label": "Dias da semana",
+                        "error": "Por favor, selecione pelo menos um dia"
+                    },
+                    "duration": {
+                        "label": "Duração",
+                        "description": "Quantas vezes este hábito deve ser completado no período determinado?",
+                        "period": {
+                            "placeholder": "Período",
+                            "days": "Dias",
+                            "weeks": "Semanas",
+                            "months": "Meses"
+                        }
+                    },
+                    "reminder": {
+                        "label": "Lembrete",
+                        "time": {
+                            "label": "Horário"
+                        }
+                    }
+                },
+                "buttons": {
+                    "create": "Criar",
+                    "update": "Atualizar",
+                    "cancel": "Cancelar"
+                }
+            },
+            "details": {
+                "title": "Detalhes do Hábito",
+                "calendar": {
+                    "title": "Visualização do Calendário",
+                    "completed": "Concluído",
+                    "notCompleted": "Não concluído"
+                },
+                "stats": {
+                    "title": "Estatísticas",
+                    "completionRate": "Taxa de Conclusão",
+                    "currentStreak": "Sequência Atual",
+                    "longestStreak": "Maior Sequência",
+                    "weeklyProgress": "Progresso Semanal",
+                    "lastSevenDays": "Últimos 7 dias",
+                    "daysInARow": "dias seguidos",
+                    "daysCompleted": "dias concluídos"
+                },
+                "buttons": {
+                    "edit": "Editar",
+                    "delete": "Excluir",
+                    "close": "Fechar"
+                }
+            },
+            "deleteConfirm": {
+                "title": "Excluir Hábito",
+                "description": "Tem certeza que deseja excluir \"{name}\"? Esta ação não pode ser desfeita.",
+                "cancel": "Cancelar",
+                "confirm": "Excluir"
+            },
+            "notifications": {
+                "created": {
+                    "title": "Hábito criado",
+                    "description": "{name} foi adicionado aos seus hábitos."
+                },
+                "updated": {
+                    "title": "Hábito atualizado",
+                    "description": "{name} foi atualizado."
+                },
+                "completed": {
+                    "title": "Hábito concluído!",
+                    "description": "Ótimo trabalho completando \"{name}\""
+                },
+                "deleted": {
+                    "title": "Hábito excluído",
+                    "description": "{name} foi excluído."
+                }
+            },
+            "categories": {
+                "health": "Saúde",
+                "fitness": "Fitness",
+                "productivity": "Produtividade",
+                "learning": "Aprendizado",
+                "mindfulness": "Mindfulness",
+                "other": "Outro"
+            },
+            "daysOfWeek": {
+                "mon": "Seg",
+                "tue": "Ter",
+                "wed": "Qua",
+                "thu": "Qui",
+                "fri": "Sex",
+                "sat": "Sáb",
+                "sun": "Dom"
+            }
+        },
+        "notepad": {
+            "search": {
+                "placeholder": "Buscar notas... ({shortcut})",
+                "noResults": "Nenhuma nota encontrada"
+            },
+            "actions": {
+                "new": "Nova ({shortcut})",
+                "undo": "Desfazer",
+                "redo": "Refazer"
+            },
+            "notes": {
+                "empty": "Nenhuma nota ainda. Crie uma para começar!",
+                "untitled": "Nota sem título",
+                "titlePlaceholder": "Título da nota",
+                "selectOrCreate": "Selecione uma nota ou crie uma nova",
+                "createShortcut": "Pressione {shortcut} para criar uma nova nota"
+            },
+            "status": {
+                "saving": "Salvando...",
+                "saved": "Salvo"
+            },
+            "delete": {
+                "title": "Excluir Nota",
+                "description": "Tem certeza que deseja excluir esta nota? Esta ação não pode ser desfeita.",
+                "cancel": "Cancelar",
+                "confirm": "Excluir"
+            },
+            "notifications": {
+                "saved": {
+                    "title": "Nota salva",
+                    "description": "Sua nota foi salva com sucesso."
+                },
+                "deleted": {
+                    "title": "Nota excluída",
+                    "description": "Sua nota foi excluída com sucesso."
+                }
+            }
+        },
+        "pomodoroTimer": {
+            "modes": {
+                "pomodoro": "Pomodoro",
+                "shortBreak": "Pausa Curta",
+                "longBreak": "Pausa Longa"
+            },
+            "controls": {
+                "start": "Iniciar",
+                "pause": "Pausar",
+                "stop": "Parar",
+                "reset": "Reiniciar",
+                "aria": {
+                    "switchMode": "Mudar para modo {mode}",
+                    "startTimer": "Iniciar timer",
+                    "pauseTimer": "Pausar timer",
+                    "stopTimer": "Parar timer",
+                    "resetTimer": "Reiniciar timer"
+                }
+            },
+            "audio": {
+                "volume": "Volume do Alarme: {volume}%",
+                "loop": {
+                    "on": "Repetir Ligado",
+                    "off": "Repetir Desligado",
+                    "description": {
+                        "on": "O alarme repetirá até ser parado",
+                        "off": "O alarme tocará apenas uma vez"
+                    }
+                }
+            },
+            "stats": {
+                "completedPomodoros": "Pomodoros Concluídos: {count}"
+            },
+            "notifications": {
+                "enabled": {
+                    "title": "Notificações ativadas",
+                    "description": "Você receberá notificações quando o timer terminar."
+                },
+                "denied": {
+                    "title": "Permissão de notificação negada",
+                    "description": "Por favor, ative as notificações nas configurações do navegador para receber alertas."
+                }
+            },
+            "documentTitle": {
+                "focus": "Foco",
+                "shortBreak": "Pausa Curta",
+                "longBreak": "Pausa Longa"
+            }
+        },
+        "todoApp": {
+            "header": {
+                "title": "Tarefas",
+                "sort": {
+                    "button": "Ordenar tarefas",
+                    "newest": "Mais recentes primeiro",
+                    "oldest": "Mais antigas primeiro",
+                    "alphabetical": "Alfabética"
+                },
+                "moreOptions": {
+                    "button": "Mais opções",
+                    "clearCompleted": "Limpar concluídas"
+                },
+                "input": {
+                    "placeholder": "O que precisa ser feito?",
+                    "clearButton": "Limpar entrada",
+                    "addButton": "Adicionar"
+                }
+            },
+            "filters": {
+                "all": "Todas ({count})",
+                "active": "Ativas ({count})",
+                "completed": "Concluídas ({count})"
+            },
+            "emptyState": {
+                "all": {
+                    "title": "Nenhuma tarefa ainda",
+                    "description": "Adicione sua primeira tarefa para começar"
+                },
+                "active": {
+                    "title": "Nenhuma tarefa ativa",
+                    "description": "Todas as suas tarefas estão concluídas"
+                },
+                "completed": {
+                    "title": "Nenhuma tarefa concluída",
+                    "description": "Complete uma tarefa para vê-la aqui"
+                }
+            },
+            "todoItem": {
+                "toggleComplete": {
+                    "markComplete": "Marcar como concluída",
+                    "markIncomplete": "Marcar como não concluída"
+                },
+                "delete": {
+                    "button": "Excluir tarefa",
+                    "dialog": {
+                        "title": "Excluir Tarefa",
+                        "description": "Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.",
+                        "cancel": "Cancelar",
+                        "confirm": "Excluir"
+                    }
+                },
+                "timeLabels": {
+                    "today": "Hoje",
+                    "yesterday": "Ontem",
+                    "daysAgo": "há {count} dias"
+                }
+            },
+            "footer": {
+                "stats": {
+                    "total": "{count} total",
+                    "completed": "{count} concluídas"
+                }
+            }
+        },
+        "youtubePlayer": {
+            "controls": {
+                "hideVideo": "Ocultar Vídeo",
+                "showVideo": "Mostrar Vídeo",
+                "play": "Reproduzir",
+                "pause": "Pausar",
+                "previous": "Faixa anterior",
+                "next": "Próxima faixa",
+                "noTrack": "Nenhuma faixa selecionada"
+            },
+            "playlist": {
+                "title": "Playlist",
+                "resetAll": "Redefinir Tudo",
+                "urlInput": {
+                    "placeholder": "Digite a URL do YouTube ou ID do vídeo",
+                    "add": "Adicionar",
+                    "adding": "Adicionando..."
+                },
+                "item": {
+                    "play": "Reproduzir {title}",
+                    "edit": "Editar título",
+                    "delete": "Excluir vídeo"
+                }
+            },
+            "shortcuts": {
+                "playPause": "Espaço: Reproduzir/Pausar",
+                "prevNext": "Alt+←/→: Anterior/Próximo",
+                "mute": "M: Silenciar",
+                "video": "V: Alternar Vídeo"
+            },
+            "notifications": {
+                "invalidUrl": {
+                    "title": "URL inválida",
+                    "description": "Por favor, insira uma URL ou ID de vídeo válido do YouTube"
+                },
+                "duplicate": {
+                    "title": "Este vídeo já está na sua playlist!",
+                    "description": "Você não pode adicionar o mesmo vídeo mais de uma vez."
+                },
+                "added": {
+                    "title": "Vídeo adicionado",
+                    "description": "O vídeo foi adicionado à sua playlist."
+                },
+                "error": {
+                    "title": "Erro ao adicionar vídeo",
+                    "playback": {
+                        "title": "Erro de Reprodução",
+                        "description": "Ocorreu um erro ao reproduzir o vídeo. Por favor, tente novamente."
+                    }
+                },
+                "reset": {
+                    "title": "Redefinição concluída",
+                    "description": "A playlist e o player foram redefinidos."
+                }
+            },
+            "loading": "Carregando...",
+            "error": "Ocorreu um erro ao reproduzir o vídeo. Por favor, tente novamente."
+        },
+        "kanban": {
+            "board": {
+                "columns": {
+                    "todo": "A Fazer",
+                    "inprogress": "Em Progresso",
+                    "done": "Concluído"
+                }
+            },
+            "card": {
+                "delete": {
+                    "title": "Excluir Tarefa",
+                    "description": "Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.",
+                    "cancel": "Cancelar",
+                    "confirm": "Excluir"
+                },
+                "aria": {
+                    "dragHandle": "Alça de arrasto",
+                    "taskTitle": "Tarefa: {title}",
+                    "deleteTask": "Excluir tarefa"
+                }
+            },
+            "column": {
+                "addCard": {
+                    "button": "Adicionar tarefa",
+                    "dialog": {
+                        "title": "Adicionar Nova Tarefa",
+                        "description": "Criar uma nova tarefa na coluna {column}.",
+                        "titlePlaceholder": "Título da tarefa...",
+                        "descriptionPlaceholder": "Descrição (opcional)...",
+                        "submit": "Adicionar Tarefa"
+                    }
+                },
+                "aria": {
+                    "columnTitle": "Coluna {title}",
+                    "taskCount": "({count})"
+                }
+            }
+        },
+        "toast": {
+            "notifications": {
+                "enabled": {
+                    "title": "Notificações ativadas!",
+                    "description": "Você receberá notificações do navegador conforme configurado."
+                },
+                "blocked": {
+                    "title": "Notificações bloqueadas",
+                    "description": "Por favor, ative as notificações nas configurações do navegador."
+                },
+                "permission": {
+                    "title": "Permissão de notificação necessária",
+                    "description": "Por favor, aceite o pedido de permissão de notificação."
+                }
             }
         }
     },
