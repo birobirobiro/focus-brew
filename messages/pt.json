@@ -1,1 +1,116 @@
-{}
+{
+    "title": "FocusBrew | Espaço de produtividade",
+    "description": "Espaço digital de todo list, quadros kanban, cronômetro pomodoro, notas, sons ambiente e mais para aumentar sua produtividade.",
+    "keywords": [
+        "produtividade",
+        "espaço de trabalho",
+        "todo",
+        "kanban",
+        "pomodoro",
+        "notas",
+        "sons ambiente"
+    ],
+    "landing": {
+        "nav": {
+            "features": "Recursos",
+            "preview": "Prévia",
+            "github": "GitHub"
+        },
+        "hero": {
+            "title": {
+                "prefix": "Mantenha o foco com",
+                "rotating": [
+                    "Brew",
+                    "Timer",
+                    "Notas",
+                    "Tarefas",
+                    "Sons"
+                ]
+            },
+            "description": "Um kit de ferramentas de produtividade gratuito que combina ferramentas essenciais para ajudar você a manter o foco, organização e eficiência durante seu dia de trabalho.",
+            "cta": {
+                "primary": "Começar Agora"
+            }
+        },
+        "stats": {
+            "title": "Tudo que Você Precisa em Um Só Lugar",
+            "subtitle": "FocusBrew combina todas as ferramentas essenciais de produtividade em uma única experiência integrada - totalmente gratuita.",
+            "badge": "Recursos Poderosos",
+            "items": {
+                "tools": {
+                    "value": "7",
+                    "label": "Ferramentas de Produtividade"
+                },
+                "free": {
+                    "value": "100%",
+                    "label": "Gratuito"
+                },
+                "availability": {
+                    "value": "24/7",
+                    "label": "Disponibilidade"
+                },
+                "distractions": {
+                    "value": "0",
+                    "label": "Distrações"
+                }
+            }
+        },
+        "features": {
+            "todo": {
+                "title": "Lista de Tarefas",
+                "description": "Organize suas tarefas e aumente a produtividade com nosso gerenciador intuitivo de listas."
+            },
+            "pomodoro": {
+                "title": "Timer Pomodoro",
+                "description": "Trabalhe em intervalos focados com nosso timer pomodoro personalizável para maximizar a eficiência."
+            },
+            "kanban": {
+                "title": "Quadro Kanban",
+                "description": "Visualize seu fluxo de trabalho com nosso quadro kanban de arrastar e soltar para melhor gerenciamento de projetos."
+            },
+            "ambient": {
+                "title": "Sons Ambiente",
+                "description": "Melhore seu foco com uma coleção de sons ambiente calmantes e ruído branco."
+            },
+            "notepad": {
+                "title": "Bloco de Notas",
+                "description": "Capture seus pensamentos e ideias rapidamente com nosso recurso minimalista de notas."
+            },
+            "youtube": {
+                "title": "Player do YouTube",
+                "description": "Assista conteúdo educacional ou ouça música para foco sem sair do aplicativo."
+            },
+            "habits": {
+                "title": "Rastreador de Hábitos",
+                "description": "Construa hábitos consistentes com nosso sistema visual de rastreamento e estatísticas."
+            },
+            "weather": {
+                "title": "Previsão do Tempo",
+                "description": "Verifique rapidamente a previsão do tempo para planejar melhor seu dia de trabalho."
+            },
+            "currency": {
+                "title": "Taxas de Câmbio",
+                "description": "Acompanhe as principais taxas de câmbio em tempo real sem sair do aplicativo."
+            }
+        },
+        "preview": {
+            "title": "Veja o FocusBrew em Ação",
+            "subtitle": "Veja como nosso kit de ferramentas de produtividade gratuito reúne ferramentas essenciais para ajudar você a manter o foco e eficiência durante seu dia de trabalho.",
+            "badge": "Prévia do App"
+        },
+        "contribute": {
+            "title": "Quer contribuir?",
+            "description": "Se você quiser ajudar, sugerir melhorias ou apenas dar uma estrela, confira nosso repositório no GitHub.",
+            "cta": "Ver no GitHub"
+        },
+        "footer": {
+            "slogan": "Prepare sua produtividade",
+            "copyright": "© {year} FocusBrew. Todos os direitos reservados.",
+            "vibe": "Este projeto foi 100% desenvolvido com \"vibe coding\"",
+            "nav": {
+                "features": "Recursos",
+                "preview": "Prévia"
+            }
+        }
+    }
+}

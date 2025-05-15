@@ -1,1 +1,116 @@
-{}
+{
+    "title": "FocusBrew | Productivity Workspace",
+    "description": "All-in-one digital workspace with todo lists, kanban boards, pomodoro timer, notes, ambient sounds, and more to boost your productivity.",
+    "keywords": [
+        "productivity",
+        "workspace",
+        "todo",
+        "kanban",
+        "pomodoro",
+        "notes",
+        "ambient sounds"
+    ],
+    "landing": {
+        "nav": {
+            "features": "Features",
+            "preview": "Preview",
+            "github": "GitHub"
+        },
+        "hero": {
+            "title": {
+                "prefix": "Stay focused with",
+                "rotating": [
+                    "Brew",
+                    "Timer",
+                    "Notes",
+                    "Tasks",
+                    "Sounds"
+                ]
+            },
+            "description": "A free productivity toolkit that combines essential tools to help you stay focused, organized, and efficient throughout your workday.",
+            "cta": {
+                "primary": "Focus Now"
+            }
+        },
+        "stats": {
+            "title": "Everything You Need in One Place",
+            "subtitle": "FocusBrew combines all essential productivity tools into a single, seamless experience - completely free.",
+            "badge": "Powerful Features",
+            "items": {
+                "tools": {
+                    "value": "7",
+                    "label": "Productivity Tools"
+                },
+                "free": {
+                    "value": "100%",
+                    "label": "Free to Use"
+                },
+                "availability": {
+                    "value": "24/7",
+                    "label": "Availability"
+                },
+                "distractions": {
+                    "value": "0",
+                    "label": "Distractions"
+                }
+            }
+        },
+        "features": {
+            "todo": {
+                "title": "Todo App",
+                "description": "Organize your tasks and boost productivity with our intuitive todo list manager."
+            },
+            "pomodoro": {
+                "title": "Pomodoro Timer",
+                "description": "Work in focused intervals with our customizable pomodoro timer to maximize efficiency."
+            },
+            "kanban": {
+                "title": "Kanban Board",
+                "description": "Visualize your workflow with our drag-and-drop kanban board for better project management."
+            },
+            "ambient": {
+                "title": "Ambient Sounds",
+                "description": "Enhance your focus with a collection of calming ambient sounds and white noise."
+            },
+            "notepad": {
+                "title": "Notepad",
+                "description": "Capture your thoughts and ideas quickly with our minimalist notepad feature."
+            },
+            "youtube": {
+                "title": "YouTube Player",
+                "description": "Watch educational content or listen to focus music without leaving the app."
+            },
+            "habits": {
+                "title": "Habit Tracker",
+                "description": "Build consistent habits with our visual habit tracking system and statistics."
+            },
+            "weather": {
+                "title": "Weather Forecast",
+                "description": "Quickly check the weather forecast to better plan your workday."
+            },
+            "currency": {
+                "title": "Currency Exchange Rates",
+                "description": "Track major currency exchange rates in real time without leaving the app."
+            }
+        },
+        "preview": {
+            "title": "See FocusBrew in Action",
+            "subtitle": "Watch how our free productivity toolkit brings together essential tools to help you stay focused and efficient throughout your workday.",
+            "badge": "App Preview"
+        },
+        "contribute": {
+            "title": "Want to contribute?",
+            "description": "If you want to help, suggest improvements, or just give us a star, check out our repository on GitHub.",
+            "cta": "View on GitHub"
+        },
+        "footer": {
+            "slogan": "Brew your productivity",
+            "copyright": "© {year} FocusBrew. All rights reserved.",
+            "vibe": "This project was 100% developed with \"vibe coding\"",
+            "nav": {
+                "features": "Features",
+                "preview": "Preview"
+            }
+        }
+    }
+}

@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter, Link } from '@/i18n/routing';
+import { useRouter, Link, usePathname } from '@/i18n/routing';
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from 'next-intl';
 import {
   ArrowRight,
   Check,
@@ -19,6 +20,7 @@ import {
   X,
   CloudSun,
   DollarSign,
+  Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -27,6 +29,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import YouTube from "react-youtube";
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 const transitionVariants = {
   item: {
@@ -49,7 +52,7 @@ const transitionVariants = {
 };
 
 interface TextRotateProps {
-  texts: string[];
+  texts: string | string[];
   rotationInterval?: number;
   mainClassName?: string;
 }
@@ -60,16 +63,17 @@ function TextRotate({
   mainClassName,
 }: TextRotateProps) {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const textArray = Array.isArray(texts) ? texts : [texts];
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTextIndex((prevIndex) =>
-        prevIndex === texts.length - 1 ? 0 : prevIndex + 1
+        prevIndex === textArray.length - 1 ? 0 : prevIndex + 1
       );
     }, rotationInterval);
 
     return () => clearInterval(intervalId);
-  }, [texts, rotationInterval]);
+  }, [textArray, rotationInterval]);
 
   return (
     <span className={`overflow-hidden inline-block ${mainClassName}`}>
@@ -82,7 +86,7 @@ function TextRotate({
           transition={{ type: "spring", damping: 30, stiffness: 400 }}
           className="inline-block"
         >
-          {texts[currentTextIndex]}
+          {textArray[currentTextIndex]}
         </motion.span>
       </AnimatePresence>
     </span>
@@ -182,15 +186,22 @@ function Testimonial({
   );
 }
 
-const menuItems = [
-  { name: "Features", href: "#features-section" },
-  { name: "Preview", href: "#preview-section" },
+interface MenuItem {
+  name: string;
+  href: string;
+}
+
+const menuItems: MenuItem[] = [
+  { name: "nav.features", href: "#features-section" },
+  { name: "nav.preview", href: "#preview-section" },
 ];
 
 const HeroHeader = () => {
   const [menuState, setMenuState] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const t = useTranslations('landing');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -331,7 +342,7 @@ const HeroHeader = () => {
                         }
                       }}
                     >
-                      <span>{item.name}</span>
+                      <span>{t(item.name)}</span>
                       <span
                         data-underline
                         className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary/30 transition-all duration-300"
@@ -353,7 +364,7 @@ const HeroHeader = () => {
             >
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
-                  {menuItems.map((item) => (
+                  {menuItems.map((item: MenuItem) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -374,7 +385,7 @@ const HeroHeader = () => {
                           }
                         }}
                       >
-                        <span>{item.name}</span>
+                        <span>{t(item.name)}</span>
                         <span
                           data-underline
                           className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary/30 transition-all duration-300"
@@ -397,8 +408,9 @@ const HeroHeader = () => {
                   }
                 >
                   <GitHubLogoIcon className="h-4 w-4" />
-                  <span className="hidden md:inline">GitHub</span>
+                  <span className="hidden md:inline">{t('nav.github')}</span>
                 </Button>
+                <LanguageSwitcher />
               </div>
             </motion.div>
           </div>
@@ -410,6 +422,7 @@ const HeroHeader = () => {
 
 function HeroSection() {
   const router = useRouter();
+  const t = useTranslations('landing');
 
   return (
     <div className="min-h-screen">
@@ -494,12 +507,12 @@ function HeroSection() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  Stay focused with{" "}
+                  {t('hero.title.prefix')}{" "}
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
                     Focus
                   </span>
                   <TextRotate
-                    texts={["Brew", "Timer", "Notes", "Tasks", "Sounds"]}
+                    texts={t.raw('hero.title.rotating')}
                     mainClassName="bg-clip-text text-transparent bg-gradient-to-r from-primary/70 to-primary ml-2"
                   />
                 </motion.h1>
@@ -510,9 +523,7 @@ function HeroSection() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                  A free productivity toolkit that combines essential tools to
-                  help you stay focused, organized, and efficient throughout
-                  your workday.
+                  {t('hero.description')}
                 </motion.p>
 
                 <motion.div
@@ -526,9 +537,9 @@ function HeroSection() {
                     <Button
                       size="lg"
                       className="relative rounded-xl px-8 py-6 text-base font-medium bg-background text-foreground hover:text-background hover:bg-primary border border-primary/20 transition-all duration-300 flex items-center gap-2"
-                      onClick={() => router.push("/app")}
+                      onClick={() => router.push('/app')}
                     >
-                      <span>Focus Now</span>
+                      <span>{t('hero.cta.primary')}</span>
                       <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </div>
@@ -575,56 +586,28 @@ function HeroSection() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
               <Badge variant="outline" className="mb-4 px-3 py-1">
-                <span className="text-muted-foreground">Powerful Features</span>
+                <span className="text-muted-foreground">{t('stats.badge')}</span>
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Everything You Need in One Place
+                {t('stats.title')}
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                FocusBrew combines all essential productivity tools into a
-                single, seamless experience - completely free.
+                {t('stats.subtitle')}
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="flex flex-col items-center justify-center text-center"
-              >
-                <h3 className="text-4xl font-bold text-primary mb-2">7</h3>
-                <p className="text-muted-foreground">Productivity Tools</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex flex-col items-center justify-center text-center"
-              >
-                <h3 className="text-4xl font-bold text-primary mb-2">100%</h3>
-                <p className="text-muted-foreground">Free to Use</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-col items-center justify-center text-center"
-              >
-                <h3 className="text-4xl font-bold text-primary mb-2">24/7</h3>
-                <p className="text-muted-foreground">Availability</p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-col items-center justify-center text-center"
-              >
-                <h3 className="text-4xl font-bold text-primary mb-2">0</h3>
-                <p className="text-muted-foreground">Distractions</p>
-              </motion.div>
+              {Object.entries(t.raw('stats.items') as Record<string, { value: string; label: string }>).map(([key, item], index) => (
+                <motion.div
+                  key={key}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  className="flex flex-col items-center justify-center text-center"
+                >
+                  <h3 className="text-4xl font-bold text-primary mb-2">{item.value}</h3>
+                  <p className="text-muted-foreground">{item.label}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
@@ -635,61 +618,53 @@ function HeroSection() {
 
 function FocusBrewLanding() {
   const router = useRouter();
+  const t = useTranslations('landing');
 
   const features = [
     {
       icon: <ListTodo className="h-6 w-6 text-primary" />,
-      title: "Todo App",
-      description:
-        "Organize your tasks and boost productivity with our intuitive todo list manager.",
+      title: t('features.todo.title'),
+      description: t('features.todo.description'),
     },
     {
       icon: <Clock className="h-6 w-6 text-primary" />,
-      title: "Pomodoro Timer",
-      description:
-        "Work in focused intervals with our customizable pomodoro timer to maximize efficiency.",
+      title: t('features.pomodoro.title'),
+      description: t('features.pomodoro.description'),
     },
     {
       icon: <Layout className="h-6 w-6 text-primary" />,
-      title: "Kanban Board",
-      description:
-        "Visualize your workflow with our drag-and-drop kanban board for better project management.",
+      title: t('features.kanban.title'),
+      description: t('features.kanban.description'),
     },
     {
       icon: <Music className="h-6 w-6 text-primary" />,
-      title: "Ambient Sounds",
-      description:
-        "Enhance your focus with a collection of calming ambient sounds and white noise.",
+      title: t('features.ambient.title'),
+      description: t('features.ambient.description'),
     },
     {
       icon: <FileText className="h-6 w-6 text-primary" />,
-      title: "Notepad",
-      description:
-        "Capture your thoughts and ideas quickly with our minimalist notepad feature.",
+      title: t('features.notepad.title'),
+      description: t('features.notepad.description'),
     },
     {
       icon: <PlaySquare className="h-6 w-6 text-primary" />,
-      title: "YouTube Player",
-      description:
-        "Watch educational content or listen to focus music without leaving the app.",
+      title: t('features.youtube.title'),
+      description: t('features.youtube.description'),
     },
     {
       icon: <Check className="h-6 w-6 text-primary" />,
-      title: "Habit Tracker",
-      description:
-        "Build consistent habits with our visual habit tracking system and statistics.",
+      title: t('features.habits.title'),
+      description: t('features.habits.description'),
     },
     {
       icon: <CloudSun className="h-6 w-6 text-primary" />,
-      title: "Weather Forecast",
-      description:
-        "Quickly check the weather forecast to better plan your workday.",
+      title: t('features.weather.title'),
+      description: t('features.weather.description'),
     },
     {
       icon: <DollarSign className="h-6 w-6 text-primary" />,
-      title: "Currency Exchange Rates",
-      description:
-        "Track major currency exchange rates in real time without leaving the app.",
+      title: t('features.currency.title'),
+      description: t('features.currency.description'),
     },
   ];
 
@@ -758,15 +733,13 @@ function FocusBrewLanding() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge variant="outline" className="mb-4 px-3 py-1">
-              <span className="text-muted-foreground">App Preview</span>
+              <span className="text-muted-foreground">{t('preview.badge')}</span>
             </Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              See FocusBrew in Action
+              {t('preview.title')}
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Watch how our free productivity toolkit brings together essential
-              tools to help you stay focused and efficient throughout your
-              workday.
+              {t('preview.subtitle')}
             </p>
           </div>
 
@@ -814,12 +787,11 @@ function FocusBrewLanding() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Want to contribute?
+              {t('contribute.title')}
             </h2>
 
             <p className="text-lg text-muted-foreground mb-10">
-              If you want to help, suggest improvements, or just give us a star,
-              check out our repository on GitHub.
+              {t('contribute.description')}
             </p>
             <div className="inline-block relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-xl blur opacity-30 group-hover:opacity-70 transition duration-300" />
@@ -835,7 +807,7 @@ function FocusBrewLanding() {
                 }
               >
                 <GitHubLogoIcon className="w-5 h-5" />
-                <span>View on GitHub</span>
+                <span>{t('contribute.cta')}</span>
               </Button>
             </div>
           </motion.div>
@@ -850,7 +822,7 @@ function FocusBrewLanding() {
               <h3 className="text-2xl font-bold">
                 Focus<span className="text-primary">Brew</span>
               </h3>
-              <p className="text-muted-foreground">Brew your productivity</p>
+              <p className="text-muted-foreground">{t('footer.slogan')}</p>
             </div>
             <div className="flex flex-wrap gap-4 md:gap-8 justify-center">
               <Link
@@ -864,7 +836,7 @@ function FocusBrewLanding() {
                   }
                 }}
               >
-                Features
+                {t('footer.nav.features')}
               </Link>
               <Link
                 href="#preview-section"
@@ -877,15 +849,15 @@ function FocusBrewLanding() {
                   }
                 }}
               >
-                Preview
+                {t('footer.nav.preview')}
               </Link>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground">
-            <p>© {new Date().getFullYear()} FocusBrew. All rights reserved.</p>
+            <p>{t('footer.copyright', { year: new Date().getFullYear() })}</p>
           </div>
           <div className="mt-4 text-center text-muted-foreground text-sm opacity-80">
-            This project was 100% developed with "vibe coding"
+            {t('footer.vibe')}
           </div>
         </div>
       </footer>
