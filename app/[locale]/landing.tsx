@@ -29,7 +29,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import YouTube from "react-youtube";
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import LocaleSwitcher from '@/components/locale-switcher';
 
 const transitionVariants = {
   item: {
@@ -76,7 +76,7 @@ function TextRotate({
   }, [textArray, rotationInterval]);
 
   return (
-    <span className={`overflow-hidden inline-block ${mainClassName}`}>
+    <span className={`overflow-hidden inline-flex items-center ${mainClassName}`}>
       <AnimatePresence mode="wait">
         <motion.span
           key={currentTextIndex}
@@ -410,7 +410,7 @@ const HeroHeader = () => {
                   <GitHubLogoIcon className="h-4 w-4" />
                   <span className="hidden md:inline">{t('nav.github')}</span>
                 </Button>
-                <LanguageSwitcher />
+                <LocaleSwitcher />
               </div>
             </motion.div>
           </div>

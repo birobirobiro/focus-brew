@@ -9,8 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
-export default function LocaleSwitcher() {
+interface LocaleSwitcherProps {
+  size?: 'sm' | 'default'
+}
+
+export default function LocaleSwitcher({ size = 'default' }: LocaleSwitcherProps) {
   const t = useTranslations('components.localeSwitcher');
   const pathname = usePathname();
   const router = useRouter();
@@ -25,14 +30,18 @@ export default function LocaleSwitcher() {
 
   return (
     <Select defaultValue={currentLocale} onValueChange={onSelectChange}>
-      <SelectTrigger className="w-[120px] h-6 text-xs">
+      <SelectTrigger 
+        className={cn(
+          size === 'default' ? 'w-[130px] h-9 text-sm' : 'w-[100px] h-5 text-xs'
+        )}
+      >
         <SelectValue placeholder={t('label')} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="en" className="text-xs">
+        <SelectItem value="en" className={size === 'default' ? 'text-sm' : 'text-xs'}>
           {t('languages.en')}
         </SelectItem>
-        <SelectItem value="pt" className="text-xs">
+        <SelectItem value="pt" className={size === 'default' ? 'text-sm' : 'text-xs'}>
           {t('languages.pt')}
         </SelectItem>
       </SelectContent>
