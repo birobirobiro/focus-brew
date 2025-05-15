@@ -124,7 +124,8 @@
                 "ambientSounds": "Sons Ambiente",
                 "youtubePlayer": "Player do YouTube",
                 "portfolio": "Meu Portfólio",
-                "about": "Sobre"
+                "about": "Sobre",
+                "pwa": "Instalar App (PWA)"
             }
         },
         "window": {
@@ -143,7 +144,8 @@
                 "settings": "Configurações",
                 "habit": "Rastrear Hábitos",
                 "portfolio": "Meu Portfólio",
-                "about": "Sobre"
+                "about": "Sobre",
+                "pwa": "Instalar App (PWA)"
             }
         },
         "settings": {
@@ -235,6 +237,14 @@
                         "title": "Configurações de notificação redefinidas",
                         "description": "As configurações de notificação foram redefinidas para os padrões."
                     }
+                },
+                "enabled": {
+                    "title": "Notificações ativadas",
+                    "description": "Você receberá notificações quando o timer terminar."
+                },
+                "denied": {
+                    "title": "Permissão de notificação negada",
+                    "description": "Por favor, ative as notificações nas configurações do navegador para receber alertas do timer."
                 }
             },
             "volume": {
@@ -788,13 +798,45 @@
                 },
                 "denied": {
                     "title": "Permissão de notificação negada",
-                    "description": "Por favor, ative as notificações nas configurações do navegador para receber alertas."
+                    "description": "Por favor, ative as notificações nas configurações do navegador para receber alertas do timer."
+                },
+                "pomodoro": {
+                    "work": {
+                        "title": "Pomodoro Concluído!",
+                        "body": "Ótimo trabalho! Hora de uma pausa de {duration} minutos."
+                    },
+                    "break": {
+                        "title": "Pausa Concluída!",
+                        "body": "Hora de voltar ao trabalho!"
+                    },
+                    "longBreak": {
+                        "title": "Pausa Longa Concluída!",
+                        "body": "Pronto para começar uma nova sessão pomodoro?"
+                    }
                 }
             },
             "documentTitle": {
                 "focus": "Foco",
                 "shortBreak": "Pausa Curta",
-                "longBreak": "Pausa Longa"
+                "longBreak": "Pausa Longa",
+                "custom": "Personalizado"
+            },
+            "customTimer": {
+                "button": "Personalizado",
+                "title": "Timer Personalizado",
+                "description": "Defina uma duração personalizada para sua sessão de trabalho",
+                "placeholder": "Minutos",
+                "setTimer": "Definir Timer",
+                "error": {
+                    "invalidDuration": {
+                        "title": "Duração inválida",
+                        "description": "Por favor, insira uma duração válida maior que 0."
+                    }
+                },
+                "success": {
+                    "title": "Timer personalizado definido",
+                    "description": "Timer definido para {duration} minutos"
+                }
             }
         },
         "todoApp": {
@@ -1000,6 +1042,9 @@
             },
             "settings": {
                 "label": "Configurações"
+            },
+            "pwa": {
+                "label": "Instalar App (PWA)"
             }
         }
     },

@@ -124,7 +124,8 @@
                 "ambientSounds": "Ambient Sounds",
                 "youtubePlayer": "YouTube Player",
                 "portfolio": "My Portfolio",
-                "about": "About"
+                "about": "About",
+                "pwa": "Install App (PWA)"
             }
         },
         "window": {
@@ -143,7 +144,8 @@
                 "settings": "Settings",
                 "habit": "Habit Tracker",
                 "portfolio": "My Portfolio",
-                "about": "About"
+                "about": "About",
+                "pwa": "Install App (PWA)"
             }
         },
         "settings": {
@@ -181,10 +183,6 @@
                 "habits": {
                     "label": "Habit Reminders",
                     "description": "Receive reminders when it's time to complete your habits"
-                },
-                "pomodoro": {
-                    "label": "Pomodoro Notifications",
-                    "description": "Receive visual notifications when your pomodoro sessions end (alarm sound is controlled separately)"
                 },
                 "buttons": {
                     "test": "Test Notification",
@@ -234,6 +232,30 @@
                     "success": {
                         "title": "Notification settings reset",
                         "description": "Notification settings have been reset to defaults."
+                    }
+                },
+                "enabled": {
+                    "title": "Notifications enabled",
+                    "description": "You will receive notifications when timer completes."
+                },
+                "denied": {
+                    "title": "Notification permission denied",
+                    "description": "Please enable notifications in your browser settings to get timer alerts."
+                },
+                "pomodoro": {
+                    "label": "Pomodoro Notifications",
+                    "description": "Receive visual notifications when your pomodoro sessions end (alarm sound is controlled separately)",
+                    "work": {
+                        "title": "Pomodoro Completed!",
+                        "body": "Great work! Time for a {duration} minute break."
+                    },
+                    "break": {
+                        "title": "Break Completed!",
+                        "body": "Time to get back to work!"
+                    },
+                    "longBreak": {
+                        "title": "Long Break Completed!",
+                        "body": "Ready to start a new pomodoro session?"
                     }
                 }
             },
@@ -789,12 +811,44 @@
                 "denied": {
                     "title": "Notification permission denied",
                     "description": "Please enable notifications in your browser settings to get timer alerts."
+                },
+                "pomodoro": {
+                    "work": {
+                        "title": "Pomodoro Completed!",
+                        "body": "Great work! Time for a {duration} minute break."
+                    },
+                    "break": {
+                        "title": "Break Completed!",
+                        "body": "Time to get back to work!"
+                    },
+                    "longBreak": {
+                        "title": "Long Break Completed!",
+                        "body": "Ready to start a new pomodoro session?"
+                    }
                 }
             },
             "documentTitle": {
                 "focus": "Focus",
                 "shortBreak": "Short Break",
-                "longBreak": "Long Break"
+                "longBreak": "Long Break",
+                "custom": "Custom"
+            },
+            "customTimer": {
+                "button": "Custom",
+                "title": "Custom Timer",
+                "description": "Set a custom duration for your work session",
+                "placeholder": "Minutes",
+                "setTimer": "Set Timer",
+                "error": {
+                    "invalidDuration": {
+                        "title": "Invalid duration",
+                        "description": "Please enter a valid duration greater than 0."
+                    }
+                },
+                "success": {
+                    "title": "Custom timer set",
+                    "description": "Timer set to {duration} minutes"
+                }
             }
         },
         "todoApp": {
@@ -1000,6 +1054,9 @@
             },
             "settings": {
                 "label": "Settings"
+            },
+            "pwa": {
+                "label": "Install App (PWA)"
             }
         }
     },

@@ -232,8 +232,8 @@ export function PomodoroTimer() {
   // Set custom timer
   const handleSetCustomTimer = useCallback(() => {
     if (customTimerDuration <= 0) {
-      toast.error("Invalid duration", {
-        description: "Please enter a valid duration greater than 0.",
+      toast.error(t('customTimer.error.invalidDuration.title'), {
+        description: t('customTimer.error.invalidDuration.description'),
       });
       return;
     }
@@ -245,10 +245,10 @@ export function PomodoroTimer() {
     stopAlarmSound();
     setIsCustomTimerDialogOpen(false);
 
-    toast.success("Custom timer set", {
-      description: `Timer set to ${customTimerDuration} minutes`,
+    toast.success(t('customTimer.success.title'), {
+      description: t('customTimer.success.description', { duration: customTimerDuration }),
     });
-  }, [customTimerDuration, stopAlarmSound]);
+  }, [customTimerDuration, stopAlarmSound, t]);
 
   // Timer effect
   useEffect(() => {
@@ -288,7 +288,8 @@ export function PomodoroTimer() {
                 : "longBreak",
               mode === "pomodoro" || isUsingCustomTimer
                 ? settings.shortBreak / 60
-                : settings.pomodoro / 60
+                : settings.pomodoro / 60,
+              t
             ).catch((error) => {
               console.error("Error sending notification:", error);
             });
@@ -342,6 +343,7 @@ export function PomodoroTimer() {
     isUsingCustomTimer,
     customTimerDuration,
     stopAlarmSound,
+    t
   ]);
 
   // Add keyboard shortcuts
@@ -483,14 +485,14 @@ export function PomodoroTimer() {
                   variant={isUsingCustomTimer ? "default" : "outline"}
                   className="min-w-[40px]"
                 >
-                  Custom
+                  {t('customTimer.button')}
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                  <DialogTitle>Custom Timer</DialogTitle>
+                  <DialogTitle>{t('customTimer.title')}</DialogTitle>
                   <DialogDescription>
-                    Set a custom duration for your work session
+                    {t('customTimer.description')}
                   </DialogDescription>
                 </DialogHeader>
 
@@ -507,11 +509,11 @@ export function PomodoroTimer() {
                     )
                   }
                   className="my-4"
-                  placeholder="Minutes"
+                  placeholder={t('customTimer.placeholder')}
                 />
 
                 <Button onClick={handleSetCustomTimer} className="w-full">
-                  Set Timer
+                  {t('customTimer.setTimer')}
                 </Button>
               </DialogContent>
             </Dialog>

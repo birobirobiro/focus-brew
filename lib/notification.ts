@@ -252,22 +252,23 @@ export const sendHabitReminderNotification = async (
 // Send pomodoro notification
 export const sendPomodoroNotification = async (
   type: "work" | "break" | "longBreak",
-  duration: number
+  duration: number,
+  t: (key: string, params?: Record<string, any>) => string
 ): Promise<void> => {
   const settings = getNotificationSettings();
 
   const messages = {
     work: {
-      title: "Pomodoro Completed!",
-      body: `Great work! Time for a ${duration} minute break.`,
+      title: t('notifications.pomodoro.work.title'),
+      body: t('notifications.pomodoro.work.body', { duration }),
     },
     break: {
-      title: "Break Completed!",
-      body: "Time to get back to work!",
+      title: t('notifications.pomodoro.break.title'),
+      body: t('notifications.pomodoro.break.body'),
     },
     longBreak: {
-      title: "Long Break Completed!",
-      body: "Ready to start a new pomodoro session?",
+      title: t('notifications.pomodoro.longBreak.title'),
+      body: t('notifications.pomodoro.longBreak.body'),
     },
   };
 
@@ -286,7 +287,7 @@ export const sendPomodoroNotification = async (
       {
         body,
         tag: "pomodoro",
-        requireInteraction: type === "work", // Notificações de trabalho requerem interação
+        requireInteraction: type === "work", // Work notifications require interaction
       },
       false // Don't play sound in sendNotification
     );

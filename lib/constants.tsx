@@ -92,7 +92,7 @@ export const createAppItems = (t: ReturnType<typeof createTranslator>): AppMenuI
   },
   {
     id: "pwa",
-    label: "Install App (PWA)",
+    label: t('apps.items.pwa.label'),
     icon: createIcon(Download),
     shortcutKey: "8",
     getShortcutText: () => formatShortcut("8"),
