@@ -1,6 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { Command } from "cmdk";
 import {
-  Command,
+  Calculator,
+  Calendar,
+  CreditCard,
+  Settings,
+  Smile,
+  User,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { AppId, createAppItems, createSettingsApp } from "@/lib/constants";
+import { useTranslations } from 'next-intl';
+import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -10,9 +21,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import { AppId, APP_ITEMS, SETTINGS_APP } from "@/lib/constants";
 import { Info, X, RotateCcw } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { toast } from "@/lib/toast";
 
 type CommandPaletteProps = {
@@ -33,6 +42,9 @@ export function CommandPalette({
   resetAllWindows,
 }: CommandPaletteProps) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations();
+  const APP_ITEMS = createAppItems(t);
+  const SETTINGS_APP = createSettingsApp(t);
 
   const handleReset = useCallback(() => {
     // Clear all localStorage data

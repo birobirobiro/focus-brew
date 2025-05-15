@@ -12,6 +12,7 @@ import {
   Download,
 } from "lucide-react";
 import { formatShortcut } from "./utils";
+import { createTranslator } from 'next-intl';
 
 export type AppId =
   | "todo"
@@ -39,52 +40,52 @@ export interface AppMenuItem {
 
 const createIcon = (Icon: LucideIcon) => <Icon className="h-6 w-6" />;
 
-export const APP_ITEMS: AppMenuItem[] = [
+export const createAppItems = (t: ReturnType<typeof createTranslator>): AppMenuItem[] => [
   {
     id: "todo",
-    label: "Tasks",
+    label: t('apps.items.todo.label'),
     icon: createIcon(ListTodo),
     shortcutKey: "1",
     getShortcutText: () => formatShortcut("1"),
   },
   {
     id: "kanban",
-    label: "Kanban",
+    label: t('apps.items.kanban.label'),
     icon: createIcon(Kanban),
     shortcutKey: "2",
     getShortcutText: () => formatShortcut("2"),
   },
   {
     id: "habit",
-    label: "Habit Tracker",
+    label: t('apps.items.habit.label'),
     icon: createIcon(CalendarCheck),
     shortcutKey: "3",
     getShortcutText: () => formatShortcut("3"),
   },
   {
     id: "pomodoro",
-    label: "Focus Timer",
+    label: t('apps.items.pomodoro.label'),
     icon: createIcon(Timer),
     shortcutKey: "4",
     getShortcutText: () => formatShortcut("4"),
   },
   {
     id: "notepad",
-    label: "Notes",
+    label: t('apps.items.notepad.label'),
     icon: createIcon(FileText),
     shortcutKey: "5",
     getShortcutText: () => formatShortcut("5"),
   },
   {
     id: "ambient",
-    label: "Ambient Sounds",
+    label: t('apps.items.ambient.label'),
     icon: createIcon(Music),
     shortcutKey: "6",
     getShortcutText: () => formatShortcut("6"),
   },
   {
     id: "youtube",
-    label: "YouTube Player",
+    label: t('apps.items.youtube.label'),
     icon: createIcon(Youtube),
     shortcutKey: "7",
     getShortcutText: () => formatShortcut("7"),
@@ -98,10 +99,10 @@ export const APP_ITEMS: AppMenuItem[] = [
   },
 ];
 
-export const SETTINGS_APP: AppMenuItem = {
+export const createSettingsApp = (t: ReturnType<typeof createTranslator>): AppMenuItem => ({
   id: "settings",
-  label: "Settings",
+  label: t('apps.items.settings.label'),
   icon: createIcon(Settings),
   shortcutKey: "0",
   getShortcutText: () => formatShortcut("0"),
-};
+});

@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { X, Minus, Plus } from "lucide-react";
 import { throttle } from "lodash";
+import { useTranslations } from 'next-intl';
 
 const MIN_WINDOW_SIZE = {
   width: 300,
@@ -51,6 +52,7 @@ const WindowControl = ({
   icon,
 }: WindowControlProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const t = useTranslations('components.window.controls');
 
   const variantStyles = {
     close: {
@@ -80,6 +82,7 @@ const WindowControl = ({
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
       style={{ cursor: onClick ? "pointer" : "default" }}
+      aria-label={t(variant)}
     >
       {isHovered && icon && (
         <motion.span

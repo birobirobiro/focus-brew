@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, Trash2, Upload } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 interface WallpaperTabProps {
   wallpaper: string;
@@ -30,44 +31,48 @@ const WallpaperTile: React.FC<WallpaperTileProps> = ({
   onSelect,
   onDelete,
   altText,
-}) => (
-  <div
-    className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${
-      isSelected ? "border-primary" : "border-transparent"
-    }`}
-    onClick={onSelect}
-  >
-    <img
-      src={src || "/placeholder.svg"}
-      alt={altText}
-      className="w-full h-32 object-cover"
-      onError={(e) => {
-        console.error(`Failed to load wallpaper: ${src}`);
-        e.currentTarget.src = "/placeholder.svg";
-      }}
-    />
-    {isSelected && (
-      <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
-        <Check className="h-4 w-4" />
-      </div>
-    )}
-    {onDelete && (
-      <Button
-        type="button"
-        size="icon"
-        variant="destructive"
-        className="absolute bottom-2 right-2 h-6 w-6 min-w-0 p-0"
-        onClick={(e) => {
-          e.stopPropagation();
-          onDelete();
+}) => {
+  const t = useTranslations('components.settings.wallpaper');
+  
+  return (
+    <div
+      className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${
+        isSelected ? "border-primary" : "border-transparent"
+      }`}
+      onClick={onSelect}
+    >
+      <img
+        src={src || "/placeholder.svg"}
+        alt={altText}
+        className="w-full h-32 object-cover"
+        onError={(e) => {
+          console.error(`Failed to load wallpaper: ${src}`);
+          e.currentTarget.src = "/placeholder.svg";
         }}
-        aria-label="Delete wallpaper"
-      >
-        <Trash2 className="h-4 w-4" />
-      </Button>
-    )}
-  </div>
-);
+      />
+      {isSelected && (
+        <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
+          <Check className="h-4 w-4" />
+        </div>
+      )}
+      {onDelete && (
+        <Button
+          type="button"
+          size="icon"
+          variant="destructive"
+          className="absolute bottom-2 right-2 h-6 w-6 min-w-0 p-0"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+          aria-label={t('buttons.delete')}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      )}
+    </div>
+  );
+};
 
 export function SettingsWallpaperTab({
   wallpaper,
@@ -80,6 +85,8 @@ export function SettingsWallpaperTab({
   handleFileUpload,
   wallpapers,
 }: WallpaperTabProps) {
+  const t = useTranslations('components.settings.wallpaper');
+
   const handleWallpaperSelect = useCallback(
     (wp: string) => {
       setSelectedWallpaper(wp);
@@ -113,9 +120,9 @@ export function SettingsWallpaperTab({
   return (
     <>
       <div className="mb-8">
-        <h2 className="text-xl font-bold mb-1">Wallpaper</h2>
+        <h2 className="text-xl font-bold mb-1">{t('title')}</h2>
         <p className="text-muted-foreground text-xs mb-4">
-          Choose a background for your workspace.
+          {t('description')}
         </p>
         <div className="grid grid-cols-2 gap-4">
           {wallpapers.map((wp) => (
@@ -124,7 +131,7 @@ export function SettingsWallpaperTab({
               src={wp}
               isSelected={selectedWallpaper === wp}
               onSelect={() => handleWallpaperSelect(wp)}
-              altText="Default Wallpaper"
+              altText={t('defaultWallpaper')}
             />
           ))}
           {customWallpapers.map((wp, index) => (
@@ -134,15 +141,15 @@ export function SettingsWallpaperTab({
               isSelected={selectedWallpaper === wp}
               onSelect={() => handleWallpaperSelect(wp)}
               onDelete={() => handleCustomWallpaperDelete(index, wp)}
-              altText={`Custom Wallpaper ${index + 1}`}
+              altText={t('customWallpaper', { index: index + 1 })}
             />
           ))}
         </div>
       </div>
       <div className="mb-8">
-        <h2 className="text-xl font-bold mb-1">Custom Wallpaper</h2>
+        <h2 className="text-xl font-bold mb-1">{t('custom.title')}</h2>
         <p className="text-muted-foreground text-xs mb-4">
-          Upload your own image as wallpaper.
+          {t('custom.description')}
         </p>
         <div className="flex items-center space-x-4">
           <Button
@@ -151,7 +158,7 @@ export function SettingsWallpaperTab({
             className="bg-background/50"
           >
             <Upload className="h-4 w-4 mr-2" />
-            Upload Image
+            {t('buttons.upload')}
           </Button>
           <input
             type="file"

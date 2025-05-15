@@ -18,7 +18,9 @@ import {
 import { motion } from "framer-motion";
 import { ExchangeRate } from "@/components/exchange-rate";
 import { cn, formatShortcut } from "@/lib/utils";
-import { AppId, SettingsTab, APP_ITEMS, SETTINGS_APP } from "@/lib/constants";
+import { AppId, SettingsTab, createAppItems, createSettingsApp } from "@/lib/constants";
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from './locale-switcher';
 
 type MenuBarProps = {
   openApp: (appId: AppId) => void;
@@ -35,6 +37,12 @@ export function MenuBar({
   activeApps,
   className,
 }: MenuBarProps) {
+  const t = useTranslations();
+  const menuT = useTranslations('components.menuBar.apps');
+  
+  const APP_ITEMS = createAppItems(t);
+  const SETTINGS_APP = createSettingsApp(t);
+
   const [dateTime, setDateTime] = useState(() => {
     const now = new Date();
     const weekday = now.toLocaleDateString([], { weekday: "short" });
@@ -138,68 +146,27 @@ export function MenuBar({
               sideOffset={4}
               alignOffset={-4}
             >
-              {/* Tasks */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("todo")}
-              >
-                Tasks
-                <MenubarShortcut>{formatShortcut("1")}</MenubarShortcut>
-              </MenubarItem>
-
-              {/* Kanban */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("kanban")}
-              >
-                Kanban
-                <MenubarShortcut>{formatShortcut("2")}</MenubarShortcut>
-              </MenubarItem>
-
-              {/* Habit Tracker */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("habit")}
-              >
-                Habit Tracker
-                <MenubarShortcut>{formatShortcut("3")}</MenubarShortcut>
-              </MenubarItem>
-
-              {/* Focus Timer */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("pomodoro")}
-              >
-                Focus Timer
-                <MenubarShortcut>{formatShortcut("4")}</MenubarShortcut>
-              </MenubarItem>
-
-              {/* Notes */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("notepad")}
-              >
-                Notes
-                <MenubarShortcut>{formatShortcut("5")}</MenubarShortcut>
-              </MenubarItem>
-
-              {/* Ambient Sounds */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("ambient")}
-              >
-                Ambient Sounds
-                <MenubarShortcut>{formatShortcut("6")}</MenubarShortcut>
-              </MenubarItem>
-
-              {/* YouTube Player */}
-              <MenubarItem
-                className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
-                onClick={() => openApp("youtube")}
-              >
-                YouTube Player
-                <MenubarShortcut>{formatShortcut("7")}</MenubarShortcut>
-              </MenubarItem>
+              {APP_ITEMS.map((item) => (
+                <MenubarItem
+                  key={item.id}
+                  className="text-xs focus:bg-accent focus:text-accent-foreground hover:bg-accent/50 px-2 py-1.5 rounded-sm"
+                  onClick={() => openApp(item.id)}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="h-4 w-4 text-primary/70 group-hover:text-primary overflow-hidden flex items-center justify-center">
+                      <span className="scale-[0.67] transform-gpu">
+                        {item.icon}
+                      </span>
+                    </span>
+                    <span>{item.label}</span>
+                  </div>
+                  {item.getShortcutText && (
+                    <MenubarShortcut>
+                      {item.getShortcutText()}
+                    </MenubarShortcut>
+                  )}
+                </MenubarItem>
+              ))}
 
               <MenubarSeparator />
 
@@ -254,7 +221,7 @@ export function MenuBar({
                   <span className="h-4 w-4 text-primary/70 group-hover:text-primary">
                     <Globe className="h-4 w-4" />
                   </span>
-                  <span>My Portfolio</span>
+                  <span>{t('components.menuBar.apps.portfolio')}</span>
                 </div>
               </MenubarItem>
 
@@ -284,7 +251,7 @@ export function MenuBar({
                   <span className="h-4 w-4 text-primary/70 group-hover:text-primary">
                     <Info className="h-4 w-4" />
                   </span>
-                  <span>About</span>
+                  <span>{t('components.menuBar.apps.about')}</span>
                 </div>
                 <MenubarShortcut>{formatShortcut("8")}</MenubarShortcut>
               </MenubarItem>
@@ -296,6 +263,7 @@ export function MenuBar({
       <div className="flex items-center space-x-3">
         <ExchangeRate />
         <Weather />
+        <LocaleSwitcher />
         <span className="text-xs font-medium">{dateTime}</span>
       </div>
     </motion.div>

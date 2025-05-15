@@ -22,17 +22,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "@/lib/toast";
+import { useTranslations } from 'next-intl';
 
 export function SettingsGeneralTab() {
-  const handleReset = () => {
-    // Clear all localStorage data
-    localStorage.clear();
+  const t = useTranslations('components.settings.general');
 
-    // Reset all settings to default
+  const handleReset = () => {
+    localStorage.clear();
     window.location.reload();
 
-    toast.success("Settings reset successfully", {
-      description: "All settings have been reset to their default values.",
+    toast.success(t('reset.success.title'), {
+      description: t('reset.success.description'),
     });
   };
 
@@ -40,10 +40,8 @@ export function SettingsGeneralTab() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Permissions</CardTitle>
-          <CardDescription>
-            Manage app permissions and notification settings
-          </CardDescription>
+          <CardTitle>{t('permissions.title')}</CardTitle>
+          <CardDescription>{t('permissions.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <NotificationSettings />
@@ -54,31 +52,28 @@ export function SettingsGeneralTab() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Reset Settings</CardTitle>
-          <CardDescription>
-            Reset all settings to their default values
-          </CardDescription>
+          <CardTitle>{t('reset.title')}</CardTitle>
+          <CardDescription>{t('reset.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive">Reset All Settings</Button>
+              <Button variant="destructive">{t('reset.button')}</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogTitle>{t('reset.confirm.title')}</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will reset all your
-                  settings to their default values and clear all saved data.
+                  {t('reset.confirm.description')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>{t('reset.confirm.cancel')}</AlertDialogCancel>
                 <AlertDialogAction
                   onClick={handleReset}
                   className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                 >
-                  Reset Settings
+                  {t('reset.confirm.action')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

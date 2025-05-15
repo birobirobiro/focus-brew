@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState, memo, useRef } from "react";
+import React, { useCallback, useEffect, useState, memo, useRef, useMemo } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -16,13 +16,14 @@ import {
   useTransform,
 } from "framer-motion";
 import {
-  APP_ITEMS,
-  SETTINGS_APP,
+  AppId,
+  createAppItems,
+  createSettingsApp,
   type AppMenuItem,
-  type AppId,
 } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { useTranslations } from 'next-intl';
 
 type DockProps = {
   openApp: (appId: AppId) => void;
@@ -30,9 +31,8 @@ type DockProps = {
   openSettingsTab?: (tab: string) => void;
   activeApps: AppId[];
   minimizedApps: Set<string>;
+  className?: string;
 };
-
-const DOCK_APPS = [...APP_ITEMS, SETTINGS_APP];
 
 // Constants for magnification effect
 const ICON_SIZE = 48; // Base size in pixels
@@ -242,7 +242,13 @@ export function Dock({
   openSettingsTab,
   activeApps,
   minimizedApps,
+  className,
 }: DockProps) {
+  const t = useTranslations();
+  const APP_ITEMS = createAppItems(t);
+  const SETTINGS_APP = createSettingsApp(t);
+  const DOCK_APPS = useMemo(() => [...APP_ITEMS, SETTINGS_APP], [APP_ITEMS, SETTINGS_APP]);
+
   const [mouseX, setMouseX] = useState(0);
   const dockRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
