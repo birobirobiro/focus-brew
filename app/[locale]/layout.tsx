@@ -1,15 +1,19 @@
 import { type ReactNode } from "react";
 import { type Metadata } from "next";
 import { Nunito, Roboto_Slab } from "next/font/google";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import { ThemeProvider } from "@/components/theme-provider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Suspense } from "react";
 import "./globals.css";
 import "./fonts.css";
 import { Toaster } from "@/components/ui/sonner";
+import PwaInstallDialog from "@/components/PwaInstallDialog";
 import PWAServiceWorker from "@/components/PWAServiceWorker";
 import PWAStandaloneRedirect from "@/components/PWAStandaloneRedirect";
-import PwaInstallDialog from "@/components/PwaInstallDialog";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -63,9 +67,18 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: ReactNode;
+  params: Promise<{ locale: string }>;
 }
 
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+export default async function RootLayout({ children, params }: Readonly<RootLayoutProps>) {
+  const { locale } = await params;
+
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
+  const messages = await getMessages();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -91,21 +104,23 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
       <body
         className={`${nunito.variable} ${robotoSlab.variable} font-satoshi antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <PWAStandaloneRedirect />
-          <PWAServiceWorker />
-          <PwaInstallDialog />
-          {children}
-          <Toaster />
-          <Suspense fallback={null}>
-            <GoogleAnalytics />
-          </Suspense>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <PWAStandaloneRedirect />
+            <PWAServiceWorker />
+            <PwaInstallDialog />
+            {children}
+            <Toaster />
+            <Suspense fallback={null}>
+              <GoogleAnalytics />
+            </Suspense>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

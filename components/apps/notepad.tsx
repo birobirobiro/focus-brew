@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { AnimatePresence, motion } from "framer-motion";
+import { format } from "date-fns";
+import { enUS, ptBR } from 'date-fns/locale';
+import { useTranslations, useLocale } from 'next-intl';
 import {
   Plus,
   Trash,
@@ -52,6 +55,10 @@ interface Note {
 const AUTOSAVE_DELAY = 1000; // 1 second
 
 export function Notepad() {
+  const t = useTranslations('components.notepad');
+  const locale = useLocale();
+  const dateLocale = locale === 'pt' ? ptBR : enUS;
+
   const [notes, setNotes] = useLocalStorage<Note[]>("notepad-notes", []);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -186,8 +193,8 @@ export function Notepad() {
               updateNoteContent(selectedNoteId, editor.getHTML());
               setSaveStatus("saved");
               toast({
-                title: "Note saved",
-                description: "Your note has been saved successfully.",
+                title: t('notifications.saved.title'),
+                description: t('notifications.saved.description'),
               });
             }
             break;
@@ -210,7 +217,7 @@ export function Notepad() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [editor, selectedNoteId, createNewNote, updateNoteContent]);
+  }, [editor, selectedNoteId, createNewNote, updateNoteContent, t]);
 
   const deleteNote = (id: string) => {
     setNoteToDelete(id);
@@ -226,8 +233,8 @@ export function Notepad() {
       setNoteToDelete(null);
       setIsDeleteDialogOpen(false);
       toast({
-        title: "Note deleted",
-        description: "Your note has been deleted successfully.",
+        title: t('notifications.deleted.title'),
+        description: t('notifications.deleted.description'),
       });
     }
   };
@@ -239,7 +246,7 @@ export function Notepad() {
           <div className="relative w-full">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={`Search notes... (${formatShortcut("L")})`}
+              placeholder={t('search.placeholder', { shortcut: formatShortcut("L") })}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-8 w-full"
@@ -253,7 +260,7 @@ export function Notepad() {
           </div>
           <Button onClick={createNewNote} size="sm" className="w-full">
             <Plus className="h-4 w-4 mr-1" />
-            New ({formatShortcut("B")})
+            {t('actions.new', { shortcut: formatShortcut("B") })}
           </Button>
         </div>
 
@@ -268,8 +275,8 @@ export function Notepad() {
                 className="p-4 text-center text-zinc-500"
               >
                 {searchQuery
-                  ? "No matching notes found"
-                  : "No notes yet. Create one to get started!"}
+                  ? t('search.noResults')
+                  : t('notes.empty')}
               </motion.div>
             ) : (
               <div className="p-3 space-y-2">
@@ -294,28 +301,15 @@ export function Notepad() {
                         <div className="flex justify-between items-start gap-2">
                           <div className="min-w-0 flex-1">
                             <h3 className="font-medium truncate mb-1">
-                              {note.title || "Untitled Note"}
+                              {note.title || t('notes.untitled')}
                             </h3>
                             <div className="flex items-center gap-2 text-xs text-muted-foreground">
                               <span>
-                                {new Date(note.updatedAt).toLocaleDateString(
-                                  undefined,
-                                  {
-                                    month: "short",
-                                    day: "numeric",
-                                    year: "numeric",
-                                  }
-                                )}
+                                {format(new Date(note.updatedAt), "PPP", { locale: dateLocale })}
                               </span>
                               <span>•</span>
                               <span>
-                                {new Date(note.updatedAt).toLocaleTimeString(
-                                  undefined,
-                                  {
-                                    hour: "numeric",
-                                    minute: "2-digit",
-                                  }
-                                )}
+                                {format(new Date(note.updatedAt), "p", { locale: dateLocale })}
                               </span>
                             </div>
                           </div>
@@ -350,7 +344,7 @@ export function Notepad() {
                 onChange={(e) =>
                   updateNoteTitle(selectedNote.id, e.target.value)
                 }
-                placeholder="Note title"
+                placeholder={t('notes.titlePlaceholder')}
                 className="font-medium mb-3"
                 onFocus={() => setIsTitleFocused(true)}
                 onBlur={() => setIsTitleFocused(false)}
@@ -440,9 +434,9 @@ export function Notepad() {
                 <div className="ml-auto flex items-center gap-2">
                   <span className="text-sm text-muted-foreground">
                     {saveStatus === "saving"
-                      ? "Saving..."
+                      ? t('status.saving')
                       : saveStatus === "saved"
-                      ? "Saved"
+                      ? t('status.saved')
                       : ""}
                   </span>
                   <div className="flex items-center gap-1">
@@ -451,7 +445,7 @@ export function Notepad() {
                       variant="ghost"
                       onClick={() => editor?.commands.undo()}
                       disabled={!editor?.can().undo()}
-                      title="Undo"
+                      title={t('actions.undo')}
                     >
                       <Undo className="h-4 w-4" />
                     </Button>
@@ -460,7 +454,7 @@ export function Notepad() {
                       variant="ghost"
                       onClick={() => editor?.commands.redo()}
                       disabled={!editor?.can().redo()}
-                      title="Redo"
+                      title={t('actions.redo')}
                     >
                       <Redo className="h-4 w-4" />
                     </Button>
@@ -568,13 +562,15 @@ export function Notepad() {
         ) : (
           <div className="h-full flex flex-col items-center justify-center text-muted-foreground gap-4">
             <div className="text-center">
-              <p className="mb-2">Select a note or create a new one</p>
+              <p className="mb-2">{t('notes.selectOrCreate')}</p>
               <p className="text-sm">
-                Press{" "}
-                <kbd className="px-2 py-1 bg-muted rounded">
-                  {formatShortcut("B")}
-                </kbd>{" "}
-                to create a new note
+                {t.rich('notes.createShortcut', {
+                  shortcut: () => (
+                    <kbd className="px-2 py-1 bg-muted rounded">
+                      {formatShortcut("B")}
+                    </kbd>
+                  )
+                })}
               </p>
             </div>
           </div>
@@ -587,19 +583,18 @@ export function Notepad() {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Note</AlertDialogTitle>
+            <AlertDialogTitle>{t('delete.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this note? This action cannot be
-              undone.
+              {t('delete.description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('delete.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmDeleteNote}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete
+              {t('delete.confirm')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

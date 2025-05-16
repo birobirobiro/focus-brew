@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTranslations } from 'next-intl';
 
 interface Todo {
   id: string;
@@ -68,7 +69,7 @@ const springAnimation = {
   damping: 30,
 } as const;
 
-const formatDate = (dateString: string) => {
+const formatDate = (dateString: string, t: (key: string, params?: any) => string) => {
   const date = new Date(dateString);
   const now = new Date();
   const diffInDays = Math.floor(
@@ -76,11 +77,11 @@ const formatDate = (dateString: string) => {
   );
 
   if (diffInDays === 0) {
-    return "Today";
+    return t('todoItem.timeLabels.today');
   } else if (diffInDays === 1) {
-    return "Yesterday";
+    return t('todoItem.timeLabels.yesterday');
   } else if (diffInDays < 7) {
-    return `${diffInDays} days ago`;
+    return t('todoItem.timeLabels.daysAgo', { count: diffInDays });
   } else {
     return date.toLocaleDateString(undefined, {
       month: "short",
@@ -90,6 +91,7 @@ const formatDate = (dateString: string) => {
 };
 
 const TodoItem = memo(({ todo, onToggle, onDelete, index }: TodoItemProps) => {
+  const t = useTranslations('components.todoApp');
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
@@ -131,7 +133,9 @@ const TodoItem = memo(({ todo, onToggle, onDelete, index }: TodoItemProps) => {
           onClick={() => onToggle(todo.id)}
           onKeyDown={(e) => handleKeyDown(e, () => onToggle(todo.id))}
           aria-label={
-            todo.completed ? "Mark as incomplete" : "Mark as complete"
+            todo.completed 
+              ? t('todoItem.toggleComplete.markIncomplete')
+              : t('todoItem.toggleComplete.markComplete')
           }
           aria-pressed={todo.completed}
         >
@@ -159,7 +163,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, index }: TodoItemProps) => {
               size="icon"
               onClick={handleDeleteClick}
               className="h-6 w-6 rounded-full p-0 opacity-0 group-hover:opacity-100 transition-opacity ml-2 flex-shrink-0"
-              aria-label="Delete todo"
+              aria-label={t('todoItem.delete.button')}
             >
               <Trash2 className="h-4 w-4 text-zinc-400 hover:text-red-500 transition-colors" />
             </Button>
@@ -167,7 +171,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, index }: TodoItemProps) => {
 
           <div className="flex items-center mt-1 text-xs text-zinc-400 dark:text-zinc-500">
             <Clock className="h-3 w-3 mr-1" />
-            <span>{formatDate(todo.createdAt)}</span>
+            <span>{formatDate(todo.createdAt, t)}</span>
           </div>
         </div>
       </motion.div>
@@ -178,19 +182,18 @@ const TodoItem = memo(({ todo, onToggle, onDelete, index }: TodoItemProps) => {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Task</AlertDialogTitle>
+            <AlertDialogTitle>{t('todoItem.delete.dialog.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this task? This action cannot be
-              undone.
+              {t('todoItem.delete.dialog.description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('todoItem.delete.dialog.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmDelete}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete
+              {t('todoItem.delete.dialog.confirm')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -202,22 +205,24 @@ const TodoItem = memo(({ todo, onToggle, onDelete, index }: TodoItemProps) => {
 TodoItem.displayName = "TodoItem";
 
 const EmptyState = memo(({ filter }: { filter: FilterOption }) => {
+  const t = useTranslations('components.todoApp');
+  
   const messages = {
     all: {
-      title: "No tasks yet",
-      description: "Add your first task to get started",
+      title: t('emptyState.all.title'),
+      description: t('emptyState.all.description'),
       icon: <ListTodo className="w-8 h-8 text-zinc-300 dark:text-zinc-600" />,
     },
     active: {
-      title: "No active tasks",
-      description: "All your tasks are completed",
+      title: t('emptyState.active.title'),
+      description: t('emptyState.active.description'),
       icon: (
         <CheckCheck className="w-8 h-8 text-emerald-300 dark:text-emerald-700" />
       ),
     },
     completed: {
-      title: "No completed tasks",
-      description: "Complete a task to see it here",
+      title: t('emptyState.completed.title'),
+      description: t('emptyState.completed.description'),
       icon: (
         <CheckCircle2 className="w-8 h-8 text-zinc-300 dark:text-zinc-600" />
       ),
@@ -251,6 +256,7 @@ const EmptyState = memo(({ filter }: { filter: FilterOption }) => {
 EmptyState.displayName = "EmptyState";
 
 export const TodoApp = () => {
+  const t = useTranslations('components.todoApp');
   const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
   const [newTodo, setNewTodo] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -363,7 +369,7 @@ export const TodoApp = () => {
     <div className="h-full flex flex-col bg-white dark:bg-zinc-950">
       <header className="border-b border-zinc-100 dark:border-zinc-800 p-4">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold">Tasks</h1>
+          <h1 className="text-xl font-semibold">{t('header.title')}</h1>
 
           <div className="flex items-center gap-2">
             <TooltipProvider>
@@ -373,7 +379,7 @@ export const TodoApp = () => {
                     <DropdownMenuTrigger asChild>
                       <Button variant="ghost" size="icon" className="h-8 w-8">
                         <ArrowUpDown className="h-4 w-4" />
-                        <span className="sr-only">Sort tasks</span>
+                        <span className="sr-only">{t('header.sort.button')}</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -384,7 +390,7 @@ export const TodoApp = () => {
                             "bg-zinc-100 dark:bg-zinc-800"
                         )}
                       >
-                        Newest first
+                        {t('header.sort.newest')}
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => setSortOption("oldest")}
@@ -393,7 +399,7 @@ export const TodoApp = () => {
                             "bg-zinc-100 dark:bg-zinc-800"
                         )}
                       >
-                        Oldest first
+                        {t('header.sort.oldest')}
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         onClick={() => setSortOption("alphabetical")}
@@ -402,12 +408,12 @@ export const TodoApp = () => {
                             "bg-zinc-100 dark:bg-zinc-800"
                         )}
                       >
-                        Alphabetical
+                        {t('header.sort.alphabetical')}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TooltipTrigger>
-                <TooltipContent>Sort tasks</TooltipContent>
+                <TooltipContent>{t('header.sort.button')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
 
@@ -419,7 +425,7 @@ export const TodoApp = () => {
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-8 w-8">
                           <MoreHorizontal className="h-4 w-4" />
-                          <span className="sr-only">More options</span>
+                          <span className="sr-only">{t('header.moreOptions.button')}</span>
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
@@ -427,12 +433,12 @@ export const TodoApp = () => {
                           onClick={handleClearCompleted}
                           disabled={stats.completed === 0}
                         >
-                          Clear completed
+                          {t('header.moreOptions.clearCompleted')}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TooltipTrigger>
-                  <TooltipContent>More options</TooltipContent>
+                  <TooltipContent>{t('header.moreOptions.button')}</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             )}
@@ -443,12 +449,12 @@ export const TodoApp = () => {
           <Input
             ref={inputRef}
             type="text"
-            placeholder="What needs to be done?"
+            placeholder={t('header.input.placeholder')}
             value={newTodo}
             onChange={(e) => setNewTodo(e.target.value)}
             onKeyDown={handleKeyDown}
             className="pr-20 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800"
-            aria-label="New task"
+            aria-label={t('header.input.placeholder')}
             disabled={isSubmitting}
           />
           {newTodo.trim() && (
@@ -458,7 +464,7 @@ export const TodoApp = () => {
               size="icon"
               onClick={() => setNewTodo("")}
               className="absolute right-12 top-1/2 -translate-y-1/2 h-6 w-6"
-              aria-label="Clear input"
+              aria-label={t('header.input.clearButton')}
             >
               <X className="h-3 w-3" />
             </Button>
@@ -470,7 +476,7 @@ export const TodoApp = () => {
             size="sm"
           >
             <Plus className="h-4 w-4 mr-1" />
-            Add
+            {t('header.input.addButton')}
           </Button>
         </form>
       </header>
@@ -485,13 +491,13 @@ export const TodoApp = () => {
             >
               <TabsList className="grid grid-cols-3">
                 <TabsTrigger value="all" className="text-xs">
-                  All ({stats.total})
+                  {t('filters.all', { count: stats.total })}
                 </TabsTrigger>
                 <TabsTrigger value="active" className="text-xs">
-                  Active ({stats.active})
+                  {t('filters.active', { count: stats.active })}
                 </TabsTrigger>
                 <TabsTrigger value="completed" className="text-xs">
-                  Completed ({stats.completed})
+                  {t('filters.completed', { count: stats.completed })}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -527,10 +533,10 @@ export const TodoApp = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="rounded-sm font-normal">
-                {stats.total} total
+                {t('footer.stats.total', { count: stats.total })}
               </Badge>
               <Badge variant="outline" className="rounded-sm font-normal">
-                {stats.completed} completed
+                {t('footer.stats.completed', { count: stats.completed })}
               </Badge>
             </div>
 

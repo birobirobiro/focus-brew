@@ -21,6 +21,7 @@ import { toast } from "@/lib/toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useHotkeys } from "react-hotkeys-hook";
+import { useTranslations } from 'next-intl';
 
 // Types
 interface SettingsProps {
@@ -136,6 +137,7 @@ export function Settings({
   setTheme: setPropTheme,
   initialTab = "general",
 }: SettingsProps) {
+  const t = useTranslations('components.settings');
   const { theme, setTheme } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(
     null
@@ -206,19 +208,23 @@ export function Settings({
             selectedWallpaper: result,
           }));
           setWallpaper(result);
-          toast.success("Wallpaper added", {
-            description: "Your custom wallpaper has been added successfully.",
+          toast.success(t('notifications.wallpaperAdded.title'), {
+            description: t('notifications.wallpaperAdded.description'),
           });
         } catch (error) {
-          toast.error("Failed to process wallpaper. Please try again.");
+          toast.error(t('notifications.wallpaperError.title'), {
+            description: t('notifications.wallpaperError.processError'),
+          });
         }
       };
       reader.onerror = () => {
-        toast.error("Failed to read file. Please try again.");
+        toast.error(t('notifications.wallpaperError.title'), {
+          description: t('notifications.wallpaperError.readError'),
+        });
       };
       reader.readAsDataURL(file);
     },
-    [customWallpapers, setWallpaper, setState]
+    [customWallpapers, setWallpaper, setState, t]
   );
 
   // Fetch currencies
@@ -233,7 +239,7 @@ export function Settings({
           currencies: Object.keys(data),
         }));
       } catch (error) {
-        toast.error("Failed to fetch currencies. Using default list.");
+        toast.error(t('errors.fetchCurrencies'));
         setState((prev: SettingsState) => ({
           ...prev,
           currencies: COMMON_CURRENCIES,
@@ -241,33 +247,21 @@ export function Settings({
       }
     };
     fetchCurrencies();
-  }, [setState]);
+  }, [setState, t]);
 
   // Handle currency changes
   useEffect(() => {
     try {
-      // Store previous values to check for changes
       const prevBase = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENCY_BASE);
-      const prevTarget = localStorage.getItem(
-        LOCAL_STORAGE_KEYS.CURRENCY_TARGET
-      );
+      const prevTarget = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENCY_TARGET);
 
-      // Only proceed if there are actual changes
       const baseChanged = prevBase !== currencyState.base;
       const targetChanged = prevTarget !== currencyState.target;
 
       if (baseChanged || targetChanged) {
-        // Update local storage
-        localStorage.setItem(
-          LOCAL_STORAGE_KEYS.CURRENCY_BASE,
-          currencyState.base
-        );
-        localStorage.setItem(
-          LOCAL_STORAGE_KEYS.CURRENCY_TARGET,
-          currencyState.target
-        );
+        localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENCY_BASE, currencyState.base);
+        localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENCY_TARGET, currencyState.target);
 
-        // Only dispatch the event if there was an actual change
         const event = new CustomEvent("currency_changed", {
           detail: {
             base: currencyState.base,
@@ -277,9 +271,9 @@ export function Settings({
         window.dispatchEvent(event);
       }
     } catch (error) {
-      toast.error("Failed to save currency settings.");
+      toast.error(t('errors.saveCurrency'));
     }
-  }, [currencyState]);
+  }, [currencyState, t]);
 
   // Filter currencies based on search
   useEffect(() => {
@@ -363,30 +357,30 @@ export function Settings({
             <TabsTrigger
               value="general"
               className="data-[state=active]:bg-background/70"
-              aria-label="General settings"
+              aria-label={t('aria.generalSettings')}
             >
-              General
+              {t('tabs.general')}
             </TabsTrigger>
             <TabsTrigger
               value="wallpaper"
               className="data-[state=active]:bg-background/70"
-              aria-label="Wallpaper settings (⌘+1)"
+              aria-label={t('aria.wallpaperSettings')}
             >
-              Wallpaper
+              {t('tabs.wallpaper')}
             </TabsTrigger>
             <TabsTrigger
               value="appearance"
               className="data-[state=active]:bg-background/70"
-              aria-label="Appearance settings (⌘+2)"
+              aria-label={t('aria.appearanceSettings')}
             >
-              Appearance
+              {t('tabs.appearance')}
             </TabsTrigger>
             <TabsTrigger
               value="about"
               className="data-[state=active]:bg-background/70"
-              aria-label="About (⌘+3)"
+              aria-label={t('aria.about')}
             >
-              About
+              {t('tabs.about')}
             </TabsTrigger>
           </TabsList>
 

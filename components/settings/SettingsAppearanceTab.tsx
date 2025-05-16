@@ -11,6 +11,7 @@ import {
   Thermometer,
   Coins,
   Type,
+  Languages,
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -38,6 +39,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from '@/components/locale-switcher';
 
 interface Props {
   font: string;
@@ -109,10 +112,10 @@ export function SettingsAppearanceTab({
   filteredBase,
   filteredTarget,
 }: Props) {
-  // Add state to track temperature unit
+  const t = useTranslations('components.settings.appearance');
+  
   const [temperatureUnit, setTemperatureUnit] = useState<TemperatureUnit>(
     () => {
-      // Initialize from localStorage if available
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("weather_unit");
         if (stored === "C" || stored === "F") {
@@ -123,7 +126,6 @@ export function SettingsAppearanceTab({
     }
   );
 
-  // Effect to handle changes to temperature unit
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("weather_unit", temperatureUnit);
@@ -135,7 +137,6 @@ export function SettingsAppearanceTab({
     }
   }, [temperatureUnit]);
 
-  // RadioGroup onValueChange handler
   const handleTemperatureUnitChange = (value: string) => {
     if (value === "C" || value === "F") {
       setTemperatureUnit(value);
@@ -154,9 +155,9 @@ export function SettingsAppearanceTab({
             <div className="flex items-center gap-3 mb-4">
               <Monitor className="h-5 w-5 text-primary" />
               <div>
-                <h2 className="text-lg font-semibold">Theme</h2>
+                <h2 className="text-lg font-semibold">{t('theme.title')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Switch between light, dark, or system theme.
+                  {t('theme.description')}
                 </p>
               </div>
             </div>
@@ -164,9 +165,7 @@ export function SettingsAppearanceTab({
               value={theme}
               onValueChange={(value) => {
                 setTheme(value);
-                // When theme changes, we need to store it and update DOM
                 if (typeof window !== "undefined") {
-                  // Force theme change to take effect immediately
                   document.documentElement.classList.remove("light", "dark");
                   if (value !== "system") {
                     document.documentElement.classList.add(value);
@@ -175,25 +174,25 @@ export function SettingsAppearanceTab({
               }}
               className="flex flex-wrap gap-2"
             >
-              {themes.map((t) => {
-                const Icon = t.icon;
+              {themes.map((themeOption) => {
+                const Icon = themeOption.icon;
                 return (
                   <Label
-                    key={t.value}
+                    key={themeOption.value}
                     className={cn(
                       "flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-colors",
-                      theme === t.value
+                      theme === themeOption.value
                         ? "bg-primary/10 text-primary"
                         : "hover:bg-muted"
                     )}
                   >
                     <RadioGroupItem
-                      value={t.value}
-                      id={`theme-${t.value}`}
+                      value={themeOption.value}
+                      id={`theme-${themeOption.value}`}
                       className="sr-only"
                     />
                     <Icon className="h-4 w-4" />
-                    <span>{t.label}</span>
+                    <span>{t(`theme.options.${themeOption.value}`)}</span>
                   </Label>
                 );
               })}
@@ -212,9 +211,9 @@ export function SettingsAppearanceTab({
             <div className="flex items-center gap-3 mb-4">
               <Thermometer className="h-5 w-5 text-primary" />
               <div>
-                <h2 className="text-lg font-semibold">Temperature Unit</h2>
+                <h2 className="text-lg font-semibold">{t('temperature.title')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Choose Celsius or Fahrenheit for weather display.
+                  {t('temperature.description')}
                 </p>
               </div>
             </div>
@@ -238,7 +237,7 @@ export function SettingsAppearanceTab({
                     id={`unit-${unit.value}`}
                     className="sr-only"
                   />
-                  <span>{unit.label}</span>
+                  <span>{t(`temperature.units.${unit.value}`)}</span>
                 </Label>
               ))}
             </RadioGroup>
@@ -256,9 +255,9 @@ export function SettingsAppearanceTab({
             <div className="flex items-center gap-3 mb-4">
               <Coins className="h-5 w-5 text-primary" />
               <div>
-                <h2 className="text-lg font-semibold">Currency</h2>
+                <h2 className="text-lg font-semibold">{t('currency.title')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Choose which currencies to show in the top bar.
+                  {t('currency.description')}
                 </p>
               </div>
             </div>
@@ -275,7 +274,7 @@ export function SettingsAppearanceTab({
                     role="combobox"
                     aria-expanded={openBase}
                   >
-                    {base ? base.toUpperCase() : "Base..."}
+                    {base ? base.toUpperCase() : t('currency.base.placeholder')}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </button>
                 </PopoverTrigger>
@@ -291,14 +290,14 @@ export function SettingsAppearanceTab({
                       <input
                         value={baseSearch}
                         onChange={(e) => setBaseSearch(e.target.value)}
-                        placeholder="Search..."
+                        placeholder={t('currency.search')}
                         className="flex h-9 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="max-h-[200px] overflow-y-auto p-1">
                       {filteredBase.length === 0 ? (
                         <div className="py-6 text-center text-sm">
-                          No currency found.
+                          {t('currency.noResults')}
                         </div>
                       ) : (
                         filteredBase.map((cur) => (
@@ -344,7 +343,7 @@ export function SettingsAppearanceTab({
                     role="combobox"
                     aria-expanded={openTarget}
                   >
-                    {target ? target.toUpperCase() : "Target..."}
+                    {target ? target.toUpperCase() : t('currency.target.placeholder')}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </button>
                 </PopoverTrigger>
@@ -360,14 +359,14 @@ export function SettingsAppearanceTab({
                       <input
                         value={targetSearch}
                         onChange={(e) => setTargetSearch(e.target.value)}
-                        placeholder="Search..."
+                        placeholder={t('currency.search')}
                         className="flex h-9 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="max-h-[200px] overflow-y-auto p-1">
                       {filteredTarget.length === 0 ? (
                         <div className="py-6 text-center text-sm">
-                          No currency found.
+                          {t('currency.noResults')}
                         </div>
                       ) : (
                         filteredTarget.map((cur) => (
@@ -414,24 +413,45 @@ export function SettingsAppearanceTab({
             <div className="flex items-center gap-3 mb-4">
               <Type className="h-5 w-5 text-primary" />
               <div>
-                <h2 className="text-lg font-semibold">Font</h2>
+                <h2 className="text-lg font-semibold">{t('font.title')}</h2>
                 <p className="text-sm text-muted-foreground">
-                  Select your preferred font for the UI.
+                  {t('font.description')}
                 </p>
               </div>
             </div>
             <Select value={font} onValueChange={setFont}>
               <SelectTrigger className="w-[240px] bg-background/50 border-border/30">
-                <SelectValue placeholder="Select font" />
+                <SelectValue placeholder={t('font.placeholder')} />
               </SelectTrigger>
               <SelectContent className="bg-background/90 backdrop-blur-md border-border/30">
                 {fonts.map((f) => (
                   <SelectItem key={f.value} value={f.value} className={f.value}>
-                    {f.label}
+                    {t(`font.options.${f.value}`, { defaultValue: f.label })}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.4 }}
+      >
+        <Card className="border-border/30">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Languages className="h-5 w-5 text-primary" />
+              <div>
+                <h2 className="text-lg font-semibold">{t('language.title')}</h2>
+                <p className="text-sm text-muted-foreground">
+                  {t('language.description')}
+                </p>
+              </div>
+            </div>
+            <LocaleSwitcher />
           </CardContent>
         </Card>
       </motion.div>

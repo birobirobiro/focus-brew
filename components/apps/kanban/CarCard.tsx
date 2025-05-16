@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTranslations } from 'next-intl';
 
 interface CarCardProps {
   card: KanbanCard;
@@ -23,6 +24,7 @@ interface CarCardProps {
 
 const CarCard = memo(({ card, onDelete }: CarCardProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const t = useTranslations('components.kanban');
 
   const {
     attributes,
@@ -69,7 +71,7 @@ const CarCard = memo(({ card, onDelete }: CarCardProps) => {
         )}
         tabIndex={0}
         role="article"
-        aria-label={`Task: ${card.title}`}
+        aria-label={t('card.aria.taskTitle', { title: card.title })}
       >
         <div className="flex items-center gap-2 mb-1">
           <span
@@ -84,7 +86,7 @@ const CarCard = memo(({ card, onDelete }: CarCardProps) => {
             size="icon"
             className="h-6 w-6 p-0 opacity-60 group-hover:opacity-100 transition-opacity"
             {...listeners}
-            aria-label="Drag handle"
+            aria-label={t('card.aria.dragHandle')}
           >
             <GripVertical className="h-4 w-4 text-muted-foreground" />
           </Button>
@@ -105,7 +107,7 @@ const CarCard = memo(({ card, onDelete }: CarCardProps) => {
               size="icon"
               onPointerDown={(e) => e.stopPropagation()}
               onClick={handleDeleteClick}
-              aria-label="Delete task"
+              aria-label={t('card.aria.deleteTask')}
               className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <Trash2 className="h-4 w-4" />
@@ -120,19 +122,18 @@ const CarCard = memo(({ card, onDelete }: CarCardProps) => {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Task</AlertDialogTitle>
+            <AlertDialogTitle>{t('card.delete.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this task? This action cannot be
-              undone.
+              {t('card.delete.description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('card.delete.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmDelete}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete
+              {t('card.delete.confirm')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

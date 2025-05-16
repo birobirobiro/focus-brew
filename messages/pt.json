@@ -1,0 +1,1056 @@
+{
+    "title": "FocusBrew | Espaço de produtividade",
+    "description": "Espaço digital de todo list, quadros kanban, cronômetro pomodoro, notas, sons ambiente e mais para aumentar sua produtividade.",
+    "keywords": [
+        "produtividade",
+        "espaço de trabalho",
+        "todo",
+        "kanban",
+        "pomodoro",
+        "notas",
+        "sons ambiente"
+    ],
+    "landing": {
+        "nav": {
+            "features": "Recursos",
+            "preview": "Prévia",
+            "github": "GitHub"
+        },
+        "hero": {
+            "title": {
+                "prefix": "Mantenha o foco com",
+                "rotating": [
+                    "Brew",
+                    "Timer",
+                    "Notas",
+                    "Tarefas",
+                    "Sons"
+                ]
+            },
+            "description": "Um kit de ferramentas de produtividade gratuito que combina ferramentas essenciais para ajudar você a manter o foco, organização e eficiência durante seu dia de trabalho.",
+            "cta": {
+                "primary": "Começar Agora"
+            }
+        },
+        "stats": {
+            "title": "Tudo que Você Precisa em Um Só Lugar",
+            "subtitle": "FocusBrew combina todas as ferramentas essenciais de produtividade em uma única experiência integrada - totalmente gratuita.",
+            "badge": "Recursos Poderosos",
+            "items": {
+                "tools": {
+                    "value": "7",
+                    "label": "Ferramentas de Produtividade"
+                },
+                "free": {
+                    "value": "100%",
+                    "label": "Gratuito"
+                },
+                "availability": {
+                    "value": "24/7",
+                    "label": "Disponibilidade"
+                },
+                "distractions": {
+                    "value": "0",
+                    "label": "Distrações"
+                }
+            }
+        },
+        "features": {
+            "todo": {
+                "title": "Lista de Tarefas",
+                "description": "Organize suas tarefas e aumente a produtividade com nosso gerenciador intuitivo de listas."
+            },
+            "pomodoro": {
+                "title": "Timer Pomodoro",
+                "description": "Trabalhe em intervalos focados com nosso timer pomodoro personalizável para maximizar a eficiência."
+            },
+            "kanban": {
+                "title": "Quadro Kanban",
+                "description": "Visualize seu fluxo de trabalho com nosso quadro kanban de arrastar e soltar para melhor gerenciamento de projetos."
+            },
+            "ambient": {
+                "title": "Sons Ambiente",
+                "description": "Melhore seu foco com uma coleção de sons ambiente calmantes e ruído branco."
+            },
+            "notepad": {
+                "title": "Bloco de Notas",
+                "description": "Capture seus pensamentos e ideias rapidamente com nosso recurso minimalista de notas."
+            },
+            "youtube": {
+                "title": "Player do YouTube",
+                "description": "Assista conteúdo educacional ou ouça música para foco sem sair do aplicativo."
+            },
+            "habits": {
+                "title": "Rastrear Hábitos",
+                "description": "Construa hábitos consistentes com nosso sistema visual de rastreamento e estatísticas."
+            },
+            "weather": {
+                "title": "Previsão do Tempo",
+                "description": "Verifique rapidamente a previsão do tempo para planejar melhor seu dia de trabalho."
+            },
+            "currency": {
+                "title": "Taxas de Câmbio",
+                "description": "Acompanhe as principais taxas de câmbio em tempo real sem sair do aplicativo."
+            }
+        },
+        "preview": {
+            "title": "Veja o FocusBrew em Ação",
+            "subtitle": "Veja como nosso kit de ferramentas de produtividade gratuito reúne ferramentas essenciais para ajudar você a manter o foco e eficiência durante seu dia de trabalho.",
+            "badge": "Prévia do App"
+        },
+        "contribute": {
+            "title": "Quer contribuir?",
+            "description": "Se você quiser ajudar, sugerir melhorias ou apenas dar uma estrela, confira nosso repositório no GitHub.",
+            "cta": "Ver no GitHub"
+        },
+        "footer": {
+            "slogan": "Prepare sua produtividade",
+            "copyright": "© {year} FocusBrew. Todos os direitos reservados.",
+            "vibe": "Este projeto foi 100% desenvolvido com \"vibe coding\"",
+            "nav": {
+                "features": "Recursos",
+                "preview": "Prévia"
+            }
+        }
+    },
+    "components": {
+        "menuBar": {
+            "apps": {
+                "tasks": "Tarefas",
+                "kanban": "Kanban",
+                "habitTracker": "Rastrear Hábitos",
+                "focusTimer": "Timer de Foco",
+                "notes": "Notas",
+                "ambientSounds": "Sons Ambiente",
+                "youtubePlayer": "Player do YouTube",
+                "portfolio": "Meu Portfólio",
+                "about": "Sobre",
+                "pwa": "Instalar App (PWA)"
+            }
+        },
+        "window": {
+            "controls": {
+                "close": "Fechar janela",
+                "minimize": "Minimizar janela",
+                "maximize": "Maximizar janela"
+            },
+            "titles": {
+                "todo": "Tarefas",
+                "kanban": "Kanban",
+                "pomodoro": "Timer de Foco",
+                "notepad": "Notas",
+                "ambient": "Sons Ambiente",
+                "youtube": "Player do YouTube",
+                "settings": "Configurações",
+                "habit": "Rastrear Hábitos",
+                "portfolio": "Meu Portfólio",
+                "about": "Sobre",
+                "pwa": "Instalar App (PWA)"
+            }
+        },
+        "settings": {
+            "tabs": {
+                "general": "Geral",
+                "wallpaper": "Papel de Parede",
+                "appearance": "Aparência",
+                "about": "Sobre"
+            },
+            "notifications": {
+                "wallpaperAdded": {
+                    "title": "Papel de parede adicionado",
+                    "description": "Seu papel de parede personalizado foi adicionado com sucesso."
+                },
+                "wallpaperError": {
+                    "title": "Erro",
+                    "processError": "Falha ao processar o papel de parede. Por favor, tente novamente.",
+                    "readError": "Falha ao ler o arquivo. Por favor, tente novamente."
+                },
+                "card": {
+                    "title": "Notificações",
+                    "description": "Configure como você deseja receber notificações e lembretes"
+                },
+                "browserSupport": {
+                    "error": "Seu navegador não suporta notificações. Alguns recursos podem não funcionar corretamente."
+                },
+                "enable": {
+                    "label": "Ativar Notificações",
+                    "description": "Permitir que o FocusBrew envie notificações para você"
+                },
+                "status": {
+                    "enabled": "Ativado",
+                    "disabled": "Desativado"
+                },
+                "habits": {
+                    "label": "Lembretes de Hábitos",
+                    "description": "Receba lembretes quando for hora de completar seus hábitos"
+                },
+                "pomodoro": {
+                    "label": "Notificações do Pomodoro",
+                    "description": "Receba notificações visuais quando suas sessões pomodoro terminarem (o som do alarme é controlado separadamente)"
+                },
+                "buttons": {
+                    "test": "Testar Notificação",
+                    "reset": "Redefinir Configurações de Notificação"
+                },
+                "errors": {
+                    "notSupported": {
+                        "title": "Notificações não suportadas",
+                        "description": "Seu navegador não suporta notificações."
+                    },
+                    "permissionDenied": {
+                        "title": "Permissão negada",
+                        "description": "Você negou permissão para notificações. Por favor, ative-as nas configurações do navegador."
+                    },
+                    "requestFailed": {
+                        "title": "Erro ao ativar notificações",
+                        "description": "Ocorreu um erro ao solicitar permissão para notificações."
+                    },
+                    "disabled": {
+                        "title": "Notificações estão desativadas",
+                        "description": "Ative as notificações primeiro."
+                    }
+                },
+                "success": {
+                    "enabled": {
+                        "title": "Notificações ativadas",
+                        "description": "Você receberá notificações quando necessário."
+                    },
+                    "disabled": {
+                        "title": "Notificações desativadas",
+                        "description": "Você não receberá mais notificações."
+                    }
+                },
+                "test": {
+                    "title": "Teste de Notificação",
+                    "body": "Esta é uma notificação de teste do FocusBrew.",
+                    "success": {
+                        "title": "Notificação enviada",
+                        "description": "A notificação foi enviada com sucesso."
+                    },
+                    "error": {
+                        "title": "Falha ao enviar notificação",
+                        "description": "Verifique as permissões do navegador."
+                    }
+                },
+                "reset": {
+                    "success": {
+                        "title": "Configurações de notificação redefinidas",
+                        "description": "As configurações de notificação foram redefinidas para os padrões."
+                    }
+                },
+                "enabled": {
+                    "title": "Notificações ativadas",
+                    "description": "Você receberá notificações quando o timer terminar."
+                },
+                "denied": {
+                    "title": "Permissão de notificação negada",
+                    "description": "Por favor, ative as notificações nas configurações do navegador para receber alertas do timer."
+                }
+            },
+            "volume": {
+                "card": {
+                    "title": "Configurações de Som",
+                    "description": "Ajuste os níveis de volume do aplicativo"
+                },
+                "master": {
+                    "label": "Volume Principal (Sons Ambiente)",
+                    "description": "Controla o nível geral de som do aplicativo"
+                },
+                "notification": {
+                    "label": "Volume de Notificação",
+                    "description": "Controla o nível de volume dos sons de notificação"
+                },
+                "buttons": {
+                    "test": "Testar"
+                },
+                "test": {
+                    "master": {
+                        "title": "Reproduzindo som de teste",
+                        "description": "Testando nível de volume do sistema"
+                    },
+                    "notification": {
+                        "title": "Reproduzindo notificação de teste",
+                        "description": "Testando nível de volume de notificação"
+                    }
+                }
+            },
+            "wallpaper": {
+                "title": "Papel de Parede",
+                "description": "Escolha um plano de fundo para seu espaço de trabalho.",
+                "defaultWallpaper": "Papel de Parede Padrão",
+                "customWallpaper": "Papel de Parede Personalizado {index}",
+                "custom": {
+                    "title": "Papel de Parede Personalizado",
+                    "description": "Faça upload de sua própria imagem como papel de parede."
+                },
+                "buttons": {
+                    "upload": "Enviar Imagem",
+                    "delete": "Excluir papel de parede"
+                }
+            },
+            "about": {
+                "title": "FocusBrew",
+                "description": "Seu conjunto de produtividade minimalista tudo-em-um, criado para criadores e pensadores que amam um espaço de trabalho calmo e focado. Aproveite uma área de trabalho bonita com papéis de parede e fontes personalizáveis, uma barra de menu sem distrações e um dock para acesso rápido às suas ferramentas favoritas.",
+                "featuresTitle": "Recursos",
+                "features": {
+                    "ambient": {
+                        "title": "Sons Ambiente",
+                        "description": "Misture e reproduza sons de fundo relaxantes para trabalho focado ou relaxamento."
+                    },
+                    "dock": {
+                        "title": "Dock",
+                        "description": "Acesso rápido às suas ferramentas favoritas."
+                    },
+                    "exchange": {
+                        "title": "Câmbio",
+                        "description": "Veja taxas de câmbio em tempo real na sua barra de menu."
+                    },
+                    "focusTimer": {
+                        "title": "Timer de Foco",
+                        "description": "Aumente sua produtividade com um timer estilo Pomodoro."
+                    },
+                    "kanban": {
+                        "title": "Kanban",
+                        "description": "Visualize seu fluxo de trabalho e gerencie projetos com quadros de arrastar e soltar."
+                    },
+                    "notes": {
+                        "title": "Notas",
+                        "description": "Anote rapidamente notas ou ideias em um bloco de notas limpo."
+                    },
+                    "settings": {
+                        "title": "Configurações",
+                        "description": "Personalize sua experiência com temas, papéis de parede e mais."
+                    },
+                    "tasks": {
+                        "title": "Tarefas",
+                        "description": "Organize suas tarefas e mantenha-se em dia."
+                    },
+                    "habitTracker": {
+                        "title": "Rastrear Hábitos",
+                        "description": "Acompanhe seus hábitos e mantenha-se em dia."
+                    },
+                    "weather": {
+                        "title": "Clima",
+                        "description": "Verifique o clima atual direto da sua barra de menu."
+                    }
+                }
+            },
+            "general": {
+                "permissions": {
+                    "title": "Permissões",
+                    "description": "Gerencie permissões do aplicativo e configurações de notificação"
+                },
+                "reset": {
+                    "title": "Redefinir Configurações",
+                    "description": "Redefinir todas as configurações para seus valores padrão",
+                    "button": "Redefinir Todas as Configurações",
+                    "success": {
+                        "title": "Configurações redefinidas com sucesso",
+                        "description": "Todas as configurações foram redefinidas para seus valores padrão."
+                    },
+                    "confirm": {
+                        "title": "Tem certeza?",
+                        "description": "Esta ação não pode ser desfeita. Isso redefinirá todas as suas configurações para os valores padrão e limpará todos os dados salvos.",
+                        "cancel": "Cancelar",
+                        "action": "Redefinir Configurações"
+                    }
+                }
+            },
+            "appearance": {
+                "theme": {
+                    "title": "Tema",
+                    "description": "Alterne entre tema claro, escuro ou do sistema.",
+                    "options": {
+                        "light": "Claro",
+                        "dark": "Escuro",
+                        "system": "Sistema"
+                    }
+                },
+                "temperature": {
+                    "title": "Unidade de Temperatura",
+                    "description": "Escolha Celsius ou Fahrenheit para exibição do clima.",
+                    "units": {
+                        "C": "Celsius (°C)",
+                        "F": "Fahrenheit (°F)"
+                    }
+                },
+                "currency": {
+                    "title": "Moeda",
+                    "description": "Escolha quais moedas mostrar na barra superior.",
+                    "base": {
+                        "placeholder": "Base..."
+                    },
+                    "target": {
+                        "placeholder": "Destino..."
+                    },
+                    "search": "Buscar...",
+                    "noResults": "Nenhuma moeda encontrada."
+                },
+                "font": {
+                    "title": "Fonte",
+                    "description": "Selecione sua fonte preferida para a interface.",
+                    "placeholder": "Selecionar fonte",
+                    "options": {
+                        "font-satoshi": "Satoshi (Padrão)",
+                        "font-sans": "Nunito",
+                        "font-serif": "Roboto Slab",
+                        "font-mono": "Monospace",
+                        "font-general-sans": "General Sans",
+                        "font-geist": "Geist",
+                        "font-chillax": "Chillax",
+                        "font-sentient": "Sentient",
+                        "font-gambetta": "Gambetta"
+                    }
+                },
+                "language": {
+                    "title": "Idioma",
+                    "description": "Escolha seu idioma preferido para o aplicativo."
+                }
+            },
+            "aria": {
+                "generalSettings": "Configurações gerais",
+                "wallpaperSettings": "Configurações de papel de parede (⌘+1)",
+                "appearanceSettings": "Configurações de aparência (⌘+2)",
+                "about": "Sobre (⌘+3)"
+            }
+        },
+        "localeSwitcher": {
+            "label": "Mudar idioma",
+            "languages": {
+                "en": "Inglês",
+                "pt": "Português"
+            }
+        },
+        "ambientSounds": {
+            "title": "Sons Ambiente",
+            "masterVolume": {
+                "title": "Volume Principal",
+                "description": "Controla o nível geral de som para todos os sons ambiente"
+            },
+            "multiSound": {
+                "single": "1 som tocando. Você pode tocar vários sons ao mesmo tempo!",
+                "multiple": "{count} sons tocando simultaneamente."
+            },
+            "soundMix": {
+                "title": "Misturas de Som",
+                "noMixes": "Nenhuma mistura salva ainda",
+                "noMixesDescription": "Toque alguns sons e salve sua mistura para criar combinações ambiente personalizadas",
+                "createMix": "Criar Mistura",
+                "saveMix": "Salvar Mistura Atual",
+                "mixName": "Nome da Mistura",
+                "mixNamePlaceholder": "Minha mistura personalizada",
+                "save": "Salvar",
+                "play": "Tocar",
+                "stop": "Parar",
+                "delete": "Excluir {name}",
+                "soundCount": "{count} som",
+                "soundCountPlural": "{count} sons",
+                "soundsActive": "{count} som ativo",
+                "soundsActivePlural": "{count} sons ativos"
+            },
+            "controls": {
+                "stopAll": "Parar Todos",
+                "stopAllWithCount": "Parar Todos ({count})",
+                "setVolume": "Definir Volume",
+                "changeCategory": "Mudar Categoria"
+            },
+            "shortcuts": {
+                "setVolume": "1-9",
+                "changeCategory": "Alt+1-5"
+            },
+            "sounds": {
+                "categories": {
+                    "nature": "Natureza",
+                    "rain": "Chuva",
+                    "places": "Lugares",
+                    "urban": "Urbano",
+                    "animals": "Animais",
+                    "binaural": "Binaural",
+                    "noise": "Ruído",
+                    "things": "Objetos",
+                    "transport": "Transporte"
+                },
+                "names": {
+                    "nature": {
+                        "campfire": "Fogueira",
+                        "waterfall": "Cachoeira",
+                        "waves": "Ondas",
+                        "river": "Rio",
+                        "jungle": "Selva",
+                        "wind": "Vento",
+                        "droplets": "Gotas",
+                        "howlingWind": "Vento Uivante",
+                        "walkInSnow": "Caminhada na Neve",
+                        "walkOnGravel": "Caminhada no Cascalho",
+                        "walkOnLeaves": "Caminhada nas Folhas",
+                        "windInTrees": "Vento nas Árvores"
+                    },
+                    "animals": {
+                        "beehive": "Colmeia",
+                        "birds": "Pássaros",
+                        "catPurring": "Gato Ronronando",
+                        "chickens": "Galinhas",
+                        "cows": "Vacas",
+                        "crickets": "Grilos",
+                        "crows": "Corvos",
+                        "dogBarking": "Cachorro Latindo",
+                        "frog": "Sapo",
+                        "horseGalopp": "Galope de Cavalo",
+                        "owl": "Coruja",
+                        "seagulls": "Gaivotas",
+                        "sheep": "Ovelhas",
+                        "whale": "Baleia",
+                        "wolf": "Lobo",
+                        "woodpecker": "Pica-pau"
+                    },
+                    "binaural": {
+                        "alpha": "Binaural Alfa",
+                        "beta": "Binaural Beta",
+                        "delta": "Binaural Delta",
+                        "gamma": "Binaural Gama",
+                        "theta": "Binaural Teta"
+                    },
+                    "noise": {
+                        "brown": "Ruído Marrom",
+                        "pink": "Ruído Rosa",
+                        "white": "Ruído Branco"
+                    },
+                    "places": {
+                        "airport": "Aeroporto",
+                        "cafe": "Café",
+                        "carousel": "Carrossel",
+                        "church": "Igreja",
+                        "constructionSite": "Canteiro de Obras",
+                        "crowdedBar": "Bar Lotado",
+                        "laboratory": "Laboratório",
+                        "laundryRoom": "Lavanderia",
+                        "library": "Biblioteca",
+                        "nightVillage": "Vila Noturna",
+                        "office": "Escritório",
+                        "restaurant": "Restaurante",
+                        "subwayStation": "Estação de Metrô",
+                        "supermarket": "Supermercado",
+                        "temple": "Templo",
+                        "underwater": "Subaquático"
+                    },
+                    "rain": {
+                        "light": "Chuva Leve",
+                        "heavy": "Chuva Forte",
+                        "window": "Chuva na Janela",
+                        "thunder": "Trovão",
+                        "onCarRoof": "Chuva no Teto do Carro",
+                        "onLeaves": "Chuva nas Folhas",
+                        "onTent": "Chuva na Barraca",
+                        "onUmbrella": "Chuva no Guarda-chuva"
+                    },
+                    "urban": {
+                        "ambulanceSiren": "Sirene de Ambulância",
+                        "busyStreet": "Rua Movimentada",
+                        "crowd": "Multidão",
+                        "fireworks": "Fogos de Artifício",
+                        "highway": "Rodovia",
+                        "road": "Estrada",
+                        "traffic": "Trânsito"
+                    },
+                    "things": {
+                        "boilingWater": "Água Fervendo",
+                        "bubbles": "Bolhas",
+                        "ceilingFan": "Ventilador de Teto",
+                        "clock": "Relógio",
+                        "dryer": "Secadora",
+                        "keyboard": "Teclado",
+                        "morseCode": "Código Morse",
+                        "paper": "Papel",
+                        "singingBowl": "Tigela Tibetana",
+                        "slideProjector": "Projetor de Slides",
+                        "tuningRadio": "Sintonizando Rádio",
+                        "typewriter": "Máquina de Escrever",
+                        "vinylEffect": "Efeito de Vinil",
+                        "washingMachine": "Máquina de Lavar",
+                        "windChimes": "Sinos de Vento",
+                        "windshieldWipers": "Limpador de Para-brisa",
+                        "alarm": "Alarme"
+                    },
+                    "transport": {
+                        "airplane": "Avião",
+                        "insideATrain": "Dentro do Trem",
+                        "rowingBoat": "Barco a Remo",
+                        "sailboat": "Veleiro",
+                        "submarine": "Submarino",
+                        "train": "Trem"
+                    }
+                }
+            }
+        },
+        "habitTracker": {
+            "title": "Hábitos",
+            "today": "Hoje",
+            "all": "Todos",
+            "noHabits": {
+                "title": "Nenhum hábito ainda",
+                "description": "Comece a rastrear seus hábitos para construir consistência e alcançar seus objetivos.",
+                "action": "Adicionar Seu Primeiro Hábito"
+            },
+            "noMatchingHabits": {
+                "description": "Nenhum hábito corresponde ao filtro atual.",
+                "action": "Mostrar todos os hábitos"
+            },
+            "todayProgress": {
+                "title": "Progresso de Hoje"
+            },
+            "form": {
+                "title": {
+                    "new": "Novo Hábito",
+                    "edit": "Editar Hábito"
+                },
+                "description": "Crie um novo hábito para acompanhar seu progresso.",
+                "fields": {
+                    "name": {
+                        "label": "Nome",
+                        "placeholder": "Nome do hábito"
+                    },
+                    "description": {
+                        "label": "Descrição (opcional)",
+                        "placeholder": "Do que se trata este hábito?"
+                    },
+                    "icon": "Ícone",
+                    "color": "Cor",
+                    "category": {
+                        "label": "Categoria",
+                        "placeholder": "Selecione uma categoria"
+                    },
+                    "frequency": {
+                        "label": "Frequência",
+                        "placeholder": "Selecione a frequência",
+                        "options": {
+                            "daily": "Diário",
+                            "weekly": "Semanal",
+                            "custom": "Dias personalizados"
+                        }
+                    },
+                    "customDays": {
+                        "label": "Dias da semana",
+                        "error": "Por favor, selecione pelo menos um dia"
+                    },
+                    "duration": {
+                        "label": "Duração",
+                        "description": "Quantas vezes este hábito deve ser completado no período determinado?",
+                        "period": {
+                            "placeholder": "Período",
+                            "days": "Dias",
+                            "weeks": "Semanas",
+                            "months": "Meses"
+                        }
+                    },
+                    "reminder": {
+                        "label": "Lembrete",
+                        "time": {
+                            "label": "Horário"
+                        }
+                    }
+                },
+                "buttons": {
+                    "create": "Criar",
+                    "update": "Atualizar",
+                    "cancel": "Cancelar"
+                }
+            },
+            "details": {
+                "title": "Detalhes do Hábito",
+                "calendar": {
+                    "title": "Visualização do Calendário",
+                    "completed": "Concluído",
+                    "notCompleted": "Não concluído"
+                },
+                "stats": {
+                    "title": "Estatísticas",
+                    "completionRate": "Taxa de Conclusão",
+                    "currentStreak": "Sequência Atual",
+                    "longestStreak": "Maior Sequência",
+                    "weeklyProgress": "Progresso Semanal",
+                    "lastSevenDays": "Últimos 7 dias",
+                    "daysInARow": "dias seguidos",
+                    "daysCompleted": "dias concluídos"
+                },
+                "buttons": {
+                    "edit": "Editar",
+                    "delete": "Excluir",
+                    "close": "Fechar"
+                }
+            },
+            "deleteConfirm": {
+                "title": "Excluir Hábito",
+                "description": "Tem certeza que deseja excluir \"{name}\"? Esta ação não pode ser desfeita.",
+                "cancel": "Cancelar",
+                "confirm": "Excluir"
+            },
+            "notifications": {
+                "created": {
+                    "title": "Hábito criado",
+                    "description": "{name} foi adicionado aos seus hábitos."
+                },
+                "updated": {
+                    "title": "Hábito atualizado",
+                    "description": "{name} foi atualizado."
+                },
+                "completed": {
+                    "title": "Hábito concluído!",
+                    "description": "Ótimo trabalho completando \"{name}\""
+                },
+                "deleted": {
+                    "title": "Hábito excluído",
+                    "description": "{name} foi excluído."
+                }
+            },
+            "categories": {
+                "health": "Saúde",
+                "fitness": "Fitness",
+                "productivity": "Produtividade",
+                "learning": "Aprendizado",
+                "mindfulness": "Mindfulness",
+                "other": "Outro"
+            },
+            "daysOfWeek": {
+                "mon": "Seg",
+                "tue": "Ter",
+                "wed": "Qua",
+                "thu": "Qui",
+                "fri": "Sex",
+                "sat": "Sáb",
+                "sun": "Dom"
+            }
+        },
+        "notepad": {
+            "search": {
+                "placeholder": "Buscar notas... ({shortcut})",
+                "noResults": "Nenhuma nota encontrada"
+            },
+            "actions": {
+                "new": "Nova ({shortcut})",
+                "undo": "Desfazer",
+                "redo": "Refazer"
+            },
+            "notes": {
+                "empty": "Nenhuma nota ainda. Crie uma para começar!",
+                "untitled": "Nota sem título",
+                "titlePlaceholder": "Título da nota",
+                "selectOrCreate": "Selecione uma nota ou crie uma nova",
+                "createShortcut": "Pressione {shortcut} para criar uma nova nota"
+            },
+            "status": {
+                "saving": "Salvando...",
+                "saved": "Salvo"
+            },
+            "delete": {
+                "title": "Excluir Nota",
+                "description": "Tem certeza que deseja excluir esta nota? Esta ação não pode ser desfeita.",
+                "cancel": "Cancelar",
+                "confirm": "Excluir"
+            },
+            "notifications": {
+                "saved": {
+                    "title": "Nota salva",
+                    "description": "Sua nota foi salva com sucesso."
+                },
+                "deleted": {
+                    "title": "Nota excluída",
+                    "description": "Sua nota foi excluída com sucesso."
+                }
+            }
+        },
+        "pomodoroTimer": {
+            "modes": {
+                "pomodoro": "Pomodoro",
+                "shortBreak": "Pausa Curta",
+                "longBreak": "Pausa Longa"
+            },
+            "controls": {
+                "start": "Iniciar",
+                "pause": "Pausar",
+                "stop": "Parar",
+                "reset": "Reiniciar",
+                "aria": {
+                    "switchMode": "Mudar para modo {mode}",
+                    "startTimer": "Iniciar timer",
+                    "pauseTimer": "Pausar timer",
+                    "stopTimer": "Parar timer",
+                    "resetTimer": "Reiniciar timer"
+                }
+            },
+            "audio": {
+                "volume": "Volume do Alarme: {volume}%",
+                "loop": {
+                    "on": "Repetir Ligado",
+                    "off": "Repetir Desligado",
+                    "description": {
+                        "on": "O alarme repetirá até ser parado",
+                        "off": "O alarme tocará apenas uma vez"
+                    }
+                }
+            },
+            "stats": {
+                "completedPomodoros": "Pomodoros Concluídos: {count}"
+            },
+            "notifications": {
+                "enabled": {
+                    "title": "Notificações ativadas",
+                    "description": "Você receberá notificações quando o timer terminar."
+                },
+                "denied": {
+                    "title": "Permissão de notificação negada",
+                    "description": "Por favor, ative as notificações nas configurações do navegador para receber alertas do timer."
+                },
+                "pomodoro": {
+                    "work": {
+                        "title": "Pomodoro Concluído!",
+                        "body": "Ótimo trabalho! Hora de uma pausa de {duration} minutos."
+                    },
+                    "break": {
+                        "title": "Pausa Concluída!",
+                        "body": "Hora de voltar ao trabalho!"
+                    },
+                    "longBreak": {
+                        "title": "Pausa Longa Concluída!",
+                        "body": "Pronto para começar uma nova sessão pomodoro?"
+                    }
+                }
+            },
+            "documentTitle": {
+                "focus": "Foco",
+                "shortBreak": "Pausa Curta",
+                "longBreak": "Pausa Longa",
+                "custom": "Personalizado"
+            },
+            "customTimer": {
+                "button": "Personalizado",
+                "title": "Timer Personalizado",
+                "description": "Defina uma duração personalizada para sua sessão de trabalho",
+                "placeholder": "Minutos",
+                "setTimer": "Definir Timer",
+                "error": {
+                    "invalidDuration": {
+                        "title": "Duração inválida",
+                        "description": "Por favor, insira uma duração válida maior que 0."
+                    }
+                },
+                "success": {
+                    "title": "Timer personalizado definido",
+                    "description": "Timer definido para {duration} minutos"
+                }
+            }
+        },
+        "todoApp": {
+            "header": {
+                "title": "Tarefas",
+                "sort": {
+                    "button": "Ordenar tarefas",
+                    "newest": "Mais recentes primeiro",
+                    "oldest": "Mais antigas primeiro",
+                    "alphabetical": "Alfabética"
+                },
+                "moreOptions": {
+                    "button": "Mais opções",
+                    "clearCompleted": "Limpar concluídas"
+                },
+                "input": {
+                    "placeholder": "O que precisa ser feito?",
+                    "clearButton": "Limpar entrada",
+                    "addButton": "Adicionar"
+                }
+            },
+            "filters": {
+                "all": "Todas ({count})",
+                "active": "Ativas ({count})",
+                "completed": "Concluídas ({count})"
+            },
+            "emptyState": {
+                "all": {
+                    "title": "Nenhuma tarefa ainda",
+                    "description": "Adicione sua primeira tarefa para começar"
+                },
+                "active": {
+                    "title": "Nenhuma tarefa ativa",
+                    "description": "Todas as suas tarefas estão concluídas"
+                },
+                "completed": {
+                    "title": "Nenhuma tarefa concluída",
+                    "description": "Complete uma tarefa para vê-la aqui"
+                }
+            },
+            "todoItem": {
+                "toggleComplete": {
+                    "markComplete": "Marcar como concluída",
+                    "markIncomplete": "Marcar como não concluída"
+                },
+                "delete": {
+                    "button": "Excluir tarefa",
+                    "dialog": {
+                        "title": "Excluir Tarefa",
+                        "description": "Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.",
+                        "cancel": "Cancelar",
+                        "confirm": "Excluir"
+                    }
+                },
+                "timeLabels": {
+                    "today": "Hoje",
+                    "yesterday": "Ontem",
+                    "daysAgo": "há {count} dias"
+                }
+            },
+            "footer": {
+                "stats": {
+                    "total": "{count} total",
+                    "completed": "{count} concluídas"
+                }
+            }
+        },
+        "youtubePlayer": {
+            "controls": {
+                "hideVideo": "Ocultar Vídeo",
+                "showVideo": "Mostrar Vídeo",
+                "play": "Reproduzir",
+                "pause": "Pausar",
+                "previous": "Faixa anterior",
+                "next": "Próxima faixa",
+                "noTrack": "Nenhuma faixa selecionada"
+            },
+            "playlist": {
+                "title": "Playlist",
+                "resetAll": "Redefinir Tudo",
+                "urlInput": {
+                    "placeholder": "Digite a URL do YouTube ou ID do vídeo",
+                    "add": "Adicionar",
+                    "adding": "Adicionando..."
+                },
+                "item": {
+                    "play": "Reproduzir {title}",
+                    "edit": "Editar título",
+                    "delete": "Excluir vídeo"
+                }
+            },
+            "shortcuts": {
+                "playPause": "Espaço: Reproduzir/Pausar",
+                "prevNext": "Alt+←/→: Anterior/Próximo",
+                "mute": "M: Silenciar",
+                "video": "V: Alternar Vídeo"
+            },
+            "notifications": {
+                "invalidUrl": {
+                    "title": "URL inválida",
+                    "description": "Por favor, insira uma URL ou ID de vídeo válido do YouTube"
+                },
+                "duplicate": {
+                    "title": "Este vídeo já está na sua playlist!",
+                    "description": "Você não pode adicionar o mesmo vídeo mais de uma vez."
+                },
+                "added": {
+                    "title": "Vídeo adicionado",
+                    "description": "O vídeo foi adicionado à sua playlist."
+                },
+                "error": {
+                    "title": "Erro ao adicionar vídeo",
+                    "playback": {
+                        "title": "Erro de Reprodução",
+                        "description": "Ocorreu um erro ao reproduzir o vídeo. Por favor, tente novamente."
+                    }
+                },
+                "reset": {
+                    "title": "Redefinição concluída",
+                    "description": "A playlist e o player foram redefinidos."
+                }
+            },
+            "loading": "Carregando...",
+            "error": "Ocorreu um erro ao reproduzir o vídeo. Por favor, tente novamente."
+        },
+        "kanban": {
+            "board": {
+                "columns": {
+                    "todo": "A Fazer",
+                    "inprogress": "Em Progresso",
+                    "done": "Concluído"
+                }
+            },
+            "card": {
+                "delete": {
+                    "title": "Excluir Tarefa",
+                    "description": "Tem certeza que deseja excluir esta tarefa? Esta ação não pode ser desfeita.",
+                    "cancel": "Cancelar",
+                    "confirm": "Excluir"
+                },
+                "aria": {
+                    "dragHandle": "Alça de arrasto",
+                    "taskTitle": "Tarefa: {title}",
+                    "deleteTask": "Excluir tarefa"
+                }
+            },
+            "column": {
+                "addCard": {
+                    "button": "Adicionar tarefa",
+                    "dialog": {
+                        "title": "Adicionar Nova Tarefa",
+                        "description": "Criar uma nova tarefa na coluna {column}.",
+                        "titlePlaceholder": "Título da tarefa...",
+                        "descriptionPlaceholder": "Descrição (opcional)...",
+                        "submit": "Adicionar Tarefa"
+                    }
+                },
+                "aria": {
+                    "columnTitle": "Coluna {title}",
+                    "taskCount": "({count})"
+                }
+            }
+        },
+        "toast": {
+            "notifications": {
+                "enabled": {
+                    "title": "Notificações ativadas!",
+                    "description": "Você receberá notificações do navegador conforme configurado."
+                },
+                "blocked": {
+                    "title": "Notificações bloqueadas",
+                    "description": "Por favor, ative as notificações nas configurações do navegador."
+                },
+                "permission": {
+                    "title": "Permissão de notificação necessária",
+                    "description": "Por favor, aceite o pedido de permissão de notificação."
+                }
+            }
+        }
+    },
+    "apps": {
+        "items": {
+            "todo": {
+                "label": "Tarefas"
+            },
+            "kanban": {
+                "label": "Kanban"
+            },
+            "habit": {
+                "label": "Rastrear Hábitos"
+            },
+            "pomodoro": {
+                "label": "Timer de Foco"
+            },
+            "notepad": {
+                "label": "Notas"
+            },
+            "ambient": {
+                "label": "Sons Ambiente"
+            },
+            "youtube": {
+                "label": "Player do YouTube"
+            },
+            "settings": {
+                "label": "Configurações"
+            },
+            "pwa": {
+                "label": "Instalar App (PWA)"
+            }
+        }
+    },
+    "NotFound": {
+        "title": "Página Não Encontrada",
+        "description": "Desculpe, a página que você está procurando não existe ou foi movida.",
+        "backToHome": "Voltar para o Início"
+    }
+}

@@ -4,6 +4,7 @@ import type React from "react";
 
 import { useState, useEffect, useRef } from "react";
 import { format, startOfToday, subDays, isSameDay, isToday } from "date-fns";
+import { enUS, ptBR } from 'date-fns/locale';
 import {
   Check,
   Plus,
@@ -18,7 +19,9 @@ import {
   MoreHorizontal,
   Filter,
   Info,
+  Sparkles,
 } from "lucide-react";
+import { useTranslations, useLocale } from 'next-intl';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -135,23 +138,23 @@ const HABIT_COLORS = [
 
 // Categories
 const CATEGORIES: Record<HabitCategory, { label: string; icon: string }> = {
-  health: { label: "Health", icon: "💊" },
-  fitness: { label: "Fitness", icon: "💪" },
-  productivity: { label: "Productivity", icon: "💻" },
-  learning: { label: "Learning", icon: "📚" },
-  mindfulness: { label: "Mindfulness", icon: "🧘" },
-  other: { label: "Other", icon: "🎯" },
+  health: { label: "health", icon: "💊" },
+  fitness: { label: "fitness", icon: "💪" },
+  productivity: { label: "productivity", icon: "💻" },
+  learning: { label: "learning", icon: "📚" },
+  mindfulness: { label: "mindfulness", icon: "🧘" },
+  other: { label: "other", icon: "🎯" },
 };
 
 // Days of the week for custom frequency
 const DAYS_OF_WEEK = [
-  { value: "mon", label: "Mon" },
-  { value: "tue", label: "Tue" },
-  { value: "wed", label: "Wed" },
-  { value: "thu", label: "Thu" },
-  { value: "fri", label: "Fri" },
-  { value: "sat", label: "Sat" },
-  { value: "sun", label: "Sun" },
+  { value: "mon", label: "mon" },
+  { value: "tue", label: "tue" },
+  { value: "wed", label: "wed" },
+  { value: "thu", label: "thu" },
+  { value: "fri", label: "fri" },
+  { value: "sat", label: "sat" },
+  { value: "sun", label: "sun" },
 ];
 
 // Local storage key
@@ -266,6 +269,7 @@ const HabitForm = ({
   onCancel: () => void;
   initialHabit?: Habit;
 }) => {
+  const t = useTranslations('components.habitTracker');
   const [name, setName] = useState(initialHabit?.name || "");
   const [description, setDescription] = useState(
     initialHabit?.description || ""
@@ -284,6 +288,7 @@ const HabitForm = ({
   const [reminderEnabled, setReminderEnabled] = useState(
     initialHabit?.reminderEnabled || false
   );
+
   const getCurrentTimeString = () => {
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, "0");
@@ -331,13 +336,13 @@ const HabitForm = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
         <Label htmlFor="name" className="text-sm font-medium">
-          Name
+          {t('form.fields.name.label')}
         </Label>
         <Input
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Habit name"
+          placeholder={t('form.fields.name.placeholder')}
           required
           className="h-10 border-0 bg-muted focus-visible:ring-0 focus-visible:ring-offset-0"
         />
@@ -345,20 +350,20 @@ const HabitForm = ({
 
       <div className="space-y-2">
         <Label htmlFor="description" className="text-sm font-medium">
-          Description (optional)
+          {t('form.fields.description.label')}
         </Label>
         <Textarea
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="What's this habit about?"
+          placeholder={t('form.fields.description.placeholder')}
           rows={2}
           className="border-0 bg-muted resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </div>
 
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Icon</Label>
+        <Label className="text-sm font-medium">{t('form.fields.icon')}</Label>
         <div className="grid grid-cols-8 gap-2">
           {HABIT_ICONS.map((habitIcon) => (
             <button
@@ -379,7 +384,7 @@ const HabitForm = ({
       </div>
 
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Color</Label>
+        <Label className="text-sm font-medium">{t('form.fields.color')}</Label>
         <div className="grid grid-cols-8 gap-2">
           {HABIT_COLORS.map((habitColor) => (
             <button
@@ -398,21 +403,21 @@ const HabitForm = ({
 
       <div className="space-y-2">
         <Label htmlFor="category" className="text-sm font-medium">
-          Category
+          {t('form.fields.category.label')}
         </Label>
         <Select
           value={category}
           onValueChange={(value: HabitCategory) => setCategory(value)}
         >
           <SelectTrigger className="h-10 border-0 bg-muted focus:ring-0">
-            <SelectValue placeholder="Select a category" />
+            <SelectValue placeholder={t('form.fields.category.placeholder')} />
           </SelectTrigger>
           <SelectContent>
             {Object.entries(CATEGORIES).map(([key, { label, icon }]) => (
               <SelectItem key={key} value={key}>
                 <div className="flex items-center">
                   <span className="mr-2">{icon}</span>
-                  <span>{label}</span>
+                  <span>{t(`categories.${label}`)}</span>
                 </div>
               </SelectItem>
             ))}
@@ -422,26 +427,26 @@ const HabitForm = ({
 
       <div className="space-y-2">
         <Label htmlFor="frequency" className="text-sm font-medium">
-          Frequency
+          {t('form.fields.frequency.label')}
         </Label>
         <Select
           value={frequency}
           onValueChange={(value: FrequencyType) => setFrequency(value)}
         >
           <SelectTrigger className="h-10 border-0 bg-muted focus:ring-0">
-            <SelectValue placeholder="Select frequency" />
+            <SelectValue placeholder={t('form.fields.frequency.placeholder')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="daily">Daily</SelectItem>
-            <SelectItem value="weekly">Weekly</SelectItem>
-            <SelectItem value="custom">Custom days</SelectItem>
+            <SelectItem value="daily">{t('form.fields.frequency.options.daily')}</SelectItem>
+            <SelectItem value="weekly">{t('form.fields.frequency.options.weekly')}</SelectItem>
+            <SelectItem value="custom">{t('form.fields.frequency.options.custom')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {frequency === "custom" && (
         <div className="space-y-2">
-          <Label className="text-sm font-medium">Days of the week</Label>
+          <Label className="text-sm font-medium">{t('form.fields.customDays.label')}</Label>
           <div className="flex flex-wrap gap-2">
             {DAYS_OF_WEEK.map((day) => (
               <button
@@ -455,20 +460,20 @@ const HabitForm = ({
                 )}
                 onClick={() => toggleCustomDay(day.value)}
               >
-                {day.label}
+                {t(`daysOfWeek.${day.label}`)}
               </button>
             ))}
           </div>
           {customDays.length === 0 && (
             <p className="text-xs text-muted-foreground">
-              Please select at least one day
+              {t('form.fields.customDays.error')}
             </p>
           )}
         </div>
       )}
 
       <div className="space-y-2">
-        <Label className="text-sm font-medium">Duration</Label>
+        <Label className="text-sm font-medium">{t('form.fields.duration.label')}</Label>
         <div className="flex gap-2">
           <div className="flex-1">
             <Input
@@ -486,24 +491,24 @@ const HabitForm = ({
             }
           >
             <SelectTrigger className="w-[120px] h-10 border-0 bg-muted focus:ring-0">
-              <SelectValue placeholder="Period" />
+              <SelectValue placeholder={t('form.fields.duration.period.placeholder')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="days">Days</SelectItem>
-              <SelectItem value="weeks">Weeks</SelectItem>
-              <SelectItem value="months">Months</SelectItem>
+              <SelectItem value="days">{t('form.fields.duration.period.days')}</SelectItem>
+              <SelectItem value="weeks">{t('form.fields.duration.period.weeks')}</SelectItem>
+              <SelectItem value="months">{t('form.fields.duration.period.months')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <p className="text-xs text-muted-foreground">
-          How many times should this habit be completed in the given period?
+          {t('form.fields.duration.description')}
         </p>
       </div>
 
       <div className="space-y-2 pt-2">
         <div className="flex items-center justify-between">
           <Label htmlFor="reminder" className="text-sm font-medium">
-            Reminder
+            {t('form.fields.reminder.label')}
           </Label>
           <Switch
             id="reminder"
@@ -515,7 +520,7 @@ const HabitForm = ({
         {reminderEnabled && (
           <div className="pt-2">
             <Label htmlFor="reminderTime" className="text-sm font-medium">
-              Time
+              {t('form.fields.reminder.time.label')}
             </Label>
             <Input
               id="reminderTime"
@@ -530,14 +535,14 @@ const HabitForm = ({
 
       <DialogFooter className="pt-4">
         <Button type="button" variant="ghost" onClick={onCancel}>
-          Cancel
+          {t('form.buttons.cancel')}
         </Button>
         <Button
           type="submit"
           disabled={frequency === "custom" && customDays.length === 0}
           className="bg-primary hover:bg-primary/90"
         >
-          {initialHabit ? "Update" : "Create"} Habit
+          {initialHabit ? t('form.buttons.update') : t('form.buttons.create')}
         </Button>
       </DialogFooter>
     </form>
@@ -693,6 +698,7 @@ const HabitItem = ({
 };
 
 const HabitCalendar = ({ habit }: { habit: Habit }) => {
+  const t = useTranslations('components.habitTracker');
   const [currentDate, setCurrentDate] = useState(new Date());
   const daysToShow = 7;
 
@@ -716,7 +722,7 @@ const HabitCalendar = ({ habit }: { habit: Habit }) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium">Calendar View</h3>
+        <h3 className="text-sm font-medium">{t('details.calendar.title')}</h3>
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
@@ -770,7 +776,7 @@ const HabitCalendar = ({ habit }: { habit: Habit }) => {
                 <TooltipContent>
                   <p>{format(date, "PPP")}</p>
                   <p className="text-xs">
-                    {isCompleted ? "Completed" : "Not completed"}
+                    {isCompleted ? t('details.calendar.completed') : t('details.calendar.notCompleted')}
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -783,84 +789,149 @@ const HabitCalendar = ({ habit }: { habit: Habit }) => {
 };
 
 const HabitStats = ({ habit }: { habit: Habit }) => {
-  const streak = calculateStreak(habit.completedDates);
-  const completionRate = calculateCompletionRate(habit);
+  const t = useTranslations('components.habitTracker');
+  const today = startOfToday();
 
-  // Calculate best streak
-  const calculateBestStreak = () => {
-    if (!habit.completedDates.length) return 0;
+  // Calculate completion rate for the last 7 days
+  const last7Days = Array.from({ length: 7 }, (_, i) => {
+    const date = subDays(today, i);
+    return {
+      date,
+      completed: habit.completedDates.some((completedDate) =>
+        isSameDay(new Date(completedDate), date)
+      ),
+    };
+  }).reverse();
 
-    const sortedDates = [...habit.completedDates]
-      .map((date) => new Date(date))
-      .sort((a, b) => a.getTime() - b.getTime());
+  const completedLast7Days = last7Days.filter((day) => day.completed).length;
+  const completionRate = Math.round((completedLast7Days / 7) * 100);
 
-    let currentStreak = 1;
-    let bestStreak = 1;
+  // Calculate current streak
+  let currentStreak = 0;
+  let i = 0;
+  while (i < habit.completedDates.length) {
+    const date = subDays(today, i);
+    const isCompletedOnDate = habit.completedDates.some((completedDate) =>
+      isSameDay(new Date(completedDate), date)
+    );
 
-    for (let i = 1; i < sortedDates.length; i++) {
-      const prevDate = sortedDates[i - 1];
-      const currDate = sortedDates[i];
-      const expectedDate = new Date(prevDate);
-      expectedDate.setDate(prevDate.getDate() + 1);
+    if (!isCompletedOnDate) break;
+    currentStreak++;
+    i++;
+  }
 
-      if (isSameDay(currDate, expectedDate)) {
-        currentStreak++;
-        bestStreak = Math.max(bestStreak, currentStreak);
-      } else {
-        currentStreak = 1;
-      }
+  // Calculate longest streak
+  let longestStreak = 0;
+  let currentCount = 0;
+  const sortedDates = [...habit.completedDates]
+    .map((date) => new Date(date))
+    .sort((a, b) => a.getTime() - b.getTime());
+
+  for (let i = 0; i < sortedDates.length; i++) {
+    if (
+      i === 0 ||
+      isSameDay(
+        subDays(sortedDates[i], 1),
+        sortedDates[i - 1]
+      )
+    ) {
+      currentCount++;
+    } else {
+      currentCount = 1;
     }
-
-    return bestStreak;
-  };
-
-  const bestStreak = calculateBestStreak();
-
-  // Calculate total completions
-  const totalCompletions = habit.completedDates.length;
-
-  // Calculate days since creation
-  const daysSinceCreation = Math.max(
-    1,
-    Math.floor(
-      (new Date().getTime() - new Date(habit.createdAt).getTime()) /
-        (1000 * 60 * 60 * 24)
-    )
-  );
+    longestStreak = Math.max(longestStreak, currentCount);
+  }
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-sm font-medium">Statistics</h3>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-muted/30 p-3">
-          <div className="text-xs text-muted-foreground">Current Streak</div>
-          <div className="text-xl font-bold flex items-center mt-1">
-            <Flame className="h-4 w-4 text-orange-500 mr-1" />
-            {streak}
+    <div className="space-y-6">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-muted/30 p-4 rounded-lg">
+          <div className="text-sm text-muted-foreground mb-1">
+            {t('details.stats.completionRate')}
+          </div>
+          <div className="text-2xl font-semibold">{completionRate}%</div>
+          <div className="text-xs text-muted-foreground">
+            {t('details.stats.lastSevenDays')}
           </div>
         </div>
 
-        <div className="bg-muted/30 p-3">
-          <div className="text-xs text-muted-foreground">Best Streak</div>
-          <div className="text-xl font-bold mt-1">{bestStreak}</div>
-        </div>
-
-        <div className="bg-muted/30 p-3">
-          <div className="text-xs text-muted-foreground">Completion Rate</div>
-          <div className="text-xl font-bold mt-1">{completionRate}%</div>
-          <Progress value={completionRate} className="h-1 mt-2" />
-        </div>
-
-        <div className="bg-muted/30 p-3">
-          <div className="text-xs text-muted-foreground">Total Completions</div>
-          <div className="text-xl font-bold mt-1">{totalCompletions}</div>
+        <div className="bg-muted/30 p-4 rounded-lg">
+          <div className="text-sm text-muted-foreground mb-1">
+            {t('details.stats.currentStreak')}
+          </div>
+          <div className="text-2xl font-semibold flex items-center gap-1">
+            {currentStreak}
+            <Flame className="h-5 w-5 text-orange-500" />
+          </div>
+          <div className="text-xs text-muted-foreground">
+            {t('details.stats.daysInARow')}
+          </div>
         </div>
       </div>
 
-      <div className="text-xs text-muted-foreground">
-        Tracking since {format(new Date(habit.createdAt), "PP")} (
-        {daysSinceCreation} days)
+      <div className="bg-muted/30 p-4 rounded-lg">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <div className="text-sm font-medium">
+              {t('details.stats.weeklyProgress')}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              {t('details.stats.lastSevenDays')}
+            </div>
+          </div>
+          <div className="text-sm">
+            {completedLast7Days}/{last7Days.length} {t('details.stats.daysCompleted')}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-7 gap-1">
+          {last7Days.map((day) => (
+            <TooltipProvider key={day.date.toISOString()}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center">
+                    <div className="text-xs text-muted-foreground mb-1">
+                      {format(day.date, "EEE")}
+                    </div>
+                    <div
+                      className={cn(
+                        "w-8 h-8 flex items-center justify-center text-xs",
+                        isToday(day.date) &&
+                          !day.completed &&
+                          "border border-primary/50",
+                        day.completed ? "text-white" : "bg-muted/50"
+                      )}
+                      style={{
+                        backgroundColor: day.completed ? habit.color : undefined,
+                      }}
+                    >
+                      {format(day.date, "d")}
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{format(day.date, "PPP")}</p>
+                  <p className="text-xs">
+                    {day.completed ? t('details.calendar.completed') : t('details.calendar.notCompleted')}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-muted/30 p-4 rounded-lg">
+        <div className="text-sm text-muted-foreground mb-1">
+          {t('details.stats.longestStreak')}
+        </div>
+        <div className="text-2xl font-semibold flex items-center gap-1">
+          {longestStreak}
+          <Sparkles className="h-5 w-5 text-yellow-500" />
+        </div>
+        <div className="text-xs text-muted-foreground">
+          {t('details.stats.daysInARow')}
+        </div>
       </div>
     </div>
   );
@@ -877,6 +948,7 @@ const HabitDetail = ({
   onEdit: (habit: Habit) => void;
   onDelete: (id: string) => void;
 }) => {
+  const t = useTranslations('components.habitTracker');
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -905,7 +977,7 @@ const HabitDetail = ({
             className="flex items-center"
           >
             <Edit className="h-4 w-4 mr-1" />
-            <span>Edit</span>
+            <span>{t('details.buttons.edit')}</span>
           </Button>
           <Button
             variant="destructive"
@@ -917,26 +989,26 @@ const HabitDetail = ({
             className="flex items-center bg-red-500 hover:bg-red-600 text-white"
           >
             <Trash2 className="h-4 w-4 mr-1" />
-            <span>Delete</span>
+            <span>{t('details.buttons.delete')}</span>
           </Button>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
         <Badge className="bg-muted text-foreground hover:bg-muted">
-          {CATEGORIES[habit.category].icon} {CATEGORIES[habit.category].label}
+          {CATEGORIES[habit.category].icon} {t(`categories.${CATEGORIES[habit.category].label}`)}
         </Badge>
 
         <Badge variant="outline">
-          {habit.frequency === "daily" && "Daily"}
-          {habit.frequency === "weekly" && "Weekly"}
-          {habit.frequency === "custom" && "Custom days"}
+          {habit.frequency === "daily" && t('form.fields.frequency.options.daily')}
+          {habit.frequency === "weekly" && t('form.fields.frequency.options.weekly')}
+          {habit.frequency === "custom" && t('form.fields.frequency.options.custom')}
         </Badge>
 
         <Badge variant="outline" className="flex items-center gap-1">
           <Calendar className="h-3 w-3" />
-          {habit.duration} {habit.duration === 1 ? "time" : "times"} per{" "}
-          {habit.period.slice(0, -1)}
+          {habit.duration} {habit.duration === 1 ? t('form.fields.duration.period.days').slice(0, -1) : t('form.fields.duration.period.days')} per{" "}
+          {t(`form.fields.duration.period.${habit.period}`).toLowerCase()}
         </Badge>
 
         {habit.reminderEnabled && (
@@ -954,14 +1026,14 @@ const HabitDetail = ({
             className="flex items-center gap-1 data-[state=active]:bg-background"
           >
             <Calendar className="h-4 w-4" />
-            Calendar
+            {t('details.calendar.title')}
           </TabsTrigger>
           <TabsTrigger
             value="stats"
             className="flex items-center gap-1 data-[state=active]:bg-background"
           >
             <BarChart3 className="h-4 w-4" />
-            Statistics
+            {t('details.stats.title')}
           </TabsTrigger>
         </TabsList>
         <TabsContent value="calendar" className="pt-4">
@@ -974,7 +1046,7 @@ const HabitDetail = ({
 
       <div className="pt-4">
         <Button onClick={onClose} className="w-full">
-          Close
+          {t('details.buttons.close')}
         </Button>
       </div>
     </div>
@@ -982,6 +1054,12 @@ const HabitDetail = ({
 };
 
 export function HabitTracker() {
+  const t = useTranslations('components.habitTracker');
+  const locale = useLocale();
+
+  // Get the appropriate locale object
+  const dateLocale = locale === 'pt' ? ptBR : enUS;
+
   // Adding error handling for useMeasureWidth
   useEffect(() => {
     // Capture errors that may occur during rendering
@@ -1159,14 +1237,16 @@ export function HabitTracker() {
       completedDates: [],
       duration: habitData.duration || 1,
       period: habitData.period || "days",
+      reminderEnabled: habitData.reminderEnabled || false,
+      reminderTime: habitData.reminderEnabled && habitData.reminderTime ? habitData.reminderTime : undefined,
     };
 
     setHabits([...habits, newHabit]);
     setIsAddDialogOpen(false);
 
     toast({
-      title: "Habit created",
-      description: `${newHabit.name} has been added to your habits.`,
+      title: t('notifications.created.title'),
+      description: t('notifications.created.description', { name: newHabit.name }),
     });
   };
 
@@ -1191,8 +1271,8 @@ export function HabitTracker() {
     setSelectedHabit(null);
 
     toast({
-      title: "Habit updated",
-      description: `${updatedHabit.name} has been updated.`,
+      title: t('notifications.updated.title'),
+      description: t('notifications.updated.description', { name: updatedHabit.name }),
     });
   };
 
@@ -1247,8 +1327,8 @@ export function HabitTracker() {
         } else {
           // Add today's completion with a small toast notification
           toast({
-            title: "Habit completed!",
-            description: `Great job completing "${habit.name}"`,
+            title: t('notifications.completed.title'),
+            description: t('notifications.completed.description', { name: habit.name }),
             duration: 1500,
           });
 
@@ -1284,6 +1364,7 @@ export function HabitTracker() {
 
   const confirmDeleteHabit = () => {
     if (!selectedHabit) {
+      setIsDeleteDialogOpen(false);
       return;
     }
 
@@ -1301,8 +1382,8 @@ export function HabitTracker() {
 
     // Show success toast
     toast({
-      title: "Habit deleted",
-      description: `${habitName} has been deleted.`,
+      title: t('notifications.deleted.title'),
+      description: t('notifications.deleted.description', { name: habitName }),
     });
 
     // Close the dialog and clear selected habit
@@ -1343,9 +1424,9 @@ export function HabitTracker() {
     <div className="max-w-md mx-auto bg-background min-h-screen">
       <header className="sticky top-0 z-10 bg-background border-b px-4 py-3 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold">Habits</h1>
+          <h1 className="text-xl font-semibold">{t('title')}</h1>
           <p className="text-xs text-muted-foreground">
-            {format(new Date(), "EEEE, MMMM d")}
+            {format(new Date(), "EEEE, MMMM d", { locale: dateLocale })}
           </p>
         </div>
 
@@ -1364,14 +1445,14 @@ export function HabitTracker() {
             <DialogTrigger asChild>
               <Button size="sm" className="h-8">
                 <Plus className="h-4 w-4 mr-1" />
-                New
+                {t('form.buttons.create')}
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md overflow-y-auto max-h-[80vh]">
               <DialogHeader>
-                <DialogTitle>New Habit</DialogTitle>
+                <DialogTitle>{t('form.title.new')}</DialogTitle>
                 <DialogDescription>
-                  Create a new habit to track your progress.
+                  {t('form.description')}
                 </DialogDescription>
               </DialogHeader>
               <HabitForm
@@ -1392,7 +1473,7 @@ export function HabitTracker() {
               onClick={() => setActiveFilter("all")}
               className="h-7 text-xs"
             >
-              All
+              {t('all')}
             </Button>
             <Button
               variant={activeFilter === "today" ? "default" : "outline"}
@@ -1400,7 +1481,7 @@ export function HabitTracker() {
               onClick={() => setActiveFilter("today")}
               className="h-7 text-xs"
             >
-              Today
+              {t('today')}
             </Button>
 
             {Object.entries(CATEGORIES).map(([key, { label, icon }]) => (
@@ -1412,7 +1493,7 @@ export function HabitTracker() {
                 className="h-7 text-xs"
               >
                 <span className="mr-1">{icon}</span>
-                {label}
+                {t(`categories.${label}`)}
               </Button>
             ))}
           </div>
@@ -1422,7 +1503,7 @@ export function HabitTracker() {
       {totalForToday > 0 && (
         <div className="px-4 py-3 border-b">
           <div className="flex items-center justify-between mb-1.5">
-            <div className="text-sm font-medium">Today's Progress</div>
+            <div className="text-sm font-medium">{t('todayProgress.title')}</div>
             <div className="text-sm">
               {completedToday}/{totalForToday}
             </div>
@@ -1436,27 +1517,26 @@ export function HabitTracker() {
           <div className="bg-muted/50 rounded-full p-3 mb-4">
             <Calendar className="h-6 w-6 text-muted-foreground" />
           </div>
-          <h3 className="text-lg font-medium mb-1">No habits yet</h3>
+          <h3 className="text-lg font-medium mb-1">{t('noHabits.title')}</h3>
           <p className="text-sm text-muted-foreground mb-4">
-            Start tracking your habits to build consistency and achieve your
-            goals.
+            {t('noHabits.description')}
           </p>
           <Button onClick={() => setIsAddDialogOpen(true)}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Your First Habit
+            {t('noHabits.action')}
           </Button>
         </div>
       ) : filteredHabits.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-8 text-center px-4">
           <p className="text-muted-foreground mb-2">
-            No habits match the current filter.
+            {t('noMatchingHabits.description')}
           </p>
           <Button
             variant="outline"
             size="sm"
             onClick={() => setActiveFilter("all")}
           >
-            Show all habits
+            {t('noMatchingHabits.action')}
           </Button>
         </div>
       ) : (
@@ -1483,8 +1563,8 @@ export function HabitTracker() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-md overflow-y-auto max-h-[80vh]">
           <DialogHeader>
-            <DialogTitle>Edit Habit</DialogTitle>
-            <DialogDescription>Make changes to your habit.</DialogDescription>
+            <DialogTitle>{t('form.title.edit')}</DialogTitle>
+            <DialogDescription>{t('form.description')}</DialogDescription>
           </DialogHeader>
           {selectedHabit && (
             <HabitForm
@@ -1503,7 +1583,7 @@ export function HabitTracker() {
       <Dialog open={isDetailDialogOpen} onOpenChange={setIsDetailDialogOpen}>
         <DialogContent className="max-w-md overflow-y-auto max-h-[80vh]">
           <DialogHeader>
-            <DialogTitle>Habit Details</DialogTitle>
+            <DialogTitle>{t('details.title')}</DialogTitle>
           </DialogHeader>
           {selectedHabit && (
             <HabitDetail
@@ -1523,8 +1603,9 @@ export function HabitTracker() {
         </DialogContent>
       </Dialog>
 
+      {/* Delete Confirmation Dialog */}
       <AlertDialog
-        open={isDeleteDialogOpen}
+        open={isDeleteDialogOpen && selectedHabit !== null}
         onOpenChange={(open) => {
           setIsDeleteDialogOpen(open);
           if (!open) setSelectedHabit(null);
@@ -1532,14 +1613,13 @@ export function HabitTracker() {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Habit</AlertDialogTitle>
+            <AlertDialogTitle>{t('deleteConfirm.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete "{selectedHabit?.name}"? This
-              action cannot be undone.
+              {selectedHabit && t('deleteConfirm.description', { name: selectedHabit.name })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('deleteConfirm.cancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={(e) => {
                 e.preventDefault();
@@ -1547,7 +1627,7 @@ export function HabitTracker() {
               }}
               className="bg-red-500 text-white hover:bg-red-600"
             >
-              Delete
+              {t('deleteConfirm.confirm')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
