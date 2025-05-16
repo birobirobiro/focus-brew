@@ -11,6 +11,9 @@ import { Suspense } from "react";
 import "./globals.css";
 import "./fonts.css";
 import { Toaster } from "@/components/ui/sonner";
+import PwaInstallDialog from "@/components/PwaInstallDialog";
+import PWAServiceWorker from "@/components/PWAServiceWorker";
+import PWAStandaloneRedirect from "@/components/PWAStandaloneRedirect";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -78,6 +81,26 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#18181b" />
+        <link rel="icon" href="/icon-192x192.png" sizes="192x192" />
+        <link rel="icon" href="/icon-512x512.png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+
+        {/* Firefox specific PWA tags */}
+        <meta name="application-name" content="FocusBrew" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <meta name="apple-mobile-web-app-title" content="FocusBrew" />
+        <meta name="msapplication-TileColor" content="#18181b" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="format-detection" content="telephone=no" />
+      </head>
       <body
         className={`${nunito.variable} ${robotoSlab.variable} font-satoshi antialiased`}
       >
@@ -88,6 +111,9 @@ export default async function RootLayout({ children, params }: Readonly<RootLayo
             enableSystem
             disableTransitionOnChange
           >
+            <PWAStandaloneRedirect />
+            <PWAServiceWorker />
+            <PwaInstallDialog />
             {children}
             <Toaster />
             <Suspense fallback={null}>
